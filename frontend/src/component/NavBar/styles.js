@@ -23,6 +23,9 @@ export default makeStyles((theme) => ({
     login: {
         marginRight: '10px'
     },
+    admin: {
+        marginLeft: '10px'
+    },
     pink: {
         color: "white",
         backgroundColor: "#f73471",
