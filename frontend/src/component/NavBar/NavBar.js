@@ -122,6 +122,11 @@ const NavBar = () => {
                         :
                         <Button component={Link} to="/signin" variant="outlined" color="inherit" className={classes.login}>Login</Button>
                     }
+                    {userInfo && userInfo.isAdmin && (
+                        <Button component={Link} to="/admin" variant="outlined" color="inherit" className={classes.admin}>Admin</Button>
+                    )
+                    }
+
                 </Toolbar>
             </AppBar>
         </div >
