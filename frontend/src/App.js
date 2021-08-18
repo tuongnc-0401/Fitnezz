@@ -18,6 +18,8 @@ import AdminRoute from './component/Routes/AdminRoute';
 import Admin from './componentAdmin/AdminDashboard/Admin';
 import Ingredients from './component/Ingredients/Ingredients';
 import CreateProduct from './componentAdmin/ProductsAdmin/CreateProduct/CreateProduct';
+import PrivateRoute from './component/Routes/PrivateRoute';
+import Calculator from './component/Calculator/Calculator';
 
 
 
@@ -40,7 +42,9 @@ function App() {
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/order/:id" exact component={OrderDetails} />
           <Route path="/orderhistory" exact component={OrderHistory} />
-          <Route path="/ingredients" exact component={Ingredients} />
+          <PrivateRoute path="/calculator" exact component={Calculator}></PrivateRoute>
+          <PrivateRoute path="/ingredients" exact component={Ingredients} />
+
           <AdminRoute path="/admin" exact component={Admin} />
           <AdminRoute path="/admin/product/create" exact component={CreateProduct} />
         </Switch>
