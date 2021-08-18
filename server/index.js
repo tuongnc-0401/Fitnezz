@@ -10,8 +10,6 @@ dotenv.config()
 const app = express()
 app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
 mongoose.connect('mongodb+srv://tuong:tuong@cluster0.z7g93.mongodb.net/fitnezz', {
     useCreateIndex: true,
     useUnifiedTopology: true,
