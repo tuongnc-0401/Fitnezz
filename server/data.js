@@ -24,7 +24,7 @@ const data =
             category: 'Shirts',
             image: 'https://picsum.photos/200',
             price: 120,
-            countInStock: 10,
+
             brand: 'Nike',
             rating: 4.5,
             numReviews: 10,
@@ -36,7 +36,7 @@ const data =
             category: 'Shirts',
             image: 'https://picsum.photos/200',
             price: 100,
-            countInStock: 20,
+
             brand: 'Adidas',
             rating: 4.0,
             numReviews: 10,
@@ -48,7 +48,7 @@ const data =
             category: 'Shirts',
             image: 'https://picsum.photos/200',
             price: 220,
-            countInStock: 0,
+
             brand: 'Lacoste',
             rating: 4.8,
             numReviews: 17,
@@ -60,7 +60,7 @@ const data =
             category: 'Pants',
             image: 'https://picsum.photos/200',
             price: 78,
-            countInStock: 15,
+
             brand: 'Nike',
             rating: 4.5,
             numReviews: 14,
@@ -72,7 +72,7 @@ const data =
             category: 'Pants',
             image: 'https://picsum.photos/200',
             price: 65,
-            countInStock: 5,
+
             brand: 'Puma',
             rating: 4.5,
             numReviews: 10,
@@ -84,7 +84,7 @@ const data =
             category: 'Pants',
             image: 'https://picsum.photos/200',
             price: 139,
-            countInStock: 12,
+
             brand: 'Adidas',
             rating: 4.5,
             numReviews: 15,

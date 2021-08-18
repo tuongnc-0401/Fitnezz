@@ -15,8 +15,13 @@ import OrderDetails from './component/OrderDetails/OrderDetails';
 import Home from './component/Home/Home';
 import OrderHistory from './component/Profile/OrderHistory/OrderHistory';
 import AdminRoute from './component/Routes/AdminRoute';
-import Admin from './component/Admin/Admin';
+import Admin from './componentAdmin/AdminDashboard/Admin';
 import Ingredients from './component/Ingredients/Ingredients';
+import CreateProduct from './componentAdmin/ProductsAdmin/CreateProduct/CreateProduct';
+
+
+
+
 function App() {
   return (
     <Router>
@@ -37,6 +42,7 @@ function App() {
           <Route path="/orderhistory" exact component={OrderHistory} />
           <Route path="/ingredients" exact component={Ingredients} />
           <AdminRoute path="/admin" exact component={Admin} />
+          <AdminRoute path="/admin/product/create" exact component={CreateProduct} />
         </Switch>
       </div>
     </Router>
