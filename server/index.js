@@ -9,7 +9,7 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-mongoose.connect('mongodb+srv://tuong:tuong@cluster0.nm2wa.mongodb.net/fitnezz?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://tuong:tuong@cluster0.z7g93.mongodb.net/fitnezz', {
     useCreateIndex: true,
     useUnifiedTopology: true,
     useNewUrlParser: true,
