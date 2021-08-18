@@ -2,6 +2,7 @@ import expressAsyncHandler from 'express-async-handler'
 import express from 'express'
 import Product from '../models/productModel.js'
 import data from '../data.js'
+import { isAdmin, isAuth } from '../utils.js'
 const productRouter = express.Router()
 
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
@@ -14,7 +15,7 @@ productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
     res.send({ createdProducts })
 }))
 
-productRouter.post('/', expressAsyncHandler(async (req, res) => {
+productRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     const newProduct = new Product({
         name: req.body.name,
         category: req.body.category,
@@ -27,7 +28,7 @@ productRouter.post('/', expressAsyncHandler(async (req, res) => {
     });
     try {
         await newProduct.save();
-        res.status(201).json(newProduct);
+        res.status(201).json(req.body);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }

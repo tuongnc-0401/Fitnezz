@@ -75,7 +75,6 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res) => {
             gender: updatedUser.gender,
             isAdmin: updatedUser.isAdmin,
             token: generateToken(updatedUser),
-
         })
     }
 }))

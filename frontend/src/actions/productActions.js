@@ -29,12 +29,16 @@ export const detailsProduct = (productId) => async (dispatch) => {
     }
 }
 
-export const createdProduct = (product) => async (dispatch) => {
-    console.log(product)
+export const createdProduct = (product) => async (dispatch, getState) => {
+
     dispatch({ type: PRODUCT_CREATE_REQUEST, payload: product })
+    const { userSignIn: { userInfo } } = getState()
     try {
-        const { data } = await axios.post('/api/products', product)
-        console.log("hehe", data)
+        const { data } = await axios.post('/api/products', product, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
         dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data })
     } catch (error) {
         dispatch({
