@@ -15,8 +15,11 @@ import OrderDetails from './component/OrderDetails/OrderDetails';
 import Home from './component/Home/Home';
 import OrderHistory from './component/Profile/OrderHistory/OrderHistory';
 import AdminRoute from './component/Routes/AdminRoute';
-import Admin from './component/Admin/Admin';
+
 import CreateProduct from './componentAdmin/ProductsAdmin/CreateProduct/CreateProduct';
+
+import Admin from './componentAdmin/AdminDashboard/Admin';
+
 
 function App() {
   return (
