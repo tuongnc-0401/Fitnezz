@@ -16,6 +16,7 @@ import Home from './component/Home/Home';
 import OrderHistory from './component/Profile/OrderHistory/OrderHistory';
 import AdminRoute from './component/Routes/AdminRoute';
 import Admin from './component/Admin/Admin';
+import CreateProduct from './componentAdmin/ProductsAdmin/CreateProduct/CreateProduct';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/order/:id" exact component={OrderDetails} />
           <Route path="/orderhistory" exact component={OrderHistory} />
           <AdminRoute path="/admin" exact component={Admin} />
+          <AdminRoute path="/admin/product/create" exact component={CreateProduct} />
         </Switch>
       </div>
     </Router>

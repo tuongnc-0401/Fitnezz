@@ -14,6 +14,25 @@ productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
     res.send({ createdProducts })
 }))
 
+productRouter.post('/', expressAsyncHandler(async (req, res) => {
+    const newProduct = new Product({
+        name: req.body.name,
+        category: req.body.category,
+        image: req.body.image,
+        price: req.body.price,
+        brand: req.body.brand,
+        rating: req.body.rating,
+        numReviews: req.body.numReviews,
+        description: req.body.description,
+    });
+    try {
+        await newProduct.save();
+        res.status(201).json(newProduct);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}))
+
 productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
