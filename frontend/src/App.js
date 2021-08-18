@@ -16,7 +16,7 @@ import Home from './component/Home/Home';
 import OrderHistory from './component/Profile/OrderHistory/OrderHistory';
 import AdminRoute from './component/Routes/AdminRoute';
 import Admin from './component/Admin/Admin';
-
+import Ingredients from './component/Ingredients/Ingredients';
 function App() {
   return (
     <Router>
@@ -35,6 +35,7 @@ function App() {
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/order/:id" exact component={OrderDetails} />
           <Route path="/orderhistory" exact component={OrderHistory} />
+          <Route path="/ingredients" exact component={Ingredients} />
           <AdminRoute path="/admin" exact component={Admin} />
         </Switch>
       </div>
