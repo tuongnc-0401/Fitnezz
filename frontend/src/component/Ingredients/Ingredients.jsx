@@ -1,9 +1,8 @@
-import { Box, Button, Grid, Paper, Typography } from '@material-ui/core'
-import React from 'react'
-import Ingredient from './Ingredient/Ingredient'
-import ClearIcon from '@material-ui/icons/Clear';
+import { Box, Grid, Paper, Typography } from '@material-ui/core';
+import React from 'react';
+import Ingredient from './Ingredient/Ingredient';
+import useStyles from './styles';
 
-import useStyles from './styles'
 const Ingredients = () => {
     const classes = useStyles()
     const ingredients = [
