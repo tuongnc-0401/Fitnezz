@@ -20,6 +20,7 @@ import Ingredients from './component/Ingredients/Ingredients';
 import CreateProduct from './componentAdmin/ProductsAdmin/CreateProduct/CreateProduct';
 import PrivateRoute from './component/Routes/PrivateRoute';
 import Calculator from './component/Calculator/Calculator';
+import FitnessVideo from './component/FitnessVideo/FitnessVideo';
 
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/order/:id" exact component={OrderDetails} />
           <Route path="/orderhistory" exact component={OrderHistory} />
+          <Route path='/fitnessvideo' component={FitnessVideo}/>
           <PrivateRoute path="/calculator" exact component={Calculator}></PrivateRoute>
           <PrivateRoute path="/ingredients" exact component={Ingredients} />
 
