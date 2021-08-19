@@ -1,7 +1,6 @@
-import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@material-ui/core'
-import React from 'react'
-import useStyles from './styles.js'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@material-ui/core';
+import React from 'react';
+import useStyles from './styles.js';
 const Ingredient = ({ ingredient }) => {
     const classes = useStyles()
     return (
