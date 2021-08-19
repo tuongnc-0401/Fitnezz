@@ -1,8 +1,15 @@
 import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@material-ui/core';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { cartAddIngredient } from '../../../actions/cartIngredientActions.js';
 import useStyles from './styles.js';
-const Ingredient = ({ ingredient }) => {
+const Ingredient = ({ ingredient, disable }) => {
+    console.log("Ingredient", disable)
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const handleAddToList = () => {
+        dispatch(cartAddIngredient(ingredient, 1))
+    }
     return (
         <Card className={classes.root} elevation={6}>
             <CardHeader
@@ -16,12 +23,12 @@ const Ingredient = ({ ingredient }) => {
             />
             <CardContent className={classes.cardContent}>
                 <Typography variant="body2" color="textSecondary" component="p">
-                    {ingredient.details}
+                    {ingredient.description}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing className={classes.cardActions}>
-                <Typography variant="body1" style={{ color: '#f73471' }}>{ingredient.calories} kcal/g</Typography>
-                <Button variant="contained" style={{ borderRadius: '20px', backgroundColor: '#f73471', color: '#fff' }}>ADD TO LIST</Button>
+                <Typography variant="body1" style={{ color: '#f73471' }}>{ingredient.calo} kcal/g</Typography>
+                <Button variant="contained" disabled={disable} className={classes.button} onClick={handleAddToList}>{disable ? "ADDED" : "ADD TO LIST"}</Button>
             </CardActions>
         </Card>
     )

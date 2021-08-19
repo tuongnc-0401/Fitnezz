@@ -90,6 +90,50 @@ const data =
             numReviews: 15,
             description: 'high quality product',
         },
+    ],
+    ingredients: [
+        {
+            name: 'Apple',
+            image: 'https://picsum.photos/200',
+            calo: 8.2,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
+        {
+            name: 'Banana',
+            image: 'https://picsum.photos/200',
+            calo: 3.4,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
+        {
+            name: 'Mango',
+            image: 'https://picsum.photos/200',
+            calo: 1.4,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
+        {
+            name: 'Durian',
+            image: 'https://picsum.photos/200',
+            calo: 2.5,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
+        {
+            name: 'Mit',
+            image: 'https://picsum.photos/200',
+            calo: 1.6,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
+        {
+            name: 'Dragon Fruit',
+            image: 'https://picsum.photos/200',
+            calo: 4.6,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
+        {
+            name: 'Vai',
+            image: 'https://picsum.photos/200',
+            calo: 0.6,
+            description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
+        },
     ]
 }
 
