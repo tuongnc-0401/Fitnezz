@@ -10,12 +10,33 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Button,
 } from "@material-ui/core";
 import React from "react";
+import { useState } from "react";
 import useStyles from "./styles.js";
 
 const Calculator = () => {
   const classes = useStyles();
+  const initialState = {
+    age: "",
+    height: "",
+    weight: "",
+    activity: "1.2",
+    target: "1",
+    weightTarget: "",
+    speed: "",
+  };
+  const [dataForm, setDataForm] = useState(initialState);
+  const handleOnChange = (e) => {
+    setDataForm({ ...dataForm, [e.target.name]: e.target.value });
+  };
+  const handleOnSubmit = () => {
+    console.log(dataForm);
+  };
+  const resetForm = () => {
+    setDataForm(initialState);
+  };
   return (
     <div>
       <Box mr={6} ml={6} mt={3}>
@@ -52,7 +73,9 @@ const Calculator = () => {
                     </Grid>
                     <Grid item sm="12" md="9">
                       <OutlinedInput
-                        id="outlined-adornment-weight"
+                        name="age"
+                        value={dataForm.age}
+                        onChange={handleOnChange}
                         endAdornment={
                           <InputAdornment position="end">
                             years old
@@ -82,7 +105,9 @@ const Calculator = () => {
                     </Grid>
                     <Grid item sm="12" md="9">
                       <OutlinedInput
-                        id="outlined-adornment-weight"
+                        name="height"
+                        value={dataForm.height}
+                        onChange={handleOnChange}
                         endAdornment={
                           <InputAdornment position="end">cm</InputAdornment>
                         }
@@ -109,7 +134,9 @@ const Calculator = () => {
                     </Grid>
                     <Grid item sm="12" md="9">
                       <OutlinedInput
-                        id="outlined-adornment-weight"
+                        name="weight"
+                        value={dataForm.weight}
+                        onChange={handleOnChange}
                         endAdornment={
                           <InputAdornment position="end">kg</InputAdornment>
                         }
@@ -140,6 +167,8 @@ const Calculator = () => {
                         <Select
                           native
                           name="activity"
+                          value={dataForm.activity}
+                          onChange={handleOnChange}
                           // value={state.age}
                           // onChange={handleChange}
                         >
@@ -180,7 +209,8 @@ const Calculator = () => {
                       <FormControl component="fieldset">
                         <RadioGroup
                           name="target"
-                          // value={value} onChange={handleChange}
+                          value={dataForm.target}
+                          onChange={handleOnChange}
                         >
                           <FormControlLabel
                             value="0"
@@ -203,77 +233,135 @@ const Calculator = () => {
                   </Grid>
                 </Box>
                 {/* END ONE INPUT */}
-
-                {/* One Input */}
-                <Box mb={3}>
-                  <Grid container spacing={3} alignItems="center">
-                    <Grid
-                      className={classes.title}
-                      item
-                      sm="12"
-                      md="3"
-                      container
-                      justifyContent="flex-end"
-                    >
-                      <Grid item>
-                        <Typography variant="h5">Weight target:</Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid item sm="12" md="9">
-                      <OutlinedInput
-                        id="outlined-adornment-weight"
-                        endAdornment={
-                          <InputAdornment position="end">kg</InputAdornment>
-                        }
-                        fullWidth
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-                {/* END ONE INPUT */}
-
-                {/* One Input */}
-                <Box mb={3}>
-                  <Grid container spacing={3} alignItems="center">
-                    <Grid
-                      className={classes.title}
-                      item
-                      sm="12"
-                      md="3"
-                      container
-                      justifyContent="flex-end"
-                    >
-                      <Grid item>
-                        <Typography variant="h5">Speed:</Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid item sm="12" md="9">
-                      <FormControl component="fieldset">
-                        <RadioGroup
-                          name="speed"
-                          // value={value} onChange={handleChange}
+                {dataForm.target !== "1" && (
+                  <div>
+                    <Box mb={3}>
+                      <Grid container spacing={3} alignItems="center">
+                        <Grid
+                          className={classes.title}
+                          item
+                          sm="12"
+                          md="3"
+                          container
+                          justifyContent="flex-end"
                         >
-                          <FormControlLabel
-                            value="0"
-                            control={<Radio />}
-                            label="Low"
+                          <Grid item>
+                            <Typography variant="h5">Weight target:</Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item sm="12" md="9">
+                          <OutlinedInput
+                            name="weightTarget"
+                            value={dataForm.weightTarget}
+                            onChange={handleOnChange}
+                            endAdornment={
+                              <InputAdornment position="end">kg</InputAdornment>
+                            }
+                            fullWidth
                           />
-                          <FormControlLabel
-                            value="1"
-                            control={<Radio />}
-                            label="Normal"
-                          />
-                          <FormControlLabel
-                            value="2"
-                            control={<Radio />}
-                            label="Quick"
-                          />
-                        </RadioGroup>
-                      </FormControl>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                    <Box>
+                      <Grid container spacing={3} alignItems="center">
+                        <Grid
+                          className={classes.title}
+                          item
+                          sm="12"
+                          md="3"
+                          container
+                          justifyContent="flex-end"
+                        >
+                          <Grid item>
+                            <Typography variant="h5">Speed:</Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item sm="12" md="9">
+                          <FormControl component="fieldset">
+                            <RadioGroup
+                              name="speed"
+                              value={dataForm.speed}
+                              onChange={handleOnChange}
+                              // value={value} onChange={handleChange}
+                            >
+                              <FormControlLabel
+                                value="0"
+                                control={<Radio />}
+                                label="Low"
+                              />
+                              <FormControlLabel
+                                value="1"
+                                control={<Radio />}
+                                label="Normal"
+                              />
+                              <FormControlLabel
+                                value="2"
+                                control={<Radio />}
+                                label="Quick"
+                              />
+                            </RadioGroup>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </div>
+                )}
+
+                {/* BTN GROUP */}
+                <Box>
+                  <Grid container>
+                    <Grid
+                      item
+                      sm="12"
+                      md="7"
+                      container
+                      justifyContent="flex-end"
+                      className={classes.btnGroup}
+                    >
+                      <Box mt={3}>
+                        <Grid item>
+                          <Button
+                            onClick={handleOnSubmit}
+                            size="large"
+                            variant="contained"
+                            style={{
+                              backgroundColor: "#f73471",
+                              color: "white",
+                              width: "150%",
+                            }}
+                          >
+                            Calculate
+                          </Button>
+                        </Grid>
+                      </Box>
+                    </Grid>
+
+                    <Grid
+                      item
+                      sm="12"
+                      md="5"
+                      container
+                      justifyContent="flex-end"
+                    >
+                      <Box mt={3}>
+                        <Grid item>
+                          <Button
+                            onClick={resetForm}
+                            variant="outlined"
+                            style={{
+                              color: "#f73471",
+                              borderColor: "#f73471",
+                              backgroundColor: "white",
+                            }}
+                          >
+                            Reset form
+                          </Button>
+                        </Grid>
+                      </Box>
                     </Grid>
                   </Grid>
                 </Box>
-                {/* END ONE INPUT */}
+                {/* END BTN */}
               </Paper>
             </Box>
           </Grid>
