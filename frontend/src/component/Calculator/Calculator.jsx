@@ -29,7 +29,7 @@ const Calculator = () => {
     activity: "1.2",
     target: "1",
     weightTarget: "",
-    speed: "1",
+    speed: "0.1",
   };
   const [dataForm, setDataForm] = useState(initialState);
   const handleOnChange = (e) => {
@@ -56,7 +56,7 @@ const Calculator = () => {
       error["height"] = "Height is required!";
       validate = false;
     } else {
-      if (!dataForm.height.match(/^[0-9]*$/)) {
+      if (!dataForm.height.match(/^[1-9]\d*(\.\d+)?$/)) {
         error["height"] = "Height must be number!";
         validate = false;
       }
@@ -66,7 +66,7 @@ const Calculator = () => {
       error["weight"] = "Weight is required!";
       validate = false;
     } else {
-      if (!dataForm.weight.match(/^[0-9]*$/)) {
+      if (!dataForm.weight.match(/^[1-9]\d*(\.\d+)?$/)) {
         error["weight"] = "Weight must be number!";
         validate = false;
       }
@@ -77,7 +77,7 @@ const Calculator = () => {
         error["weightTarget"] = "Weight Target is required!";
         validate = false;
       } else {
-        if (!dataForm.weightTarget.match(/^[0-9]*$/)) {
+        if (!dataForm.weightTarget.match(/^[1-9]\d*(\.\d+)?$/)) {
           error["weightTarget"] = "Weight Target must be number!";
           validate = false;
         } else {
@@ -149,6 +149,30 @@ const Calculator = () => {
   };
   // End Calculate BMI
 
+  // Calculate Gain Loss weight
+  const [caloGainLoss, setCaloGainLoss] = useState("");
+  const calculateGainLoss = (calo) => {
+    if (dataForm.target === "0") {
+      const resultLoss = +calo - +calo * dataForm.speed;
+      return resultLoss.toFixed(0);
+    }
+    if (dataForm.target === "2") {
+      const resultLoss = +calo + +calo * dataForm.speed;
+      return resultLoss.toFixed(0);
+    }
+  };
+  // End Calculate Gain Loss weight
+
+  // Estimate Date
+  const estimateDate = (calo) => {
+    const diffWeight = Math.abs(dataForm.weightTarget - dataForm.weight);
+    const diffCalo = calo * dataForm.speed;
+    const estimate_week = ((diffWeight * 1100) / diffCalo) * 7;
+    return estimate_week.toFixed(0);
+  };
+
+  // End Estimate Date
+
   // Submit and Reset
   const handleOnSubmit = () => {
     if (handleValidation()) {
@@ -159,6 +183,15 @@ const Calculator = () => {
       setBMI(resultBMI);
       const resultStatus = calculateStatus(resultBMI);
       setStatusBMI(resultStatus);
+
+      if (dataForm.target !== "1") {
+        const resultGainLoss = calculateGainLoss(resultTDEE);
+        setCaloGainLoss(resultGainLoss);
+        const targetDate = estimateDate(resultTDEE);
+        console.log(
+          "week :" + Math.trunc(targetDate / 7) + " days: " + (targetDate % 7)
+        );
+      }
     }
   };
   const resetForm = () => {
@@ -450,17 +483,17 @@ const Calculator = () => {
                               // value={value} onChange={handleChange}
                             >
                               <FormControlLabel
-                                value="0"
+                                value="0.05"
                                 control={<Radio />}
                                 label="Low"
                               />
                               <FormControlLabel
-                                value="1"
+                                value="0.1"
                                 control={<Radio />}
                                 label="Normal"
                               />
                               <FormControlLabel
-                                value="2"
+                                value="0.15"
                                 control={<Radio />}
                                 label="Quick"
                               />
@@ -562,6 +595,22 @@ const Calculator = () => {
                   )}
                 </Box>
                 {/* End BMI BOX */}
+
+                {dataForm.target !== "1" && (
+                  <div>
+                    {/* BMI Result */}
+                    <Box mt={3}>
+                      {!caloGainLoss ? (
+                        <Typography variant="h6">
+                          Calories need to gain
+                        </Typography>
+                      ) : (
+                        <h1>Calories need to gain {caloGainLoss}</h1>
+                      )}
+                    </Box>
+                    {/* End BMI BOX */}
+                  </div>
+                )}
               </Paper>
             </Box>
           </Grid>
