@@ -15,8 +15,12 @@ import {
 import React from "react";
 import { useState } from "react";
 import useStyles from "./styles.js";
+import { useSelector } from "react-redux";
+import { Alert } from "@material-ui/lab";
 
 const Calculator = () => {
+  const { userInfo } = useSelector((state) => state.userSignIn);
+  const gender = userInfo?.gender ? "Male" : "Female";
   const classes = useStyles();
   const initialState = {
     age: "",
@@ -25,18 +29,144 @@ const Calculator = () => {
     activity: "1.2",
     target: "1",
     weightTarget: "",
-    speed: "",
+    speed: "1",
   };
   const [dataForm, setDataForm] = useState(initialState);
   const handleOnChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
+
+  // Validation
+  const [errorForm, setErrorForm] = useState({});
+  const handleValidation = () => {
+    var error = {};
+    var validate = true;
+
+    if (!dataForm.age) {
+      error["age"] = "Age is required!";
+      validate = false;
+    } else {
+      if (!dataForm.age.match(/^[0-9]*$/)) {
+        error["age"] = "Age must be number!";
+        validate = false;
+      }
+    }
+
+    if (!dataForm.height) {
+      error["height"] = "Height is required!";
+      validate = false;
+    } else {
+      if (!dataForm.height.match(/^[0-9]*$/)) {
+        error["height"] = "Height must be number!";
+        validate = false;
+      }
+    }
+
+    if (!dataForm.weight) {
+      error["weight"] = "Weight is required!";
+      validate = false;
+    } else {
+      if (!dataForm.weight.match(/^[0-9]*$/)) {
+        error["weight"] = "Weight must be number!";
+        validate = false;
+      }
+    }
+
+    if (dataForm.target !== "1") {
+      if (!dataForm.weightTarget) {
+        error["weightTarget"] = "Weight Target is required!";
+        validate = false;
+      } else {
+        if (!dataForm.weightTarget.match(/^[0-9]*$/)) {
+          error["weightTarget"] = "Weight Target must be number!";
+          validate = false;
+        } else {
+          if (dataForm.target === "0") {
+            if (+dataForm.weightTarget >= +dataForm.weight) {
+              error["weightTarget"] =
+                "Weight Target must be less than your current weight!";
+              validate = false;
+            }
+          }
+
+          if (dataForm.target === "2") {
+            if (+dataForm.weightTarget <= +dataForm.weight) {
+              error["weightTarget"] =
+                "Weight Target must be greater than your current weight!";
+              validate = false;
+            }
+          }
+        }
+      }
+    }
+
+    setErrorForm(error);
+    return validate;
+  };
+  // End validation
+
+  // Calculate TDEE
+  const [TDEE, setTDEE] = useState("");
+  const calculateTDEE = () => {
+    const K = userInfo?.gender ? 5 : -161;
+    const BMR =
+      9.99 * +dataForm.weight +
+      6.25 * +dataForm.height -
+      4.92 * +dataForm.age +
+      K;
+    const TDEE = BMR * +dataForm.activity;
+    return TDEE;
+  };
+  // End Calculate TDEE
+
+  // Calculate BMI
+  const [BMI, setBMI] = useState("");
+  const [statusBMI, setStatusBMI] = useState("");
+  const calculateBMI = () => {
+    const result =
+      (dataForm.weight / (dataForm.height * dataForm.height)) * 10000;
+    return result.toFixed(1);
+  };
+  const calculateStatus = (num) => {
+    if (+num < 18.5) {
+      return "Underweight";
+    }
+    if (+num >= 18.5 && num <= 24.9) {
+      return "Normal";
+    }
+    if (+num > 24.9 && num <= 29.9) {
+      return "Overweight";
+    }
+    if (+num > 29.9 && num <= 34.9) {
+      return "Obesity class I";
+    }
+    if (+num > 34.9 && num <= 39.9) {
+      return "Obesity class II";
+    }
+    if (+num > 39.9) {
+      return "Obesity class III";
+    }
+  };
+  // End Calculate BMI
+
+  // Submit and Reset
   const handleOnSubmit = () => {
-    console.log(dataForm);
+    if (handleValidation()) {
+      const resultTDEE = Math.ceil(calculateTDEE());
+      setTDEE(resultTDEE);
+
+      const resultBMI = calculateBMI();
+      setBMI(resultBMI);
+      const resultStatus = calculateStatus(resultBMI);
+      setStatusBMI(resultStatus);
+    }
   };
   const resetForm = () => {
     setDataForm(initialState);
+    setErrorForm({});
   };
+  // End Submit and Reset
+
   return (
     <div>
       <Box mr={6} ml={6} mt={3}>
@@ -68,6 +198,28 @@ const Calculator = () => {
                       justifyContent="flex-end"
                     >
                       <Grid item>
+                        <Typography variant="h5">Gender:</Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item sm="12" md="9">
+                      <Typography variant="h5">{gender}</Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+                {/* END ONE INPUT */}
+
+                {/* One Input */}
+                <Box mb={3}>
+                  <Grid container spacing={3} alignItems="center">
+                    <Grid
+                      className={classes.title}
+                      item
+                      sm="12"
+                      md="3"
+                      container
+                      justifyContent="flex-end"
+                    >
+                      <Grid item>
                         <Typography variant="h5">Age:</Typography>
                       </Grid>
                     </Grid>
@@ -83,11 +235,13 @@ const Calculator = () => {
                         }
                         fullWidth
                       />
+                      {errorForm?.age && (
+                        <Alert severity="warning">{errorForm.age}</Alert>
+                      )}
                     </Grid>
                   </Grid>
                 </Box>
                 {/* END ONE INPUT */}
-
                 {/* One Input */}
                 <Box mb={3}>
                   <Grid container spacing={3} alignItems="center">
@@ -113,6 +267,9 @@ const Calculator = () => {
                         }
                         fullWidth
                       />
+                      {errorForm?.height && (
+                        <Alert severity="warning">{errorForm.height}</Alert>
+                      )}
                     </Grid>
                   </Grid>
                 </Box>
@@ -142,6 +299,9 @@ const Calculator = () => {
                         }
                         fullWidth
                       />
+                      {errorForm?.weight && (
+                        <Alert severity="warning">{errorForm.weight}</Alert>
+                      )}
                     </Grid>
                   </Grid>
                 </Box>
@@ -259,6 +419,11 @@ const Calculator = () => {
                             }
                             fullWidth
                           />
+                          {errorForm?.weightTarget && (
+                            <Alert severity="warning">
+                              {errorForm.weightTarget}
+                            </Alert>
+                          )}
                         </Grid>
                       </Grid>
                     </Box>
@@ -371,16 +536,35 @@ const Calculator = () => {
           <Grid item sm="12" md="6">
             <Box mt={3}>
               <Paper elevation={3} style={{ padding: "30px" }}>
-                <Typography variant="h6">
-                  Use the TDEE calculator to learn your Total Daily Energy
-                  Expenditure, a measure of how many calories you burn per day.
-                  This calorie calculator will also display your BMI, calories
-                  you need to loss weight, gain weight, maintain status!
-                </Typography>
+                {/* TDEE RESULT BOX */}
+                <Box>
+                  {!TDEE ? (
+                    <Typography variant="h6">
+                      Use the TDEE calculator to learn your Total Daily Energy
+                      Expenditure, a measure of how many calories you burn per
+                      day. This calorie calculator will also display your BMI,
+                      calories you need to loss weight, gain weight, maintain
+                      status!
+                    </Typography>
+                  ) : (
+                    <h1>{TDEE}</h1>
+                  )}
+                </Box>
+                {/* END TDEE Box */}
+                {/* BMI Result */}
+                <Box mt={3}>
+                  {!BMI ? (
+                    <Typography variant="h6">BMI status</Typography>
+                  ) : (
+                    <h1>
+                      {BMI} {statusBMI}
+                    </h1>
+                  )}
+                </Box>
+                {/* End BMI BOX */}
               </Paper>
             </Box>
           </Grid>
-
           {/* END RIGHT SIDE */}
         </Grid>
       </Box>
