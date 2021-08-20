@@ -61,7 +61,7 @@ const AdminNav = () => {
                 </Grid>
             </Grid>
 
-            <Grid className={hoverIngredient ? classes.itemHover : classes.item} onMouseEnter={() => setHoverIngredient(true)} onMouseLeave={() => setHoverIngredient(false)}>
+            <Grid component={changeURL} to="/admin/ingredient" className={hoverIngredient ? classes.itemHover : classes.item} onMouseEnter={() => setHoverIngredient(true)} onMouseLeave={() => setHoverIngredient(false)}>
                 <CreateIcon />
                 <Grid style={{ marginLeft: '5px' }}>
                     Ingredients

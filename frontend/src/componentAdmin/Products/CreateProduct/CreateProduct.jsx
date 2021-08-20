@@ -20,7 +20,6 @@ const CreateProduct = () => {
         if (productData.rating <= 5) {
             setErrorRating(false)
             dispatch(createdProduct(productData))
-
         } else {
             setErrorRating(true)
         }
