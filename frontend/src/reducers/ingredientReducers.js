@@ -1,7 +1,12 @@
 
+<<<<<<< HEAD
 import { INGREDIENT_DETAILS_FAIL, INGREDIENT_DETAILS_REQUEST, INGREDIENT_DETAILS_RESET, INGREDIENT_DETAILS_SUCCESS, INGREDIENT_LIST_FAIL, INGREDIENT_LIST_REQUEST, INGREDIENT_LIST_SUCCESS, INGREDIENT_UPDATE_FAIL, INGREDIENT_UPDATE_REQUEST, INGREDIENT_UPDATE_SUCCESS } from "../constants/ingredientConstants"
 
 import { INGREDIENT_CREATE_FAIL, INGREDIENT_CREATE_REQUEST, INGREDIENT_CREATE_SUCCESS, INGREDIENT_LIST_FAIL, INGREDIENT_LIST_REQUEST, INGREDIENT_LIST_SUCCESS, INGREDIENT_REMOVE_FAIL, INGREDIENT_REMOVE_REQUEST, INGREDIENT_REMOVE_SUCCESS } from "../constants/ingredientConstants"
+=======
+
+import { INGREDIENT_UPDATE_FAIL, INGREDIENT_UPDATE_REQUEST, INGREDIENT_UPDATE_SUCCESS, INGREDIENT_DETAILS_FAIL, INGREDIENT_DETAILS_REQUEST, INGREDIENT_DETAILS_SUCCESS,INGREDIENT_CREATE_FAIL, INGREDIENT_CREATE_REQUEST, INGREDIENT_CREATE_SUCCESS, INGREDIENT_LIST_FAIL, INGREDIENT_LIST_REQUEST, INGREDIENT_LIST_SUCCESS, INGREDIENT_REMOVE_FAIL, INGREDIENT_REMOVE_REQUEST, INGREDIENT_REMOVE_SUCCESS } from "../constants/ingredientConstants"
+>>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
 
 
 export const ingredientListReducer = (state = { ingredients: [] }, action) => {
@@ -25,6 +30,14 @@ export const ingredientUpdatedReducer = (state = {}, action) => {
         case INGREDIENT_UPDATE_SUCCESS:
             return { loading: false, success: true, ingredient: action.payload }
         case INGREDIENT_UPDATE_FAIL:
+<<<<<<< HEAD
+=======
+        return { loading: false, error: action.payload }
+        default:
+            return state;
+    }
+}
+>>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
 
 export const ingredientRemovedReducer = (state = {}, action) => {
     switch (action.type) {
@@ -33,7 +46,10 @@ export const ingredientRemovedReducer = (state = {}, action) => {
         case INGREDIENT_REMOVE_SUCCESS:
             return { loading: false, success: true, ingredient: action.payload }
         case INGREDIENT_REMOVE_FAIL:
+<<<<<<< HEAD
 
+=======
+>>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
             return { loading: false, error: action.payload }
         default:
             return state;
@@ -51,6 +67,13 @@ export const ingredientDetailsReducer = (state = { ingredient: {}, loading: true
             return { loading: false, error: action.payload }
         case INGREDIENT_DETAILS_RESET:
             return { product: {}, success: false }
+<<<<<<< HEAD
+=======
+        default:
+            return state
+    }
+}
+>>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
 
 export const ingredientCreatedReducer = (state = { ingredient: {}, success: false }, action) => {
     switch (action.type) {
@@ -60,7 +83,10 @@ export const ingredientCreatedReducer = (state = { ingredient: {}, success: fals
             return { loading: false, success: true, ingredient: action.payload }
         case INGREDIENT_CREATE_FAIL:
             return { loading: false, error: action.payload }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
         default:
             return state
     }
