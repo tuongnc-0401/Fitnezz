@@ -21,8 +21,12 @@ import AdminProduct from './componentAdmin/AdminDashboard/AdminProduct/AdminProd
 import CreateProduct from './componentAdmin/Products/CreateProduct/CreateProduct';
 import { Route, Switch, useLocation } from "react-router-dom";
 import UpdateProduct from './componentAdmin/Products/UpdateProduct/UpdateProduct';
+
+import UpdateIngredient from './componentAdmin/Ingredients/UpdateIngredient/UpdateIngredient';
+
 import CreateIngredient from './componentAdmin/Ingredients/CreateIngredient/CreateIngredient';
 import AdminIngredient from './componentAdmin/AdminDashboard/AdminIngredient/AdminIngredient';
+
 
 const AppRoute = () => {
     const location = useLocation()
@@ -50,8 +54,12 @@ const AppRoute = () => {
                 <AdminRoute path="/admin/product" exact component={AdminProduct} />
                 <AdminRoute path="/admin/product/:id" exact component={UpdateProduct} />
 
+
+                <AdminRoute path="/admin/ingredient/:id" exact component={UpdateIngredient} />
+
                 <AdminRoute path="/admin/ingredient/create" exact component={CreateIngredient} />
                 <AdminRoute path="/admin/ingredient" exact component={AdminIngredient} />
+
             </Switch>
         </div>
     )
