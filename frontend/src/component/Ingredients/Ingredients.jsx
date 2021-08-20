@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid, Paper, Snackbar, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Grid, Paper, Snackbar, TextField, Typography, InputLabel, Select, MenuItem } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,19 +6,23 @@ import { listIngredients } from '../../actions/ingredientActions';
 import Ingredient from './Ingredient/Ingredient';
 import useStyles from './styles';
 import ClearIcon from '@material-ui/icons/Clear';
+import SearchIcon from '@material-ui/icons/Search';
 import { removeCartIngredient, updateCartIngredient } from '../../actions/cartIngredientActions';
+
 
 const Ingredients = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
-    const [errQuantity, setErrQuantity] = useState(false);
-
     const ingredientList = useSelector(state => state.ingredientList)
     const { loading, error, ingredients } = ingredientList
-
     const cartIngredient = useSelector(state => state.cartIngredient)
     const { cartIngredients } = cartIngredient
+
+    const [errQuantity, setErrQuantity] = useState(false);
+    const [search, setSearch] = useState("");
+    const [searchIngredient, setSearchIngredient] = useState([]);
+    const [filter, setFilter] = useState('all');
 
     const total = cartIngredients.reduce((a, b) => a + b.qty * b.calo, 0).toFixed(2)
 
@@ -26,6 +30,24 @@ const Ingredients = () => {
         dispatch(updateCartIngredient(ingredient, qty))
     }
 
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+        setSearch('')
+        setSearchIngredient(
+            ingredients.filter((ingredient) => {
+                if ((event.target.value) === 'all') return true
+                return ingredient.category === event.target.value
+            }
+            ))
+    };
+
+    const handleSearchChange = (e) => {
+        var searchIngredient = ingredients.filter((ingredient) =>
+            ingredient.name.toLowerCase().includes(e.target.value.toLowerCase())
+        )
+        setSearchIngredient(searchIngredient)
+        setFilter('all')
+    }
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -37,6 +59,11 @@ const Ingredients = () => {
     useEffect(() => {
         dispatch(listIngredients())
     }, [dispatch])
+
+    useEffect(() => {
+        setSearchIngredient(ingredients)
+    }, [ingredients])
+
     return (
         <main className={classes.container}>
             {loading ? <CircularProgress color="secondary" />
@@ -47,11 +74,28 @@ const Ingredients = () => {
                                 Can not choose 0 quantity!
                             </Alert>
                         </Snackbar>
+                        <Paper style={{ width: '110px', padding: '5px', marginBottom: '10px' }}>
+                            <InputLabel id="demo-simple-select-label" className={classes.pink}>FILTER</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                fullWidth
+                                onChange={handleFilterChange}
+                                value={filter}
+                            >
+                                <MenuItem value="all">All</MenuItem>
+                                <MenuItem value="grain">Grain</MenuItem>
+                                <MenuItem value="dairy">Dairy</MenuItem>
+                                <MenuItem value="fruit">Fruit</MenuItem>
+                                <MenuItem value="vegetable">Vegetable</MenuItem>
+                                <MenuItem value="protein">Protein</MenuItem>
+                            </Select>
+                        </Paper>
                         <Grid container spacing={3} className={classes.gridContainer}>
                             <Grid item xs={12} sm={6} md={8} lg={9}>
                                 <Grid container spacing={3}>
-                                    {ingredients.map(ingredient => {
-                                        const disable = cartIngredients.find((x) => x.ingredient == ingredient._id)
+                                    {searchIngredient.map(ingredient => {
+                                        const disable = cartIngredients.find((x) => x.ingredient === ingredient._id)
                                         return (
                                             <Grid item xs={12} sm={12} md={6} lg={4} >
                                                 <Ingredient ingredient={ingredient} disable={disable} />
@@ -60,16 +104,37 @@ const Ingredients = () => {
                                     })}
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <Grid item xs={12} sm={6} md={4} lg={3} className={classes.fixed}>
+                                <Paper elevation={3} style={{ marginBottom: '5px', padding: "5px", display: "flex", alignItems: "center" }} >
+                                    <TextField
+                                        size="small"
+                                        style={{ padding: '2px' }}
+                                        required
+                                        variant="outlined"
+                                        id="search"
+                                        name="search"
+                                        label="Search"
+                                        value={search}
+                                        onChange={(e) => {
+                                            handleSearchChange(e)
+                                            setSearch(e.target.value)
+                                        }}
+                                        fullWidth
+                                    />
+                                    <Box style={{ padding: '2px' }}>
+                                        <SearchIcon />
+                                    </Box>
+
+                                </Paper>
                                 <Paper elevation={3} style={{ height: '295px', overflowY: 'scroll' }}>
                                     <Typography variant="h6" className={classes.pink} style={{ textAlign: "center", marginTop: '5px' }}>INGREDIENT LIST</Typography>
-                                    {cartIngredients.length == 0 ?
+                                    {cartIngredients.length === 0 ?
                                         <Box p={2}>
                                             <Typography variant="body1">Add ingredients you prefer to this list to calculate the calories</Typography>
                                         </Box> :
                                         cartIngredients.map(ingredient => (
                                             <Paper style={{ display: "flex", margin: '10px' }} elevation={2} >
-                                                <img src={ingredient.image} width={75} height={75} />
+                                                <img src={ingredient.image} width={75} height={75} alt="ingredientimage" />
                                                 <Box style={{ flexGrow: '1' }} p={1} >
                                                     <Box display='flex'>
                                                         <Box style={{ fontWeight: '500' }}>{ingredient.name}</Box>

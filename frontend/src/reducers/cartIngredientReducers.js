@@ -11,6 +11,7 @@ export const cartIngredientReducer = (state = { cartIngredients: [] }, action) =
                     cartIngredients: [...state.cartIngredients, ingredient]
                 }
             }
+            return state
         case UPDATE_CART_INGREDIENT:
             const updateIngredient = action.payload
             const existUpdateIngredient = state.cartIngredients.find(x => x.ingredient === updateIngredient.ingredient)
