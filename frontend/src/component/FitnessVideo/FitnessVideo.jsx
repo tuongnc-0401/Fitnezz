@@ -53,8 +53,8 @@ function FitnessVideo(props) {
                     </Grid>
 
                     <Grid item xs={12} sm={6} lg={4} className={classes.video} >
-                        <div className={classes.cart} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
-                            <div className={hover ? classes.overlayHover : classes.overlay}>
+                        <div className={classes.cart} >
+                            <div className={classes.overlay}>
                                 <div style={{paddingLeft: '15px', paddingBottom: '20px'}}>
                                     <div style={{ fontSize: '12px' }}>
                                         Release date: July 2021
@@ -83,8 +83,8 @@ function FitnessVideo(props) {
                     </Grid>
 
                     <Grid item xs={12} sm={6} lg={4} className={classes.video} >
-                        <div className={classes.cart} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
-                            <div className={hover ? classes.overlayHover : classes.overlay}>
+                        <div className={classes.cart} >
+                            <div className={classes.overlay}>
                                 <div style={{paddingLeft: '15px', paddingBottom: '20px'}}>
                                     <div style={{ fontSize: '12px' }}>
                                         Release date: July 2021
@@ -115,8 +115,8 @@ function FitnessVideo(props) {
                     {/* linedown */}
 
                     <Grid item xs={12} sm={6} lg={4} className={classes.video} style={{ paddingBottom: '0px' }}>
-                        <div className={classes.cart} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
-                            <div className={hover ? classes.overlayHover : classes.overlay}>
+                        <div className={classes.cart} >
+                            <div className={classes.overlay}>
                                 <div style={{paddingLeft: '15px', paddingBottom: '20px'}}>
                                     <div style={{ fontSize: '12px' }}>
                                         Release date: July 2021
@@ -145,8 +145,8 @@ function FitnessVideo(props) {
                     </Grid>
 
                     <Grid item xs={12} sm={6} lg={4} className={classes.video} >
-                        <div className={classes.cart} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
-                            <div className={hover ? classes.overlayHover : classes.overlay}>
+                        <div className={classes.cart} >
+                            <div className={classes.overlay}>
                                 <div style={{paddingLeft: '15px', paddingBottom: '20px'}}>
                                     <div style={{ fontSize: '12px' }}>
                                         Release date: July 2021
@@ -175,8 +175,8 @@ function FitnessVideo(props) {
                     </Grid>
 
                     <Grid item xs={12} sm={6} lg={4} className={classes.video} >
-                        <div className={classes.cart} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
-                            <div className={hover ? classes.overlayHover : classes.overlay}>
+                        <div className={classes.cart} >
+                            <div className={classes.overlay}>
                                 <div style={{paddingLeft: '15px', paddingBottom: '20px'}}>
                                     <div style={{ fontSize: '12px' }}>
                                         Release date: July 2021
@@ -206,15 +206,15 @@ function FitnessVideo(props) {
                     
                     {/* For Del purpose */}
 
-                    <Grid item xs={12} sm={6} lg={4} className={classes.video4del} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
+                    <Grid item xs={12} sm={6} lg={4} className={classes.video4del} >
                         
                     </Grid>
 
-                    <Grid item xs={12} sm={6} lg={4} className={classes.video4del} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
+                    <Grid item xs={12} sm={6} lg={4} className={classes.video4del} >
                         
                     </Grid>
 
-                    <Grid item xs={12} sm={6} lg={4} className={classes.video4del} onMouseEnter={() => setHover(true)}  onMouseLeave={() => setHover(false)}>
+                    <Grid item xs={12} sm={6} lg={4} className={classes.video4del} >
                         
                     </Grid>
                 </Grid>
