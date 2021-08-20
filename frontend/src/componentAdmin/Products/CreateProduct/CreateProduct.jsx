@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Container, CssBaseline, Grid, TextField, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createdProduct } from '../../../actions/productActions';
@@ -13,7 +13,8 @@ const CreateProduct = () => {
         name: '', image: '', brand: '', category: '', description: '', price: null, rating: null, numReviews: null
     });
     const [errorRating, setErrorRating] = useState(false)
-    const { loading, success, error } = useSelector(state => state.newProduct)
+    const newProduct = useSelector(state => state.newProduct)
+    const { loading, success, error } = newProduct
     const handleSubmit = (e) => {
         e.preventDefault()
         if (productData.rating <= 5) {
@@ -25,6 +26,11 @@ const CreateProduct = () => {
         }
 
     }
+    useEffect(() => {
+        if (newProduct) {
+            newProduct.success = false
+        }
+    }, [newProduct])
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
