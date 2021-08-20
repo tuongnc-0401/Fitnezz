@@ -41,6 +41,12 @@ const Products = () => {
     useEffect(() => {
         dispatch(listProducts())
     }, [dispatch, successDelete])
+    useEffect(() => {
+        if (deleteProduct) {
+            deleteProduct.success = false
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     const classes = useStyles()
     const [open, setOpen] = useState(false);
     const [productChosen, setProductChosen] = useState()

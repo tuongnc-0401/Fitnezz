@@ -32,6 +32,11 @@ const UpdateProduct = () => {
 
     }
     useEffect(() => {
+        if (updateProduct) {
+            updateProduct.success = false
+        }
+    }, [updateProduct])
+    useEffect(() => {
         if (product && Object.keys(product).length === 0 && product.constructor === Object) {
             dispatch(detailsProduct(id))
         }
@@ -43,7 +48,7 @@ const UpdateProduct = () => {
             <div className={classes.paper}>
 
                 <Typography component="h1" variant="h5">
-                    CREATE NEW PRODUCT
+                    UPDATE NEW PRODUCT
                 </Typography>
                 {loading ? (
                     <CircularProgress color="secondary" />
@@ -56,8 +61,6 @@ const UpdateProduct = () => {
                     {success &&
                         <Alert elevation={2} severity="success" fullWidth>Success </Alert>
                     }
-
-                    {errorRating && <Alert style={{ marginTop: '10px' }} severity="error">Rating is just from 0 to 5</Alert>}
                     <TextField autoComplete="name" autoFocus margin="normal" name="name" variant="outlined" label="Name" fullWidth value={productData?.name} onChange={(e) => setProductData({ ...productData, name: e.target.value })}></TextField>
                     <TextField margin="normal" name="brand" variant="outlined" label="Brand" fullWidth value={productData?.brand} onChange={(e) => setProductData({ ...productData, brand: e.target.value })}></TextField>
                     <TextField margin="normal" name="category" variant="outlined" label="Category" fullWidth value={productData?.category} onChange={(e) => setProductData({ ...productData, category: e.target.value })}></TextField>
