@@ -29,10 +29,14 @@ const UpdateIngredient = () => {
         }
     }, [updateIngredient])
     useEffect(() => {
+        console.log(ingredient);
         if (ingredient && Object.keys(ingredient).length === 0 && ingredient.constructor === Object) {
+            console.log("heheconcho");
             dispatch(detailsIngredient(id))
         }
         setIngredientData(ingredient)
+
+
     }, [dispatch, id, ingredient])
     return (
         <Container component="main" maxWidth="xs">
@@ -56,7 +60,7 @@ const UpdateIngredient = () => {
                         <TextField autoComplete="name" autoFocus margin="normal" name="name" variant="outlined" label="Name" fullWidth value={ingredientData?.name} onChange={(e) => setIngredientData({ ...ingredientData, name: e.target.value })}></TextField>
                         <FormControl component="fieldset" style={{ marginTop: '10px' }}>
                             <FormLabel component="legend">Category</FormLabel>
-                            <RadioGroup aria-label="category" name="category" value={ingredientData?.category} onChange={(e) => setIngredientData({ ...ingredientData, category: e.target.value })}>
+                            <RadioGroup aria-label="category" name="category" value={ingredientData?.category || ""} onChange={(e) => setIngredientData({ ...ingredientData, category: e.target.value })}>
                                 <FormControlLabel value="grain" control={<Radio />} label="Grain" />
                                 <FormControlLabel value="dairy" control={<Radio />} label="Dairy" />
                                 <FormControlLabel value="fruit" control={<Radio />} label="Fruit" />

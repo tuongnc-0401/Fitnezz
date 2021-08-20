@@ -25,11 +25,7 @@ export const ingredientUpdatedReducer = (state = {}, action) => {
         case INGREDIENT_UPDATE_SUCCESS:
             return { loading: false, success: true, ingredient: action.payload }
         case INGREDIENT_UPDATE_FAIL:
-
-
             return { loading: false, error: action.payload }
-
-
         default:
             return state;
     }
@@ -43,7 +39,6 @@ export const ingredientRemovedReducer = (state = {}, action) => {
         case INGREDIENT_REMOVE_SUCCESS:
             return { loading: false, success: true, ingredient: action.payload }
         case INGREDIENT_REMOVE_FAIL:
-
             return { loading: false, error: action.payload }
         default:
             return state;
@@ -60,8 +55,7 @@ export const ingredientDetailsReducer = (state = { ingredient: {}, loading: true
         case INGREDIENT_DETAILS_FAIL:
             return { loading: false, error: action.payload }
         case INGREDIENT_DETAILS_RESET:
-            return { product: {}, success: false }
-
+            return { ingredient: {}, success: false }
         default:
             return state
     }
