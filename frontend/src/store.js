@@ -3,17 +3,10 @@ import thunk from 'redux-thunk'
 import { cartIngredientReducer } from './reducers/cartIngredientReducers.js';
 import { cartReducer } from './reducers/cartReducers.js';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReducer } from './reducers/ingredientReducers.js';
 
-import { ingredientCreatedReducer, ingredientListReducer, ingredientRemovedReducer } from './reducers/ingredientReducers.js';
-=======
-import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReducer, ingredientRemovedReducer,ingredientCreatedReducer } from './reducers/ingredientReducers.js';
->>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
-=======
+
 import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReducer, ingredientRemovedReducer, ingredientCreatedReducer } from './reducers/ingredientReducers.js';
->>>>>>> 7ba65e8a72eac281d69aacbc8e1c72e9c9188ec0
+
 
 import { orderCreateReducer, orderDetailsReducer, orderMineListReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
@@ -48,28 +41,12 @@ const reducer = combineReducers({
     updateProduct: productUpdatedReducer,
     ingredientList: ingredientListReducer,
     cartIngredient: cartIngredientReducer,
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-    updateIngredient: ingredientUpdatedReducer,
-    ingredientDetails: ingredientDetailsReducer,
-
-    removeIngredient: ingredientRemovedReducer,
-    newIngredient: ingredientCreatedReducer,
-
-
-
-=======
-=======
->>>>>>> 7ba65e8a72eac281d69aacbc8e1c72e9c9188ec0
     updateIngredient: ingredientUpdatedReducer,
     ingredientDetails: ingredientDetailsReducer,
     removeIngredient: ingredientRemovedReducer,
     newIngredient: ingredientCreatedReducer,
-<<<<<<< HEAD
->>>>>>> c8c4311d8af6272af74209683e517e3f241e8896
-=======
->>>>>>> 7ba65e8a72eac281d69aacbc8e1c72e9c9188ec0
+
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(thunk)))
