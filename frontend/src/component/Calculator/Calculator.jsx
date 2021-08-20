@@ -15,8 +15,9 @@ import {
 import React from "react";
 import { useState } from "react";
 import useStyles from "./styles.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Alert } from "@material-ui/lab";
+import { createCalculator } from "../../actions/calculatorActions.js";
 
 const Calculator = () => {
   const { userInfo } = useSelector((state) => state.userSignIn);
@@ -262,6 +263,7 @@ const Calculator = () => {
   // End Estimate Date
 
   // Submit and Reset
+  const dispatch = useDispatch();
   const handleOnSubmit = () => {
     if (handleValidation()) {
       const resultTDEE = Math.ceil(calculateTDEE());
@@ -293,6 +295,7 @@ const Calculator = () => {
         estimateDate: estimateDateDay || "",
         estimateDay: resultEstimateDate || "",
       };
+      dispatch(createCalculator(dataSent));
     }
   };
   const resetForm = () => {
