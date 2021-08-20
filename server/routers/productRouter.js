@@ -43,4 +43,32 @@ productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     }
 }))
 
+productRouter.delete("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const deletedProduct = await Product.findById(req.params.id)
+    if (deletedProduct) {
+        await deletedProduct.remove()
+        res.send({ message: "Product Deleted" })
+    } else {
+        res.send("Error in Deletion.")
+    }
+}))
+
+productRouter.put("/:id", expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id)
+    if (product) {
+        product.name = req.body.name || product.name
+        product.brand = req.body.brand || product.brand
+        product.category = req.body.category || product.category
+        product.description = req.body.description || product.description
+        product.price = req.body.price || product.price
+        product.rating = req.body.rating || product.rating
+        product.numReviews = req.body.numReviews || product.numReviews
+        product.image = req.body.image || product.image
+        const updated = await product.save()
+        res.send(updated)
+    } else {
+        res.send("Error in Deletion.")
+    }
+}))
+
 export default productRouter

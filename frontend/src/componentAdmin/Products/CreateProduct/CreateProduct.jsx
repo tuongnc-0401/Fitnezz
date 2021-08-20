@@ -1,26 +1,31 @@
-import { Button, CircularProgress, Container, CssBaseline, TextField, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, CssBaseline, Grid, TextField, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createdProduct } from '../../../actions/productActions';
 import useStyles from './styles';
-
+import { Link as changeURL } from "react-router-dom";
 const CreateProduct = () => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const [productData, setProductData] = useState({
         name: '', image: '', brand: '', category: '', description: '', price: null, rating: null, numReviews: null
     });
+    const [errorRating, setErrorRating] = useState(false)
     const { loading, success, error } = useSelector(state => state.newProduct)
-    console.log(success);
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(createdProduct(productData))
+        if (productData.rating <= 5) {
+            setErrorRating(false)
+            dispatch(createdProduct(productData))
+
+        } else {
+            setErrorRating(true)
+        }
+
     }
     return (
-
-
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -30,7 +35,11 @@ const CreateProduct = () => {
                 </Typography>
                 {loading && <CircularProgress style={{ marginTop: '10px' }} color="secondary" />}
                 {error && <Alert style={{ marginTop: '10px' }} severity="error">{error}</Alert>}
-                {success && <Alert style={{ marginTop: '10px' }} severity="success" fullWidth>Success</Alert>}
+                {errorRating && <Alert style={{ marginTop: '10px' }} severity="error">Rating is just from 0 to 5</Alert>}
+                {success && <Box display="flex" mt={2}>
+                    <Alert elevation={2} severity="success" fullWidth>Success </Alert>
+
+                </Box>}
                 <form className={classes.form} onSubmit={handleSubmit} noValidate>
                     <TextField autoComplete="name" autoFocus margin="normal" name="name" variant="outlined" label="Name" fullWidth value={productData.name} onChange={(e) => setProductData({ ...productData, name: e.target.value })}></TextField>
                     <TextField margin="normal" name="brand" variant="outlined" label="Brand" fullWidth value={productData.brand} onChange={(e) => setProductData({ ...productData, brand: e.target.value })}></TextField>
@@ -43,15 +52,23 @@ const CreateProduct = () => {
                         <FileBase type="file" multiple={false} onDone={({ base64 }) => setProductData({ ...productData, image: base64 })}>
                         </FileBase>
                     </div>
-                    <Button style={{ backgroundColor: '#f73471' }}
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Create
-                    </Button>
+                    <Grid container spacing={1} style={{ marginTop: "5px" }}>
+                        <Grid item xs="12" md="6">
+                            <Button component={changeURL} to="/admin/product/" variant="outlined" fullWidth>Go Back</Button>
+                        </Grid>
+                        <Grid item xs="12" md="6">
+                            <Button style={{ backgroundColor: '#f73471' }}
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+
+                            >
+                                Create
+                            </Button>
+                        </Grid>
+                    </Grid>
+
                 </form>
             </div>
         </Container >
