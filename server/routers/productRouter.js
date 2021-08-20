@@ -53,7 +53,7 @@ productRouter.delete("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, re
     }
 }))
 
-productRouter.put("/:id", expressAsyncHandler(async (req, res) => {
+productRouter.put("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
         product.name = req.body.name || product.name
