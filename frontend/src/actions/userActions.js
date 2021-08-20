@@ -42,6 +42,7 @@ export const signout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('cartItems')
     localStorage.removeItem('shippingAddress')
+    localStorage.removeItem('cartIngredients')
     dispatch({ type: USER_SIGNOUT })
     dispatch({ type: CART_EMPTY })
 }

@@ -55,7 +55,6 @@ const UpdateProduct = () => {
                     {errorRating && <Alert style={{ marginTop: '10px' }} severity="error">Rating is just from 0 to 5</Alert>}
                     {success &&
                         <Alert elevation={2} severity="success" fullWidth>Success </Alert>
-
                     }
 
                     {errorRating && <Alert style={{ marginTop: '10px' }} severity="error">Rating is just from 0 to 5</Alert>}
