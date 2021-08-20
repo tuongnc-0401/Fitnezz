@@ -57,7 +57,6 @@ const UpdateIngredient = () => {
                         <FormControl component="fieldset" style={{ marginTop: '10px' }}>
                             <FormLabel component="legend">Category</FormLabel>
                             <RadioGroup aria-label="category" name="category" value={ingredientData?.category} onChange={(e) => setIngredientData({ ...ingredientData, category: e.target.value })}>
-
                                 <FormControlLabel value="grain" control={<Radio />} label="Grain" />
                                 <FormControlLabel value="dairy" control={<Radio />} label="Dairy" />
                                 <FormControlLabel value="fruit" control={<Radio />} label="Fruit" />

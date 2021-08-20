@@ -54,11 +54,9 @@ const AppRoute = () => {
                 <AdminRoute path="/admin/product" exact component={AdminProduct} />
                 <AdminRoute path="/admin/product/:id" exact component={UpdateProduct} />
 
-
-                <AdminRoute path="/admin/ingredient/:id" exact component={UpdateIngredient} />
-
                 <AdminRoute path="/admin/ingredient/create" exact component={CreateIngredient} />
                 <AdminRoute path="/admin/ingredient" exact component={AdminIngredient} />
+                <AdminRoute path="/admin/ingredient/:id" exact component={UpdateIngredient} />
 
             </Switch>
         </div>
