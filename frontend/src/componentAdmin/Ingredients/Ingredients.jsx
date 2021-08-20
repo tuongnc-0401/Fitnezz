@@ -46,7 +46,7 @@ const Ingredients = () => {
         if (deleteIngredient) {
             deleteIngredient.success = false
         }
-    }, [])
+    }, [deleteIngredient])
     const classes = useStyles()
     const [open, setOpen] = useState(false);
     const [ingredientChosen, setIngredientChosen] = useState()
