@@ -51,7 +51,7 @@ const AdminNav = () => {
                 </Grid>
 
                 <Grid style={{ marginTop: '15px' }}>
-                    Admin
+                    {userInfo.isAdmin && "Admin"}
                 </Grid>
             </Grid>
             <Grid component={changeURL} to="/admin" className={hoverDashboard ? classes.itemHover : classes.item} onMouseEnter={() => setHoverDashboard(true)} onMouseLeave={() => setHoverDashboard(false)} >
