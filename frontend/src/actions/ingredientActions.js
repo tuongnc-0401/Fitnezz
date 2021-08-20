@@ -52,5 +52,6 @@ export const createdIngredient = (ingredient) => async (dispatch, getState) => {
                     ? error.response.data.message
                     : error.message
         })
+
     }
 }
