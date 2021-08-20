@@ -12,6 +12,12 @@ export default makeStyles((theme) => ({
     },
     cardContent: {
         paddingBottom: '0'
+    },
+    button: {
+        borderRadius: '20px', backgroundColor: '#f73471', color: '#fff',
+        '&:hover': {
+            backgroundColor: "#f73471",
+        }
     }
 }
 ))

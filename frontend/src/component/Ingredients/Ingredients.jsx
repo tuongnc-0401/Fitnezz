@@ -1,66 +1,177 @@
-import { Box, Grid, Paper, Typography } from '@material-ui/core';
-import React from 'react';
+import { Box, CircularProgress, Grid, Paper, Snackbar, TextField, Typography, InputLabel, Select, MenuItem } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { listIngredients } from '../../actions/ingredientActions';
 import Ingredient from './Ingredient/Ingredient';
 import useStyles from './styles';
+import ClearIcon from '@material-ui/icons/Clear';
+import SearchIcon from '@material-ui/icons/Search';
+import { removeCartIngredient, updateCartIngredient } from '../../actions/cartIngredientActions';
+
 
 const Ingredients = () => {
     const classes = useStyles()
-    const ingredients = [
-        {
-            id: 1, name: "Apple", image: "https://bellavitashop.co.uk/6288-large_default/red-apples-500g.jpg", details: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests", calories: "0.42"
-        },
-        { id: 2, name: "Apple", image: "https://bellavitashop.co.uk/6288-large_default/red-apples-500g.jpg", details: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests", calories: "7" },
-        { id: 3, name: "Apple", image: "https://bellavitashop.co.uk/6288-large_default/red-apples-500g.jpg", details: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests", calories: "0.8" },
-        { id: 4, name: "Apple", image: "https://bellavitashop.co.uk/6288-large_default/red-apples-500g.jpg", details: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests", calories: "1.5" },
-        { id: 5, name: "Apple", image: "https://bellavitashop.co.uk/6288-large_default/red-apples-500g.jpg", details: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests", calories: "3.6" },
-    ]
+    const dispatch = useDispatch()
+
+    const ingredientList = useSelector(state => state.ingredientList)
+    const { loading, error, ingredients } = ingredientList
+    const cartIngredient = useSelector(state => state.cartIngredient)
+    const { cartIngredients } = cartIngredient
+
+    const [errQuantity, setErrQuantity] = useState(false);
+    const [search, setSearch] = useState("");
+    const [searchIngredient, setSearchIngredient] = useState([]);
+    const [filter, setFilter] = useState('all');
+
+    const total = cartIngredients.reduce((a, b) => a + b.qty * b.calo, 0).toFixed(2)
+
+    const handleUpdateIngredient = (ingredient, qty) => {
+        dispatch(updateCartIngredient(ingredient, qty))
+    }
+
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+        setSearch('')
+        setSearchIngredient(
+            ingredients.filter((ingredient) => {
+                if ((event.target.value) === 'all') return true
+                return ingredient.category === event.target.value
+            }
+            ))
+    };
+
+    const handleSearchChange = (e) => {
+        var searchIngredient = ingredients.filter((ingredient) =>
+            ingredient.name.toLowerCase().includes(e.target.value.toLowerCase())
+        )
+        setSearchIngredient(searchIngredient)
+        setFilter('all')
+    }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setErrQuantity(false);
+    };
+
+    useEffect(() => {
+        dispatch(listIngredients())
+    }, [dispatch])
+
+    useEffect(() => {
+        setSearchIngredient(ingredients)
+    }, [ingredients])
+
     return (
         <main className={classes.container}>
-            <Grid container spacing={3} className={classes.gridContainer}>
-                <Grid item xs={12} sm={6} md={8} lg={9}>
-                    <Grid container spacing={3}>
-                        {ingredients.map(ingredient => (
-                            <Grid item xs={12} sm={12} md={6} lg={4} >
-                                <Ingredient ingredient={ingredient} />
+            {loading ? <CircularProgress color="secondary" />
+                : error ? <Alert severity="error">{error}</Alert> :
+                    <>
+                        <Snackbar open={errQuantity} autoHideDuration={3000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="error">
+                                Can not choose 0 quantity!
+                            </Alert>
+                        </Snackbar>
+                        <Paper style={{ width: '110px', padding: '5px', marginBottom: '10px' }}>
+                            <InputLabel id="demo-simple-select-label" className={classes.pink}>FILTER</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                fullWidth
+                                onChange={handleFilterChange}
+                                value={filter}
+                            >
+                                <MenuItem value="all">All</MenuItem>
+                                <MenuItem value="grain">Grain</MenuItem>
+                                <MenuItem value="dairy">Dairy</MenuItem>
+                                <MenuItem value="fruit">Fruit</MenuItem>
+                                <MenuItem value="vegetable">Vegetable</MenuItem>
+                                <MenuItem value="protein">Protein</MenuItem>
+                            </Select>
+                        </Paper>
+                        <Grid container spacing={3} className={classes.gridContainer}>
+                            <Grid item xs={12} sm={6} md={8} lg={9}>
+                                <Grid container spacing={3}>
+                                    {searchIngredient.map(ingredient => {
+                                        const disable = cartIngredients.find((x) => x.ingredient === ingredient._id)
+                                        return (
+                                            <Grid item xs={12} sm={12} md={6} lg={4} >
+                                                <Ingredient ingredient={ingredient} disable={disable} />
+                                            </Grid>
+                                        )
+                                    })}
+                                </Grid>
                             </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <Paper elevation={3} style={{ height: '295px', overflowY: 'scroll' }}>
-                        <Typography variant="h6" className={classes.pink} style={{ textAlign: "center", marginTop: '5px' }}>INGREDIENT LIST</Typography>
-                        <Box p={2}>
-                            <Typography variant="body1">Add ingredients you prefer to this list to calculate the calories</Typography>
-                        </Box>
-
-                        {/* WHEN USERS ADD INGREDIENT THEN OPEN THIS COMMENT */}
-
-                        {/* {ingredients.map(ingredient => (
-                            <Paper style={{ display: "flex", margin: '10px' }} elevation={2} >
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC49YvyOLLle99skk6BYyDU6w1fEFRDppjwQ&usqp=CAU" width={75} height={75} />
-                                <Box style={{ flexGrow: '1' }} p={1} >
-                                    <Box display='flex'>
-                                        <Box style={{ fontWeight: '500' }}>AppleApple</Box>
-                                        <ClearIcon style={{ fontSize: '15px', width: "21px", height: "21px", marginLeft: 'auto', textAlign: "center", cursor: 'pointer' }}>X</ClearIcon>
+                            <Grid item xs={12} sm={6} md={4} lg={3} className={classes.fixed}>
+                                <Paper elevation={3} style={{ marginBottom: '5px', padding: "5px", display: "flex", alignItems: "center" }} >
+                                    <TextField
+                                        size="small"
+                                        style={{ padding: '2px' }}
+                                        required
+                                        variant="outlined"
+                                        id="search"
+                                        name="search"
+                                        label="Search"
+                                        value={search}
+                                        onChange={(e) => {
+                                            handleSearchChange(e)
+                                            setSearch(e.target.value)
+                                        }}
+                                        fullWidth
+                                    />
+                                    <Box style={{ padding: '2px' }}>
+                                        <SearchIcon />
                                     </Box>
-                                    <Box display="flex" alignItems="center" mt={2}>
-                                        <input style={{ width: '50px', marginRight: 'auto' }} value="1" ></input>
-                                        <Box className={classes.pink} >322.75kcal</Box>
+
+                                </Paper>
+                                <Paper elevation={3} style={{ height: '295px', overflowY: 'scroll' }}>
+                                    <Typography variant="h6" className={classes.pink} style={{ textAlign: "center", marginTop: '5px' }}>INGREDIENT LIST</Typography>
+                                    {cartIngredients.length === 0 ?
+                                        <Box p={2}>
+                                            <Typography variant="body1">Add ingredients you prefer to this list to calculate the calories</Typography>
+                                        </Box> :
+                                        cartIngredients.map(ingredient => (
+                                            <Paper style={{ display: "flex", margin: '10px' }} elevation={2} >
+                                                <img src={ingredient.image} width={75} height={75} alt="ingredientimage" />
+                                                <Box style={{ flexGrow: '1' }} p={1} >
+                                                    <Box display='flex'>
+                                                        <Box style={{ fontWeight: '500' }}>{ingredient.name}</Box>
+                                                        <ClearIcon onClick={() => dispatch(removeCartIngredient(ingredient))} style={{ fontSize: '15px', width: "21px", height: "21px", marginLeft: 'auto', textAlign: "center", cursor: 'pointer' }}>X</ClearIcon>
+                                                    </Box>
+                                                    <Box display="flex" alignItems="center" mt={2}>
+                                                        <input style={{ width: '50px', marginRight: 'auto' }} value={ingredient.qty === 0 ? null : ingredient.qty}
+                                                            onChange={(e) => {
+                                                                handleUpdateIngredient(ingredient, +e.target.value)
+                                                            }}
+                                                            onBlur={(e) => {
+                                                                if (+(e.target.value) === 0) {
+                                                                    handleUpdateIngredient(ingredient, 1)
+                                                                    setErrQuantity(true)
+                                                                }
+                                                            }} ></input>
+                                                        <Box className={classes.pink} >{(ingredient.calo * ingredient.qty).toFixed(2)}kcal</Box>
+                                                    </Box>
+                                                </Box>
+                                            </Paper>
+                                        ))
+                                    }
+                                </Paper>
+                                <Paper style={{ marginTop: '5px', backgroundColor: '#f73471', padding: '10px' }} elevation={2}>
+                                    <Box display="flex">
+                                        <Typography style={{ color: 'white', display: 'flex', flexGrow: '1' }} variant="h5">TOTAL:</Typography>
+                                        <Typography style={{ color: 'white', display: 'flex' }} variant="h5">{total}KCAL</Typography>
                                     </Box>
-                                </Box>
-                            </Paper>
-                        ))} */}
+                                </Paper>
+                                {total > 1000 &&
+                                    <Alert style={{ marginTop: '10px' }} severity="warning">Please make your meal under 1000 calories</Alert>
+                                }
+                            </Grid>
+                        </Grid>
+                    </>
+            }
 
-                    </Paper>
-                    <Paper style={{ marginTop: '5px', backgroundColor: '#f73471', padding: '10px' }} elevation={2}>
-                        <Box display="flex">
-                            <Typography style={{ color: 'white', display: 'flex', flexGrow: '1' }} variant="h5">TOTAL CALO:</Typography>
-                            <Typography style={{ color: 'white', display: 'flex' }} variant="h5">760KCAL</Typography>
-                        </Box>
-                    </Paper>
-
-                </Grid>
-            </Grid>
 
         </main >
     )
