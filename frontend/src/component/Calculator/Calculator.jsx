@@ -164,11 +164,99 @@ const Calculator = () => {
   // End Calculate Gain Loss weight
 
   // Estimate Date
-  const estimateDate = (calo) => {
+  const [estimateDateInDays, setEstimateDateInDays] = useState("");
+  const getEstimateDate = (calo) => {
     const diffWeight = Math.abs(dataForm.weightTarget - dataForm.weight);
     const diffCalo = calo * dataForm.speed;
     const estimate_week = ((diffWeight * 1100) / diffCalo) * 7;
     return estimate_week.toFixed(0);
+  };
+
+  const estimateDateInDaysFunction = (d) => {
+    let months = 0,
+      years = 0,
+      days = 0,
+      weeks = 0;
+    while (d) {
+      if (d >= 365) {
+        years++;
+        d -= 365;
+      } else if (d >= 30) {
+        months++;
+        d -= 30;
+      } else if (d >= 7) {
+        weeks++;
+        d -= 7;
+      } else {
+        days++;
+        d--;
+      }
+    }
+    return (
+      (years > 0 ? years + " year" + (years > 1 ? "s " : " ") : "") +
+      (months > 0 ? months + " month" + (months > 1 ? "s " : " ") : "") +
+      (weeks > 0 ? weeks + " week" + (weeks > 1 ? "s " : " ") : "") +
+      (days > 0 ? "and " + days + " day" + (days > 1 ? "s" : "") : "")
+    );
+  };
+
+  const [dayEstimateInDate, setDayEstimateInDate] = useState("");
+  const estimateDateInDate = (d) => {
+    const currentDate = new Date();
+    const nextDate = new Date(currentDate.getTime() + d * 24 * 60 * 60 * 1000);
+    return formatDatetoDate(nextDate);
+  };
+
+  const formatDatetoDate = (d) => {
+    var d_names = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    var m_names = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    var curr_day = d.getDay();
+    var curr_date = d.getDate();
+    var sup = "";
+    if (curr_date === 1 || curr_date === 21 || curr_date === 31) {
+      sup = "st";
+    } else if (curr_date === 2 || curr_date === 22) {
+      sup = "nd";
+    } else if (curr_date === 3 || curr_date === 23) {
+      sup = "rd";
+    } else {
+      sup = "th";
+    }
+    var curr_month = d.getMonth();
+    var curr_year = d.getFullYear();
+
+    return (
+      d_names[curr_day] +
+      " " +
+      curr_date +
+      sup +
+      " " +
+      m_names[curr_month] +
+      " " +
+      curr_year
+    );
   };
 
   // End Estimate Date
@@ -183,20 +271,39 @@ const Calculator = () => {
       setBMI(resultBMI);
       const resultStatus = calculateStatus(resultBMI);
       setStatusBMI(resultStatus);
-
+      let resultGainLoss = "";
+      let estimateDateDay = "";
+      let resultEstimateDate = "";
       if (dataForm.target !== "1") {
-        const resultGainLoss = calculateGainLoss(resultTDEE);
+        resultGainLoss = calculateGainLoss(resultTDEE);
         setCaloGainLoss(resultGainLoss);
-        const targetDate = estimateDate(resultTDEE);
-        console.log(
-          "week :" + Math.trunc(targetDate / 7) + " days: " + (targetDate % 7)
-        );
+        const targetDate = getEstimateDate(resultTDEE);
+        estimateDateDay = estimateDateInDaysFunction(targetDate);
+        setEstimateDateInDays(estimateDateDay);
+        resultEstimateDate = estimateDateInDate(targetDate);
+        setDayEstimateInDate(resultEstimateDate);
       }
+
+      const dataSent = {
+        ...dataForm,
+        numTDEE: resultTDEE,
+        numBMI: resultBMI,
+        statusBMI: resultStatus,
+        caloGainLoss: resultGainLoss || "",
+        estimateDate: estimateDateDay || "",
+        estimateDay: resultEstimateDate || "",
+      };
     }
   };
   const resetForm = () => {
     setDataForm(initialState);
     setErrorForm({});
+    setTDEE("");
+    setBMI("");
+    setStatusBMI("");
+    setCaloGainLoss("");
+    setEstimateDateInDays("");
+    setDayEstimateInDate("");
   };
   // End Submit and Reset
 
@@ -207,7 +314,7 @@ const Calculator = () => {
         <Grid container justifyContent="center">
           <Grid item>
             <Typography variant="h3" style={{ color: "#f73471" }}>
-              TDEE Calculator
+              Health Calculator
             </Typography>
           </Grid>
         </Grid>
@@ -570,46 +677,233 @@ const Calculator = () => {
             <Box mt={3}>
               <Paper elevation={3} style={{ padding: "30px" }}>
                 {/* TDEE RESULT BOX */}
-                <Box>
-                  {!TDEE ? (
-                    <Typography variant="h6">
-                      Use the TDEE calculator to learn your Total Daily Energy
-                      Expenditure, a measure of how many calories you burn per
-                      day. This calorie calculator will also display your BMI,
-                      calories you need to loss weight, gain weight, maintain
-                      status!
-                    </Typography>
-                  ) : (
-                    <h1>{TDEE}</h1>
-                  )}
+                <Box mt={3}>
+                  <Paper elevation={12} style={{ padding: "10px" }}>
+                    <Grid container justifyContent="center" alignItems="center">
+                      {!TDEE ? (
+                        <Typography variant="h6">
+                          Total Daily Energy Expenditure (<b>TDEE</b>) is an
+                          estimation of how many calories you burn each day,
+                          including physical activity.
+                        </Typography>
+                      ) : (
+                        <Grid
+                          container
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Grid item container justifyContent="center" xs="12">
+                            <Typography variant="h4">Your TDDE is:</Typography>
+                          </Grid>
+                          <Grid item container justifyContent="center" xs="12">
+                            <Typography
+                              variant="h2"
+                              style={{ color: "#f73471" }}
+                            >
+                              {TDEE}
+                            </Typography>
+                          </Grid>
+                          <Grid item container justifyContent="center" xs="12">
+                            <Typography variant="h4">Calo 1 day</Typography>
+                          </Grid>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Paper>
                 </Box>
                 {/* END TDEE Box */}
+
                 {/* BMI Result */}
                 <Box mt={3}>
-                  {!BMI ? (
-                    <Typography variant="h6">BMI status</Typography>
-                  ) : (
-                    <h1>
-                      {BMI} {statusBMI}
-                    </h1>
-                  )}
+                  <Paper elevation={12} style={{ padding: "10px" }}>
+                    <Grid container justifyContent="center" alignItems="center">
+                      {!BMI ? (
+                        <Typography variant="h6">
+                          Body mass index <b>(BMI)</b> is a reliable indicator
+                          of body fatness for most people. It is used to screen
+                          for weight categories that may lead to health
+                          problems.
+                        </Typography>
+                      ) : (
+                        <Grid
+                          container
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Grid item container justifyContent="center" xs="12">
+                            <Typography variant="h4">Your BMI is:</Typography>
+                          </Grid>
+                          <Grid item container justifyContent="center" xs="12">
+                            <Typography
+                              variant="h2"
+                              style={{ color: "#f73471" }}
+                            >
+                              {BMI}
+                            </Typography>
+                          </Grid>
+                          <Grid item container justifyContent="center" xs="12">
+                            <Typography variant="h4">
+                              Your body is:&nbsp;
+                            </Typography>
+                            <Typography
+                              variant="h4"
+                              style={{ color: "#f73471" }}
+                            >
+                              {statusBMI}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Paper>
                 </Box>
                 {/* End BMI BOX */}
 
                 {dataForm.target !== "1" && (
-                  <div>
-                    {/* BMI Result */}
+                  <>
+                    {/* Calories gain loss Result */}
                     <Box mt={3}>
                       {!caloGainLoss ? (
-                        <Typography variant="h6">
-                          Calories need to gain
-                        </Typography>
+                        <></>
                       ) : (
-                        <h1>Calories need to gain {caloGainLoss}</h1>
+                        <Paper elevation={12} style={{ padding: "10px" }}>
+                          <Grid
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                          >
+                            <Grid
+                              item
+                              container
+                              justifyContent="center"
+                              xs="12"
+                            >
+                              <Typography variant="h4">
+                                Calories which you need to&nbsp;
+                              </Typography>
+                              <Typography
+                                variant="h4"
+                                style={{ color: "#f73471" }}
+                              >
+                                {dataForm.target === "0"
+                                  ? " loss weight"
+                                  : dataForm.target === "2"
+                                  ? " gain weight"
+                                  : ""}
+                              </Typography>
+                            </Grid>
+                            <Grid
+                              item
+                              container
+                              justifyContent="center"
+                              xs="12"
+                            >
+                              <Typography
+                                variant="h2"
+                                style={{ color: "#f73471" }}
+                              >
+                                {caloGainLoss}
+                              </Typography>
+                            </Grid>
+                            <Grid
+                              item
+                              container
+                              justifyContent="center"
+                              xs="12"
+                            >
+                              <Typography variant="h4">calo 1 day</Typography>
+                            </Grid>
+                          </Grid>
+                        </Paper>
                       )}
                     </Box>
-                    {/* End BMI BOX */}
-                  </div>
+                    {/* End Calories gain loss Result */}
+
+                    {/* Estimate Date */}
+                    <Box mt={3}>
+                      {!dayEstimateInDate ? (
+                        <></>
+                      ) : (
+                        <>
+                          <Paper elevation={12} style={{ padding: "10px" }}>
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                            >
+                              <Grid
+                                item
+                                container
+                                justifyContent="center"
+                                xs="12"
+                              >
+                                <Typography variant="h6">
+                                  Estimate date which you will&nbsp;
+                                </Typography>
+                                <Typography
+                                  variant="h6"
+                                  style={{ color: "#f73471" }}
+                                >
+                                  {dataForm.target === "0"
+                                    ? " loss weight"
+                                    : dataForm.target === "2"
+                                    ? " gain weight"
+                                    : ""}
+                                </Typography>
+                                <Typography variant="h6">
+                                  &nbsp;to <b>{dataForm.weightTarget} kg </b> is
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                container
+                                justifyContent="center"
+                                xs="12"
+                              >
+                                <Typography
+                                  variant="h4"
+                                  style={{ color: "#f73471" }}
+                                >
+                                  {dayEstimateInDate}
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                container
+                                justifyContent="center"
+                                xs="12"
+                              >
+                                <Typography variant="h4">or</Typography>
+                              </Grid>
+
+                              <Grid
+                                item
+                                container
+                                justifyContent="center"
+                                xs="12"
+                              >
+                                <Typography
+                                  variant="h4"
+                                  style={{ color: "#f73471" }}
+                                >
+                                  {estimateDateInDays}
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                container
+                                justifyContent="center"
+                                xs="12"
+                              >
+                                <Typography variant="h4">since now.</Typography>
+                              </Grid>
+                            </Grid>
+                          </Paper>
+                        </>
+                      )}
+                    </Box>
+                    {/* End Estimate Date */}
+                  </>
                 )}
               </Paper>
             </Box>
