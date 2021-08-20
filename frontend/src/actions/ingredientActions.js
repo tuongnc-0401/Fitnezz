@@ -52,3 +52,45 @@ export const detailsIngredient = (ingredientId) => async (dispatch) => {
         })
     }
 }
+export const deletedIngredient = (ingredientId) => async (dispatch, getState) => {
+    dispatch({ type: INGREDIENT_REMOVE_REQUEST, payload: ingredientId })
+    const { userSignIn: { userInfo } } = getState()
+    try {
+        const { data } = await axios.delete('/api/ingredients/' + ingredientId, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({ type: INGREDIENT_REMOVE_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({
+            type: INGREDIENT_REMOVE_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+        })
+    }
+}
+
+export const createdIngredient = (ingredient) => async (dispatch, getState) => {
+    dispatch({ type: INGREDIENT_CREATE_REQUEST, payload: ingredient })
+    const { userSignIn: { userInfo } } = getState()
+    try {
+        const { data } = await axios.post('/api/ingredients', ingredient, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({ type: INGREDIENT_CREATE_SUCCESS, payload: data })
+    } catch (error) {
+        dispatch({
+            type: INGREDIENT_CREATE_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+        })
+    }
+}
