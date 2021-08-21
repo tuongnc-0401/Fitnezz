@@ -264,6 +264,7 @@ const Calculator = () => {
 
   // Submit and Reset
   const dispatch = useDispatch();
+  const [dataSubmit, setDataSubmit] = useState({});
   const handleOnSubmit = () => {
     if (handleValidation()) {
       const resultTDEE = Math.ceil(calculateTDEE());
@@ -295,6 +296,7 @@ const Calculator = () => {
         estimateDate: estimateDateDay || "",
         estimateDay: resultEstimateDate || "",
       };
+      setDataSubmit(dataSent);
       dispatch(createCalculator(dataSent));
     }
   };
@@ -762,7 +764,7 @@ const Calculator = () => {
                 </Box>
                 {/* End BMI BOX */}
 
-                {dataForm.target !== "1" && (
+                {dataSubmit.target !== "1" && (
                   <>
                     {/* Calories gain loss Result */}
                     <Box mt={3}>
@@ -788,9 +790,9 @@ const Calculator = () => {
                                 variant="h4"
                                 style={{ color: "#f73471" }}
                               >
-                                {dataForm.target === "0"
+                                {dataSubmit.target === "0"
                                   ? " loss weight"
-                                  : dataForm.target === "2"
+                                  : dataSubmit.target === "2"
                                   ? " gain weight"
                                   : ""}
                               </Typography>
@@ -847,9 +849,9 @@ const Calculator = () => {
                                   variant="h6"
                                   style={{ color: "#f73471" }}
                                 >
-                                  {dataForm.target === "0"
+                                  {dataSubmit.target === "0"
                                     ? " loss weight"
-                                    : dataForm.target === "2"
+                                    : dataSubmit.target === "2"
                                     ? " gain weight"
                                     : ""}
                                 </Typography>
