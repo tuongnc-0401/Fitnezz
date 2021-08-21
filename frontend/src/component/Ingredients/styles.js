@@ -31,6 +31,11 @@ export default makeStyles((theme) => ({
         },
     },
     filter: {
+        [theme.breakpoints.down('xl')]: {
+            width: '23.8%',
+            padding: '5px',
+            marginBottom: '10px'
+        },
         [theme.breakpoints.down('lg')]: {
             width: '23.8%',
             padding: '5px',
