@@ -21,6 +21,7 @@ import CreateProduct from './componentAdmin/ProductsAdmin/CreateProduct/CreatePr
 import PrivateRoute from './component/Routes/PrivateRoute';
 import Calculator from './component/Calculator/Calculator';
 import FitnessVideo from './component/FitnessVideo/FitnessVideo';
+import FitnessVideoDetail from './component/FitnessVideo/FitnessVideoDetail/FitnessVideoDetail';
 
 
 
@@ -43,7 +44,8 @@ function App() {
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/order/:id" exact component={OrderDetails} />
           <Route path="/orderhistory" exact component={OrderHistory} />
-          <Route path='/fitnessvideo' component={FitnessVideo}/>
+          <Route path='/fitnessvideo' exact component={FitnessVideo}/>
+          <Route path='/fitnessvideo/:id' component={FitnessVideoDetail}/>
           <PrivateRoute path="/calculator" exact component={Calculator}></PrivateRoute>
           <PrivateRoute path="/ingredients" exact component={Ingredients} />
 
