@@ -5,7 +5,6 @@ import userRouter from './routers/userRouter.js'
 import dotenv from 'dotenv'
 import orderRouter from './routers/orderRouter.js';
 import programRouter from './routers/programRouter.js'
-import orderRouter from './routers/orderRouter.js'
 import ingredientRouter from './routers/ingredientRouter.js'
 import calculatorRouter from './routers/calculatorRouter.js';
 

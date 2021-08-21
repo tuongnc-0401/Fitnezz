@@ -12,8 +12,6 @@ export default makeStyles(() => ({
         display: 'flex',
         justifyContent: 'center',
         paddingLeft: '50px',
-        display: 'flex',
-        justifyContent: 'center',
         paddingBottom: '0px!important',
         zIndex: '5',
         // border: 'solid 1px red'

@@ -53,8 +53,6 @@ export default makeStyles((theme) => ({
         fontWeight: 400,
         fontStyle: 'normal',
         letterSpacing: '0.1em',
-        color: '#000',
-        backgroundColor: '#000',
         color: 'white',
         cursor: 'pointer',
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
