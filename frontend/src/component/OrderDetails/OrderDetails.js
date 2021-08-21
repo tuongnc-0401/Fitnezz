@@ -30,7 +30,7 @@ const OrderDetails = () => {
                                                 <Typography variant="h5">Status of Order</Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Typography variant="h5">Address: <span style={{ fontSize: "20px" }}>{order.status}</span>.</Typography>
+                                                <Typography variant="h5">Status: <span style={{ fontSize: "20px" }}>{order.status}</span>.</Typography>
                                             </Grid>
 
                                         </Grid>
