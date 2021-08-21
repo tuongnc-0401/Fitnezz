@@ -22,6 +22,8 @@ import PrivateRoute from './component/Routes/PrivateRoute';
 import Calculator from './component/Calculator/Calculator';
 import FitnessVideo from './component/FitnessVideo/FitnessVideo';
 import FitnessVideoDetail from './component/FitnessVideo/FitnessVideoDetail/FitnessVideoDetail';
+import Footer from './component/Footer/Footer';
+
 
 
 
@@ -52,7 +54,9 @@ function App() {
           <AdminRoute path="/admin" exact component={Admin} />
           <AdminRoute path="/admin/product/create" exact component={CreateProduct} />
         </Switch>
+        <Footer />
       </div>
+
     </Router>
   );
 }

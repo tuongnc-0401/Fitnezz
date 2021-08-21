@@ -6,6 +6,11 @@ export default makeStyles((theme) => ({
             justifyContent: "flex-start"
         }
     },
+    btnGroup: {
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: "center"
+        }
+    },
 
 
 }))
