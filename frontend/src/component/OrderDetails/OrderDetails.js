@@ -27,6 +27,23 @@ const OrderDetails = () => {
                                     <Box ml={6} mr={6}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}>
+                                                <Typography variant="h5">Status of Order</Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography variant="h5">Address: <span style={{ fontSize: "20px" }}>{order.status}</span>.</Typography>
+                                            </Grid>
+
+                                        </Grid>
+                                    </Box>
+                                </Box>
+                            </Paper>
+                        </Box>
+                        <Box marginBottom={3}>
+                            <Paper elevation={3}>
+                                <Box>
+                                    <Box ml={6} mr={6}>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12}>
                                                 <Typography variant="h5">Shipping</Typography>
                                             </Grid>
                                             <Grid item xs={12}>
@@ -161,6 +178,7 @@ const OrderDetails = () => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
+
                                 <Grid container spacing={1}>
                                     <Grid item xs="12">
                                         <Button
