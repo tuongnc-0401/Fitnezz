@@ -1,11 +1,9 @@
-import { Box, Container, Grid, TextField, Typography, Link, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { Box, Container, Grid, Link, ListItem, ListItemIcon, Typography } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import YouTubeIcon from '@material-ui/icons/YouTube';
 import InstagramIcon from '@material-ui/icons/Instagram';
-import MailIcon from '@material-ui/icons/Mail';
-import MailOutlineRoundedIcon from '@material-ui/icons/MailOutlineRounded';
-import React from 'react'
-import useStyles from './styles'
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import React from 'react';
+import useStyles from './styles';
 
 const Footer = () => {
     const classes = useStyles();

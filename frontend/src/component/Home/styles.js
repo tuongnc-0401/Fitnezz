@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
         backgroundImage: 'url(https://www.chloeting.com/splash/bg-img.jpeg)',
         // backgroundImage: 'url(/img_1.jpg)',
         width: '100%',
-        height: '80%',
+        height: '100%',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
