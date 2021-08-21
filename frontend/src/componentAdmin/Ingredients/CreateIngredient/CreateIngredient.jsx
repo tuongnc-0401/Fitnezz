@@ -52,7 +52,7 @@ const CreateIngredient = () => {
                         </RadioGroup>
                     </FormControl>
                     <TextField margin="normal" name="calo" type="Number" variant="outlined" label="Calo" fullWidth value={ingredientData?.calo} onChange={(e) => setIngredientData({ ...ingredientData, calo: e.target.value })}></TextField>
-                    <TextField margin="normal" name="description" variant="outlined" label="Description" fullWidth value={ingredientData?.description} onChange={(e) => setIngredientData({ ...ingredientData, description: e.target.value })}></TextField>
+                    <TextField multiline margin="normal" name="description" variant="outlined" label="Description" fullWidth value={ingredientData?.description} onChange={(e) => setIngredientData({ ...ingredientData, description: e.target.value })}></TextField>
                     <div>
                         <FileBase type="file" multiple={false} onDone={({ base64 }) => setIngredientData({ ...ingredientData, image: base64 })}>
                         </FileBase>
