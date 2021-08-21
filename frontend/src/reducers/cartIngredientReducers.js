@@ -1,4 +1,4 @@
-import { CART_ADD_INGREDIENT, REMOVE_CART_INGREDIENT, UPDATE_CART_INGREDIENT } from "../constants/cartIngredientConstants"
+import { CART_ADD_INGREDIENT, CART_INGREDIENT_EMPTY, REMOVE_CART_INGREDIENT, UPDATE_CART_INGREDIENT } from "../constants/cartIngredientConstants"
 
 export const cartIngredientReducer = (state = { cartIngredients: [] }, action) => {
     switch (action.type) {
@@ -34,6 +34,8 @@ export const cartIngredientReducer = (state = { cartIngredients: [] }, action) =
             } else {
                 return state;
             }
+        case CART_INGREDIENT_EMPTY:
+            return { cartIngredients: [] }
         default:
             return state
     }

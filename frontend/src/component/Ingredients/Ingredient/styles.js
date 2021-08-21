@@ -11,7 +11,9 @@ export default makeStyles((theme) => ({
         paddingRight: '15px'
     },
     cardContent: {
-        paddingBottom: '0'
+        paddingBottom: '0',
+        height: '40px',
+        overflowY: "scroll"
     },
     button: {
         borderRadius: '20px', backgroundColor: '#f73471', color: '#fff',

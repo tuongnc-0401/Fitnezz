@@ -74,7 +74,7 @@ const Ingredients = () => {
                                 Can not choose 0 quantity!
                             </Alert>
                         </Snackbar>
-                        <Paper style={{ width: '110px', padding: '5px', marginBottom: '10px' }}>
+                        <Paper className={classes.filter}>
                             <InputLabel id="demo-simple-select-label" className={classes.pink}>FILTER</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"

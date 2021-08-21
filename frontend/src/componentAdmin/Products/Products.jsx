@@ -41,6 +41,7 @@ const Products = () => {
     useEffect(() => {
         dispatch(listProducts())
     }, [dispatch, successDelete])
+
     useEffect(() => {
         if (deleteProduct) {
             deleteProduct.success = false

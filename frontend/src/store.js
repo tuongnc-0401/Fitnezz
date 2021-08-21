@@ -20,9 +20,6 @@ const initialState = {
     userSignIn: {
         userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
 
-    },
-    cartIngredient: {
-        cartIngredients: localStorage.getItem('cartIngredients') ? JSON.parse(localStorage.getItem('cartIngredients')) : []
     }
 }
 const reducer = combineReducers({
@@ -41,7 +38,6 @@ const reducer = combineReducers({
     updateProduct: productUpdatedReducer,
     ingredientList: ingredientListReducer,
     cartIngredient: cartIngredientReducer,
-
     updateIngredient: ingredientUpdatedReducer,
     ingredientDetails: ingredientDetailsReducer,
     removeIngredient: ingredientRemovedReducer,

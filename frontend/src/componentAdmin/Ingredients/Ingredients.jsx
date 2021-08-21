@@ -38,15 +38,19 @@ const Ingredients = () => {
 
     const deleteIngredient = useSelector(state => state.removeIngredient)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = deleteIngredient
+    console.log(successDelete)
     const history = useHistory()
     useEffect(() => {
         dispatch(listIngredients())
     }, [dispatch, successDelete])
+
     useEffect(() => {
         if (deleteIngredient) {
             deleteIngredient.success = false
         }
-    }, [deleteIngredient])
+        // eslint-disable-next-line 
+    }, [])
+
     const classes = useStyles()
     const [open, setOpen] = useState(false);
     const [ingredientChosen, setIngredientChosen] = useState()

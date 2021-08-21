@@ -12,7 +12,7 @@ export const cartAddIngredient = (ingredient, qty) => async (dispatch, getState)
             qty,
         }
     })
-    localStorage.setItem('cartIngredients', JSON.stringify(getState().cartIngredient.cartIngredients))
+
 }
 
 export const removeCartIngredient = (ingredient) => async (dispatch, getState) => {
@@ -26,7 +26,7 @@ export const removeCartIngredient = (ingredient) => async (dispatch, getState) =
             ingredient: ingredient.ingredient,
         }
     })
-    localStorage.setItem('cartIngredients', JSON.stringify(getState().cartIngredient.cartIngredients))
+
 }
 
 export const updateCartIngredient = (ingredient, qty) => async (dispatch, getState) => {
@@ -41,5 +41,5 @@ export const updateCartIngredient = (ingredient, qty) => async (dispatch, getSta
             qty
         }
     })
-    localStorage.setItem('cartIngredients', JSON.stringify(getState().cartIngredient.cartIngredients))
+
 }
