@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import productRouter from './routers/productRouter.js'
 import userRouter from './routers/userRouter.js'
 import dotenv from 'dotenv'
+import orderRouter from './routers/orderRouter.js';
+import programRouter from './routers/programRouter.js'
 import orderRouter from './routers/orderRouter.js'
 import calculatorRouter from './routers/calculatorRouter.js';
 
@@ -19,7 +21,9 @@ mongoose.connect('mongodb+srv://tuong:tuong@cluster0.z7g93.mongodb.net/fitnezz',
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
+app.use('/api/fitnessvideo', programRouter)
 app.use('/api/calculators', calculatorRouter)
+
 app.get('/', (req, res) => {
     res.send('Sever is ready!!!')
 })
