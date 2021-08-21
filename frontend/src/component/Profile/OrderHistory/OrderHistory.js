@@ -67,6 +67,7 @@ const OrderHistory = () => {
                                                 <StyledTableCell align="right">TOTAL</StyledTableCell>
                                                 <StyledTableCell align="right">PAID</StyledTableCell>
                                                 <StyledTableCell align="right">DELIVERED</StyledTableCell>
+                                                <StyledTableCell align="right">STATUS</StyledTableCell>
                                                 <StyledTableCell align="right">ACTIONS</StyledTableCell>
                                             </TableRow>
                                         </TableHead>
@@ -83,6 +84,7 @@ const OrderHistory = () => {
                                                         ? order.deliveredAt.substring(0, 10)
                                                         : 'No'}
                                                     </StyledTableCell>
+                                                    <StyledTableCell align="right">{order.status}</StyledTableCell>
                                                     <StyledTableCell align="right">
                                                         <Button
                                                             variant="contained"
