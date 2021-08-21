@@ -3,8 +3,12 @@ import mongoose from 'mongoose'
 import productRouter from './routers/productRouter.js'
 import userRouter from './routers/userRouter.js'
 import dotenv from 'dotenv'
+import orderRouter from './routers/orderRouter.js';
+import programRouter from './routers/programRouter.js'
 import orderRouter from './routers/orderRouter.js'
 import ingredientRouter from './routers/ingredientRouter.js'
+import calculatorRouter from './routers/calculatorRouter.js';
+
 
 dotenv.config()
 const app = express()
@@ -20,8 +24,12 @@ app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/ingredients', ingredientRouter)
+app.use('/api/fitnessvideo', programRouter)
+app.use('/api/calculators', calculatorRouter)
+
+
 app.get('/', (req, res) => {
-    res.send('Sever is ready as f sdsd s sd')
+    res.send('Sever is ready!!!')
 })
 app.use((err, req, res, next) => {
     res.status(500).send({ message: err.message })
