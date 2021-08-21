@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { CART_EMPTY } from "../constants/cardConstants"
+import { CART_INGREDIENT_EMPTY } from '../constants/cartIngredientConstants'
 import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS } from "../constants/userConstants"
 export const signin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } })
@@ -44,6 +45,8 @@ export const signout = () => (dispatch) => {
     localStorage.removeItem('shippingAddress')
     dispatch({ type: USER_SIGNOUT })
     dispatch({ type: CART_EMPTY })
+    dispatch({ type: CART_INGREDIENT_EMPTY })
+
 }
 
 export const detailsUser = (userId) => async (dispatch, getState) => {
