@@ -1,4 +1,14 @@
 import jwt from 'jsonwebtoken'
+// export const cloudinary = require('cloudinary').v2
+import cloudinary from 'cloudinary'
+export const cloudinary1 = cloudinary.config({
+    cloud_name: 'tuongtuong0401',
+    api_key: '542792612474969',
+    api_secret: 'WFMTbxBh13oyoH24EDQxxlzgUNk',
+})
+
+
+
 
 export const generateToken = (user) => {
     return jwt.sign({ _id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin }, process.env.JWT_SECRET, {
@@ -33,3 +43,6 @@ export const isAdmin = (req, res, next) => {
     }
     return res.status(401).send({ msg: 'Admin Token is not valid.' })
 }
+
+
+
