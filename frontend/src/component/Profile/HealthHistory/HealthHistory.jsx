@@ -1,51 +1,24 @@
 import {
   Box,
-  Button,
   CircularProgress,
   Divider,
   Grid,
   Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
-  withStyles,
 } from "@material-ui/core";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import Alert from "@material-ui/lab/Alert";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listOrderMine } from "../../../actions/orderActions";
-import ProfileNav from "../ProfileNav";
-import DateRangeIcon from "@material-ui/icons/DateRange";
-import { useHistory } from "react-router-dom";
 import { getAllCalculatorHistory } from "../../../actions/calculatorActions";
-import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: "#f73471",
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
+import ProfileNav from "../ProfileNav";
 
 const HealthHistory = () => {
   const calculatorMine = useSelector((state) => state.calculatorMine);
   const { loading, error, calculators } = calculatorMine;
   //const classes = useStyles();
-  const history = useHistory();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCalculatorHistory());
@@ -115,48 +88,240 @@ const HealthHistory = () => {
                       <Divider
                         style={{ marginBottom: "5px", marginTop: "5px" }}
                       ></Divider>
-                      <Grid
-                        xs="12"
-                        container
-                        alignItems="center"
-                        style={{ marginBottom: "3px" }}
-                      >
-                        <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                          Height:
-                        </Typography>
-                        <Typography variant="h6" style={{ marginLeft: "10px" }}>
-                          {item.height} cm
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        xs="12"
-                        container
-                        alignItems="center"
-                        style={{ marginBottom: "3px" }}
-                      >
-                        <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                          Weight:
-                        </Typography>
-                        <Typography variant="h6" style={{ marginLeft: "10px" }}>
-                          {item.weight} kg
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        xs="12"
-                        container
-                        alignItems="center"
-                        style={{ marginBottom: "3px" }}
-                      >
-                        <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                          Target:
-                        </Typography>
-                        <Typography variant="h6" style={{ marginLeft: "10px" }}>
-                          {item.target === "1"
-                            ? "Maintain weight"
-                            : item.target === "0"
-                            ? "Lose weight"
-                            : "Gain weight"}
-                        </Typography>
+                      <Grid container>
+                        <Grid item md="6" sm="12">
+                          <Grid
+                            xs="12"
+                            container
+                            alignItems="center"
+                            style={{ marginBottom: "3px" }}
+                          >
+                            <Typography
+                              variant="h6"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Height:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              {item.height} cm
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            xs="12"
+                            container
+                            alignItems="center"
+                            style={{ marginBottom: "3px" }}
+                          >
+                            <Typography
+                              variant="h6"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Weight:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              {item.weight} kg
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            xs="12"
+                            container
+                            alignItems="center"
+                            style={{ marginBottom: "3px" }}
+                          >
+                            <Typography
+                              variant="h6"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Target:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              {item.target === "1"
+                                ? "Maintain weight"
+                                : item.target === "0"
+                                ? "Lose weight"
+                                : "Gain weight"}
+                            </Typography>
+                          </Grid>
+                          {item.target !== "1" && (
+                            <div>
+                              <Grid
+                                xs="12"
+                                container
+                                alignItems="center"
+                                style={{
+                                  marginBottom: "3px",
+                                }}
+                              >
+                                <Typography
+                                  variant="h6"
+                                  style={{ fontWeight: "bold" }}
+                                >
+                                  Weight Target:
+                                </Typography>
+                                <Typography
+                                  variant="h6"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  {item.weightTarget} kg
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                xs="12"
+                                container
+                                alignItems="center"
+                                style={{
+                                  marginBottom: "3px",
+                                }}
+                              >
+                                <Typography
+                                  variant="h6"
+                                  style={{ fontWeight: "bold" }}
+                                >
+                                  Speed:
+                                </Typography>
+                                <Typography
+                                  variant="h6"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  {item.speed === "0.1"
+                                    ? "Normal"
+                                    : item.speed === "0.05"
+                                    ? "Low"
+                                    : "Quick"}
+                                </Typography>
+                              </Grid>
+                            </div>
+                          )}
+                        </Grid>
+                        {/* RIGHT SIDE */}
+                        <Grid
+                          item
+                          md="6"
+                          sm="12"
+                          style={{
+                            borderLeft: "1px #f73471 solid",
+                            paddingLeft: "10px",
+                          }}
+                        >
+                          <Grid
+                            xs="12"
+                            container
+                            alignItems="center"
+                            style={{ marginBottom: "3px" }}
+                          >
+                            <Typography
+                              variant="h6"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              TDEE:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              {item.numTDEE} calo 1 day
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            xs="12"
+                            container
+                            alignItems="center"
+                            style={{ marginBottom: "3px" }}
+                          >
+                            <Typography
+                              variant="h6"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              BMI:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              {item.numBMI}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            xs="12"
+                            container
+                            alignItems="center"
+                            style={{ marginBottom: "3px" }}
+                          >
+                            <Typography
+                              variant="h6"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              BMI status:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              {item.statusBMI}
+                            </Typography>
+                          </Grid>
+
+                          {item.target !== "1" && (
+                            <div>
+                              <Grid
+                                xs="12"
+                                container
+                                alignItems="center"
+                                style={{
+                                  marginBottom: "3px",
+                                }}
+                              >
+                                <Typography
+                                  variant="h6"
+                                  style={{ fontWeight: "bold" }}
+                                >
+                                  Calo need to{" "}
+                                  {item.target === "0"
+                                    ? " lose weight"
+                                    : " gain weight:"}
+                                </Typography>
+                                <Typography
+                                  variant="h6"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  {item.caloGainLoss} calo 1 day
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                xs="12"
+                                container
+                                alignItems="center"
+                                style={{
+                                  marginBottom: "3px",
+                                }}
+                              >
+                                <Typography
+                                  variant="h6"
+                                  style={{ fontWeight: "bold" }}
+                                >
+                                  Estimate:
+                                </Typography>
+                                <Typography
+                                  variant="h6"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  s{item.estimateDay}
+                                </Typography>
+                              </Grid>
+                            </div>
+                          )}
+                        </Grid>
+
+                        {/* END RIGHT SIDE */}
                       </Grid>
                     </Paper>
                   ))}
