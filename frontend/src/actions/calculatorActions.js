@@ -32,7 +32,7 @@ export const getAllCalculatorHistory = () => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
-        console.log(data);
+
         dispatch({ type: CALCULATOR_MINE_LIST_SUCCESS, payload: data });
 
     } catch (error) {

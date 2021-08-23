@@ -10,6 +10,11 @@ calculatorRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
     res.send(calculators);
 }))
 
+calculatorRouter.get('/getOne', isAuth, expressAsyncHandler(async (req, res) => {
+    const calculators = await CalculatorInfo.findOne({ user: req.user._id }).sort({ createdAt: -1 })
+    res.send(calculators);
+}))
+
 calculatorRouter.post('/', isAuth, expressAsyncHandler(async (req, res) => {
 
     const calculatorInfo = new CalculatorInfo({

@@ -13,11 +13,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCalculatorHistory } from "../../../actions/calculatorActions";
 import ProfileNav from "../ProfileNav";
-
+import useStyles from "./styles.js";
 const HealthHistory = () => {
   const calculatorMine = useSelector((state) => state.calculatorMine);
   const { loading, error, calculators } = calculatorMine;
-  //const classes = useStyles();
+  const classes = useStyles();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -203,15 +203,7 @@ const HealthHistory = () => {
                           )}
                         </Grid>
                         {/* RIGHT SIDE */}
-                        <Grid
-                          item
-                          md="6"
-                          sm="12"
-                          style={{
-                            borderLeft: "1px #f73471 solid",
-                            paddingLeft: "10px",
-                          }}
-                        >
+                        <Grid item md="6" sm="12" className={classes.rightSide}>
                           <Grid
                             xs="12"
                             container
