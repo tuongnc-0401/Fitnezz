@@ -6,7 +6,7 @@ import { isAdmin, isAuth } from '../utils.js'
 const orderRouter = express.Router();
 
 orderRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id })
+    const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 })
     res.send(orders)
 }))
 
@@ -17,7 +17,7 @@ orderRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
 
 orderRouter.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id)
-    const datetime = new Date()
+    const datetime = new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" });
     if (order) {
 
         if (req.body.isPaid) {

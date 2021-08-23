@@ -119,7 +119,7 @@ const UpdateOrder = () => {
                                                 <Typography variant="h5">Method: <span style={{ fontSize: "20px" }}>{order.paymentMethod}</span>.</Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                {order.isPaid ? (<Alert severity="success">Delivered at {order.paidAt}</Alert>) : (<Alert severity="error">Not Paid</Alert>)}
+                                                {order.isPaid ? (<Alert severity="success">Paid at {order.paidAt.slice(0, 10)} {order.paidAt.slice(11, 19)}</Alert>) : (<Alert severity="error">Not Paid</Alert>)}
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -146,7 +146,7 @@ const UpdateOrder = () => {
                                                 <Typography variant="h5">Address: <span style={{ fontSize: "20px" }}>{order.shippingAddress.address}, {order.shippingAddress.ward}, {order.shippingAddress.district}, {order.shippingAddress.city}, {order.shippingAddress.country}</span>.</Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                {order.isDelivered ? (<Alert severity="success">Delivered at {order.deliveredAt}</Alert>) : (<Alert severity="error">Not Deliveried</Alert>)}
+                                                {order.isDelivered ? (<Alert severity="success">Delivered at {order.deliveredAt.slice(0, 10)} {order.deliveredAt.slice(11, 19)}</Alert>) : (<Alert severity="error">Not Deliveried</Alert>)}
                                             </Grid>
                                         </Grid>
                                     </Box>
