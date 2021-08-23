@@ -29,6 +29,7 @@ import FitnessVideoDetail from "./component/FitnessVideo/FitnessVideoDetail/Fitn
 import Footer from "./component/Footer/Footer";
 import AdminUser from "./componentAdmin/AdminDashboard/AdminUser/AdminUser";
 import CreateUser from "./componentAdmin/Users/CreateUser/CreateUser";
+import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
 
 const AppRoute = () => {
   const location = useLocation();
@@ -91,6 +92,11 @@ const AppRoute = () => {
           path="/admin/user/create"
           exact
           component={CreateUser}
+        />
+        <AdminRoute
+          path="/admin/user/:id"
+          exact
+          component={UpdateUser}
         />
       </Switch>
       {location.pathname === "/" ||

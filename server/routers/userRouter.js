@@ -63,7 +63,7 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
-        user.gender = req.body.gender || user.gender
+        user.gender = req.body.gender
         if (req.body.password) {
             user.password = bcrypt.hashSync(req.body.password, 8)
         }
@@ -110,6 +110,28 @@ userRouter.delete("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) 
         res.send({ message: "User Deleted" })
     } else {
         res.send("Error in Deletion.")
+    }
+}))
+
+userRouter.put("/update/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.gender = req.body.gender
+        user.isAdmin = req.body.isAdmin
+        if (req.body.password) {
+            user.password = bcrypt.hashSync(req.body.password, 8)
+        }
+        const updatedUser = await user.save()
+        res.send({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            gender: updatedUser.gender,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser),
+        })
     }
 }))
 

@@ -32,6 +32,10 @@ const UpdateProduct = () => {
 
     }
     useEffect(() => {
+        dispatch({ type: PRODUCT_DETAILS_RESET })
+        // eslint-disable-next-line 
+    }, [])
+    useEffect(() => {
         if (updateProduct) {
             updateProduct.success = false
         }

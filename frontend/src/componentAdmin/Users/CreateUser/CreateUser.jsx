@@ -72,14 +72,14 @@ const CreateUser = () => {
                     <TextField margin="normal" type="password" name="password" variant="outlined" label="Password" fullWidth value={userData.password} onChange={(e) => setUserData({ ...userData, password: e.target.value })}></TextField>
                     <TextField margin="normal" type="password" name="confirmPassword" variant="outlined" label="Confirm Password" fullWidth value={userData.confirmPassword} onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })}></TextField>
                     <FormControl component="fieldset" style={{ marginTop: '10px', display: "block" }}>
-                        <FormLabel component="legend">Role</FormLabel>
+                        <FormLabel component="legend" >Role</FormLabel>
                         <RadioGroup aria-label="role" name="isAdmin" value={userData.isAdmin || ""} onChange={(e) => setUserData({ ...userData, isAdmin: e.target.value })}>
                             <FormControlLabel value="true" control={<Radio />} label="Admin" />
                             <FormControlLabel value="false" control={<Radio />} label="User" />
                         </RadioGroup>
                     </FormControl>
                     <FormControl component="fieldset" style={{ marginTop: '10px' }}>
-                        <FormLabel component="legend">Gender</FormLabel>
+                        <FormLabel component="legend" >Gender</FormLabel>
                         <RadioGroup aria-label="gender" name="gender" value={userData.gender || ""} onChange={(e) => setUserData({ ...userData, gender: e.target.value })}>
                             <FormControlLabel value="false" control={<Radio />} label="Female" />
                             <FormControlLabel value="true" control={<Radio />} label="Male" />

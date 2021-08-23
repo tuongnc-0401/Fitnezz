@@ -37,6 +37,7 @@ const Users = () => {
     const { loading, error, users } = userList
     const deleteUser = useSelector(state => state.removeUser)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = deleteUser
+    const { userInfo } = useSelector(state => state.userSignIn)
     const history = useHistory()
     useEffect(() => {
         dispatch(listUsers())
@@ -122,7 +123,6 @@ const Users = () => {
                                             <TableRow>
                                                 <StyledTableCell>Name</StyledTableCell>
                                                 <StyledTableCell align="center">Email</StyledTableCell>
-                                                <StyledTableCell align="center">Password</StyledTableCell>
                                                 <StyledTableCell align="center">Role</StyledTableCell>
                                                 <StyledTableCell align="center">Gender</StyledTableCell>
                                                 <StyledTableCell align="center">ACTIONS</StyledTableCell>
@@ -135,7 +135,6 @@ const Users = () => {
                                                         {user.name}
                                                     </StyledTableCell>
                                                     <StyledTableCell align="center">{user.email}</StyledTableCell>
-                                                    <StyledTableCell align="center">{user.password}</StyledTableCell>
                                                     <StyledTableCell align="center">{user.isAdmin ? "admin" : "user"}</StyledTableCell>
                                                     <StyledTableCell align="center">{user.gender ? "male" : "female"}</StyledTableCell>
                                                     <StyledTableCell align="center">
@@ -144,6 +143,7 @@ const Users = () => {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.pink}
+                                                                    disabled={user.isAdmin && user._id !== userInfo._id}
                                                                     onClick={() => history.push(`/admin/user/${user._id}`)}
                                                                     fullWidth
                                                                 >
@@ -155,6 +155,7 @@ const Users = () => {
                                                             <Grid item xs={12}>
                                                                 <Button variant="contained"
                                                                     className={classes.pink}
+                                                                    disabled={user.isAdmin && user._id !== userInfo._id}
                                                                     onClick={() => handleClickOpen(user._id)}
                                                                     fullWidth
                                                                 >
