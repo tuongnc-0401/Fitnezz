@@ -75,7 +75,7 @@ const AdminNav = () => {
                 </Grid>
             </Grid>
 
-            <Grid className={hoverOrder ? classes.itemHover : classes.item} onMouseEnter={() => setHoverOrder(true)} onMouseLeave={() => setHoverOrder(false)}>
+            <Grid component={changeURL} to="/admin/order" className={hoverOrder ? classes.itemHover : classes.item} onMouseEnter={() => setHoverOrder(true)} onMouseLeave={() => setHoverOrder(false)}>
                 <ShoppingBasketIcon />
                 <Grid style={{ marginLeft: '5px' }}>
                     Orders

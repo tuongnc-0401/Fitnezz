@@ -67,7 +67,7 @@ productRouter.put("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) 
         const updated = await product.save()
         res.send(updated)
     } else {
-        res.send("Error in Deletion.")
+        res.send("Error in Updation.")
     }
 }))
 

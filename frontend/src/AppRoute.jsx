@@ -27,6 +27,8 @@ import AdminIngredient from "./componentAdmin/AdminDashboard/AdminIngredient/Adm
 import FitnessVideo from "./component/FitnessVideo/FitnessVideo";
 import FitnessVideoDetail from "./component/FitnessVideo/FitnessVideoDetail/FitnessVideoDetail";
 import Footer from "./component/Footer/Footer";
+import AdminOrder from "./componentAdmin/AdminDashboard/AdminOrder/AdminOrder";
+import UpdateOrder from "./componentAdmin/Orders/UpdateOrder/UpdateOrder";
 
 const AppRoute = () => {
   const location = useLocation();
@@ -79,6 +81,18 @@ const AppRoute = () => {
           path="/admin/ingredient/:id"
           exact
           component={UpdateIngredient}
+        />
+
+        <AdminRoute
+          path="/admin/order"
+          exact
+          component={AdminOrder}
+        />
+
+        <AdminRoute
+          path="/admin/order/:id"
+          exact
+          component={UpdateOrder}
         />
       </Switch>
       {location.pathname === "/" ||

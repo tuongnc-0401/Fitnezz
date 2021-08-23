@@ -61,7 +61,7 @@ ingredientRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, re
         const updated = await ingredient.save()
         res.send(updated)
     } else {
-        res.send("Error in Deletion.")
+        res.send("Error in Updation.")
     }
 }))
 export default ingredientRouter

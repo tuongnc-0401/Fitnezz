@@ -9,7 +9,7 @@ import { cartReducer } from './reducers/cartReducers.js';
 import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReducer, ingredientRemovedReducer, ingredientCreatedReducer } from './reducers/ingredientReducers.js';
 
 
-import { orderCreateReducer, orderDetailsReducer, orderMineListReducer } from './reducers/orderReducers.js';
+import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderUpdateReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
 import { userDetailsReducer, userRegisterReducer, userSignInReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
 import { getAllProgramsReducer, getOneProgramReducer } from './reducers/programReducers';
@@ -47,8 +47,8 @@ const reducer = combineReducers({
     getAllPrograms: getAllProgramsReducer,
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
-
-
+    orderUpdate: orderUpdateReducer,
+    orderList: orderListReducer
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(thunk)))
