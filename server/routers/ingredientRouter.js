@@ -68,15 +68,17 @@ ingredientRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async (req, res)
 }))
 
 ingredientRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
-    try {
-        const fileStr = req.body.image;
-        var uploadedResponse = await cloudinary.uploader.upload(
-            fileStr, {
-            upload_preset: 'Fitnezz'
+    if (req.body.image) {
+        try {
+            const fileStr = req.body.image;
+            var uploadedResponse = await cloudinary.uploader.upload(
+                fileStr, {
+                upload_preset: 'Fitnezz'
+            }
+            )
+        } catch (error) {
+            res.status(500).json({ message: "upload image error" })
         }
-        )
-    } catch (error) {
-        res.status(500).json({ message: "upload image error" })
     }
 
     const ingredient = await Ingredient.findById(req.params.id)

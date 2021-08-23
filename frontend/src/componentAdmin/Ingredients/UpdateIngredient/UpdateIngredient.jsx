@@ -74,6 +74,10 @@ const UpdateIngredient = () => {
                             <FileBase type="file" multiple={false} onDone={({ base64 }) => setIngredientData({ ...ingredientData, image: base64 })}>
                             </FileBase>
                         </div>
+                        {ingredientData?.image && (
+                            <div>
+                                < img src={ingredientData.image} width="50%" alt="ingredientimage" />
+                            </div>)}
                         <Grid container spacing={1} style={{ marginTop: "5px" }}>
                             <Grid item xs="12" md="6">
                                 <Button component={changeURL} to="/admin/ingredient/" onClick={() => dispatch({ type: INGREDIENT_DETAILS_RESET })} variant="outlined" fullWidth>Go Back</Button>
