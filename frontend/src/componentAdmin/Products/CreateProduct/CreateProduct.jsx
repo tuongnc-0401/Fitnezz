@@ -57,6 +57,10 @@ const CreateProduct = () => {
                         <FileBase type="file" multiple={false} onDone={({ base64 }) => setProductData({ ...productData, image: base64 })}>
                         </FileBase>
                     </div>
+                    {productData?.image && (
+                        <div>
+                            < img src={productData.image} width="50%" alt="productimage" />
+                        </div>)}
                     <Grid container spacing={1} style={{ marginTop: "5px" }}>
                         <Grid item xs="12" md="6">
                             <Button component={changeURL} to="/admin/product/" variant="outlined" fullWidth>Go Back</Button>
