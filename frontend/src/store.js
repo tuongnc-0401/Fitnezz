@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { cartIngredientReducer } from './reducers/cartIngredientReducers.js';
-import { calculatorCreateReducer } from './reducers/calculatorReducers.js';
+import { calculatorCreateReducer, calculatorMineReducer } from './reducers/calculatorReducers.js';
 import { cartReducer } from './reducers/cartReducers.js';
 
 
@@ -47,7 +47,7 @@ const reducer = combineReducers({
     getAllPrograms: getAllProgramsReducer,
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
-
+    calculatorMine: calculatorMineReducer,
 
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
