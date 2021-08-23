@@ -3,7 +3,7 @@ import User from '../models/userModel.js'
 import data from '../data.js'
 import expressAsyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
-import { generateToken, isAuth } from '../utils.js'
+import { generateToken, isAdmin, isAuth } from '../utils.js'
 
 const userRouter = express.Router()
 
@@ -78,5 +78,41 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res) => {
         })
     }
 }))
+
+userRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.send(users)
+}))
+
+userRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 8),
+        isAdmin: req.body.isAdmin,
+        gender: req.body.gender
+    });
+    const newUser = await user.save();
+    res.send({
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        isAdmin: newUser.isAdmin,
+        gender: newUser.gender,
+        token: generateToken(newUser),
+    })
+}))
+
+userRouter.delete("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const deletedUser = await User.findById(req.params.id)
+    if (deletedUser) {
+        await deletedUser.remove()
+        res.send({ message: "User Deleted" })
+    } else {
+        res.send("Error in Deletion.")
+    }
+}))
+
+
 
 export default userRouter

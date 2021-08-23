@@ -11,7 +11,7 @@ import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReduc
 
 import { orderCreateReducer, orderDetailsReducer, orderMineListReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
-import { userDetailsReducer, userRegisterReducer, userSignInReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
+import { userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
 import { getAllProgramsReducer, getOneProgramReducer } from './reducers/programReducers';
 
 const initialState = {
@@ -47,6 +47,9 @@ const reducer = combineReducers({
     getAllPrograms: getAllProgramsReducer,
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
+    userList: userListReducer,
+    removeUser: userRemovedReducer,
+    newUser: userCreatedReducer,
 
 
 })
