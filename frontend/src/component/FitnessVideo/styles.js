@@ -23,6 +23,17 @@ export default makeStyles(() => ({
         borderBottom: 'solid 1px black',
     },
 
+    showRec: {
+        display: 'flex',
+        margin: '0px',
+        width: '90%',
+        overflow: 'hidden',
+        justifyContent: 'flex-start',
+        boxSizing: 'border-box',
+        paddingBottom: '0px',
+        // transform: 'translateX(-360px)',
+    },
+
     showVideo: {
         // backgroundColor: 'blue',
         display: 'flex',

@@ -1,7 +1,8 @@
 import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import Program from '../models/programModel.js';
-const programRouter = express.Router()
+const programRouter = express.Router();
+import { isAdmin, isAuth } from '../utils.js';
 
 const Programsss = [{
     releaseDate: new Date("2015-03"),
@@ -11,6 +12,7 @@ const Programsss = [{
     imgUrl: 'https://picsum.photos/360/484',
     timeMinute: 30,
     duration: 7,
+    gender: true,
     videos: [{
         videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
     },
@@ -42,6 +44,7 @@ const Programsss = [{
     imgUrl: 'https://picsum.photos/360/484',
     timeMinute: 40,
     duration: 7,
+    gender: false,
     videos: [{
         videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
     },
@@ -73,6 +76,7 @@ const Programsss = [{
     imgUrl: 'https://picsum.photos/360/484',
     timeMinute: 45,
     duration: 7,
+    gender: true,
     videos: [{
         videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
     },
@@ -93,6 +97,19 @@ const Programsss = [{
     },
     {
         videoUrl: 'https://www.youtube.com/embed/ofa4M6YBxfo',
+    }]
+},
+{
+    releaseDate: new Date("2001-01"),
+    name: 'cccc',
+    type: 'ccc',
+    equipment: 'ccc',
+    imgUrl: 'https://picsum.photos/360/484',
+    timeMinute: 1,
+    duration: 1,
+    gender: true,
+    videos: [{
+        videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
     }]
 },
 ];
@@ -119,7 +136,7 @@ const Programsss = [{
 // }));
 
 
-//Lam thanh cong
+//get all program
 programRouter.get('/', expressAsyncHandler(async (req, res) => {
     const program = await Program.find({})
     if (program) {
@@ -129,22 +146,34 @@ programRouter.get('/', expressAsyncHandler(async (req, res) => {
     }
 }))
 
-//Lam thanh cong
+//seed
 programRouter.get('/seed', expressAsyncHandler(async (req, res) => {
-    // await Program.remove({})
+    await Program.remove({});
     const createdprogram = await Program.insertMany(Programsss)
     res.send({ createdprogram })
 }))
 
-//Lam thanh cong
+//get one
 programRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     const program = await Program.findById(req.params.id)
     if (program) {
         res.send(program)
     } else {
-        res.status(400).send({ message: `Program not found ${req.params.id}`})
+        res.status(400).send({ message: `Program not found ${req.params.id}` })
     }
 }))
+
+//delete router
+programRouter.post('/', expressAsyncHandler(async (req, res) => {
+    const deletedProgram = await Program.findById(req.body.id);
+    console.log('day ne', req.body.id);
+    if (deletedProgram) {
+        await deletedProgram.remove();
+        res.send({ message: 'Successfully deleted program' });
+    } else {
+        res.send('Error in deletion');
+    }
+}));
 
 
 export default programRouter;

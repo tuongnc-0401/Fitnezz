@@ -1,14 +1,20 @@
 import { CircularProgress, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProgram } from "./../../actions/programActions";
 import Program from "./Program/Program";
+import Recommendation from "./Recommendation/Recommendation";
 import useStyles from "./styles";
+
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 function FitnessVideo(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const [nextClick, setNextClick] = useState(false);
 
   // const { order, loading, error } = useSelector((state) => state.orderDetails)
   const listAllProgram = useSelector((state) => state.getAllPrograms);
@@ -24,6 +30,10 @@ function FitnessVideo(props) {
   useEffect(() => {
     dispatch(getAllProgram());
   }, [dispatch]);
+
+  const nextImg = () => {
+    setNextClick(true);
+  };
 
   return (
     <div>
@@ -54,6 +64,42 @@ function FitnessVideo(props) {
       <div className={classes.body}>
         <div className={classes.line}></div>
 
+        <div
+          style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
+        >
+          Recommandation
+        </div>
+
+        {listAllProgram && (
+          <div style={{ width: '100%', backgroundColor: 'green', display: 'flex', alignItems: 'center' }}>
+            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'yellow' }}>
+              <NavigateBeforeIcon style={{ padding: '8px 9px', borderRadius: '30px', backgroundColor: 'red', cursor: 'pointer' }} />
+            </div>
+            <div container spacing={4} className={classes.showRec}>
+              {listPrograms?.map((program) => (
+                <Recommendation program={program} nextClick={nextClick}/>
+              ))}
+
+              {/* linedown */}
+
+              {/* For Del purpose */}
+
+              <div className={classes.video4del}
+              ></div>
+
+              <div className={classes.video4del}
+              ></div>
+
+              <div className={classes.video4del}
+              ></div>
+            </div>
+            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'yellow' }}>
+              <NavigateNextIcon onClick={nextImg} style={{ padding: '8px 9px', borderRadius: '30px', backgroundColor: 'red', cursor: 'pointer' }} />
+            </div>
+          </div>
+        )}
+
+        <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
         >
