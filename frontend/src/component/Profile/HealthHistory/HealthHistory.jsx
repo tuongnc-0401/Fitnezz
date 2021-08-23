@@ -66,7 +66,7 @@ const HealthHistory = () => {
                           variant="h6"
                           style={{ color: "#f73471", marginLeft: "10px" }}
                         >
-                          {item.createdAt.slice(0, 10)}
+                          {item?.createDate}
                         </Typography>
                       </Grid>
                       <Grid
@@ -82,7 +82,7 @@ const HealthHistory = () => {
                           variant="h6"
                           style={{ color: "#f73471", marginLeft: "10px" }}
                         >
-                          {item.createdAt.slice(11, 19)}
+                          {item?.createTime}
                         </Typography>
                       </Grid>
                       <Divider

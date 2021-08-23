@@ -31,6 +31,8 @@ calculatorRouter.post('/', isAuth, expressAsyncHandler(async (req, res) => {
         target: req.body.target,
         weight: req.body.weight,
         weightTarget: req.body.weightTarget,
+        createDate: req.body.createDate,
+        createTime: req.body.createTime,
         user: req.user._id
     })
     const createdInfo = await calculatorInfo.save()
