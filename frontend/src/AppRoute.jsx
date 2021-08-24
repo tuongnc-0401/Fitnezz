@@ -27,6 +27,7 @@ import AdminIngredient from "./componentAdmin/AdminDashboard/AdminIngredient/Adm
 import FitnessVideo from "./component/FitnessVideo/FitnessVideo";
 import FitnessVideoDetail from "./component/FitnessVideo/FitnessVideoDetail/FitnessVideoDetail";
 import Footer from "./component/Footer/Footer";
+import AboutUs from "./component/About-Us/AboutUs";
 import AdminProgram from "./componentAdmin/AdminProgram/AdminProgram";
 import AdminProgramCreate from './componentAdmin/Programs/CreateProgram/CreateProgram';
 import AdminOrder from "./componentAdmin/AdminDashboard/AdminOrder/AdminOrder";
@@ -43,6 +44,7 @@ const AppRoute = () => {
   return (
     <div className="App">
       {!location.pathname.includes("/admin") && <NavBar />}
+      <div style={{ minHeight: "75vh" }}>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/products" exact component={Products} />
@@ -57,6 +59,7 @@ const AppRoute = () => {
         <Route path="/order/:id" exact component={OrderDetails} />
         <Route path="/orderhistory" exact component={OrderHistory} />
         <Route path="/healthhistory" exact component={HealthHistory} />
+        <Route path="/aboutus" exact component={AboutUs} />
         <PrivateRoute path="/ingredients" exact component={Ingredients} />
         <PrivateRoute path="/videos" exact component={FitnessVideo} />
         <PrivateRoute path="/videos/:id" component={FitnessVideoDetail} />
@@ -118,6 +121,7 @@ const AppRoute = () => {
           component={UpdateUser}
         />
       </Switch>
+ </div>
       {location.pathname === "/" ||
         (location.pathname.includes("/admin") ? null : <Footer />)}
     </div>
