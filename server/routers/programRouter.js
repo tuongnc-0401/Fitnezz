@@ -112,6 +112,68 @@ const Programsss = [{
         videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
     }]
 },
+{
+    releaseDate: new Date("2021-03"),
+    name: 'un in',
+    type: 'un in',
+    equipment: 'un in',
+    imgUrl: 'https://picsum.photos/360/484',
+    timeMinute: 35,
+    duration: 7,
+    gender: true,
+    videos: [{
+        videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/DOtr16U8V2M',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/ZiGE3-L4vyg',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/jpizoUy4K9s',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/C8KFqDcO1sg',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/MiFmszv0BQY',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/ofa4M6YBxfo',
+    }]
+},
+{
+    releaseDate: new Date("2021-11"),
+    name: 'clmmm',
+    type: 'clmmm',
+    equipment: 'clmmm',
+    imgUrl: 'https://picsum.photos/360/484',
+    timeMinute: 1,
+    duration: 7,
+    gender: true,
+    videos: [{
+        videoUrl: 'https://www.youtube.com/embed/P1mInEK7BEU',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/DOtr16U8V2M',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/ZiGE3-L4vyg',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/jpizoUy4K9s',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/C8KFqDcO1sg',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/MiFmszv0BQY',
+    },
+    {
+        videoUrl: 'https://www.youtube.com/embed/ofa4M6YBxfo',
+    }]
+},
 ];
 
 //Lam ko thanh cong

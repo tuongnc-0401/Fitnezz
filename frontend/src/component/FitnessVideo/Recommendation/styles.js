@@ -2,9 +2,9 @@ import { makeStyles } from "@material-ui/core";
 import cartImg from '../cartImg.jpg';
 
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
     video: {
-        backgroundColor: 'yellow',
+        // backgroundColor: 'yellow',
         // backgroundColor: 'white',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
@@ -17,10 +17,18 @@ export default makeStyles(() => ({
         // border: 'solid 1px red',
         padding: '10px 15px',
         boxSizing: 'border-box',
+        [theme.breakpoints.down('md')]: {
+            padding: '10px 16px!important',
+            paddingBottom: '0px!important',
+        },
+        '&:nth-of-type(2)': {
+            marginLeft: ({ pixel }) => pixel,
+            transition: '0.2s ease-in-out',
+        },
     },
 
     videoHover: {
-        backgroundColor: 'yellow',
+        // backgroundColor: 'yellow', 
         // backgroundColor: 'white',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
@@ -34,8 +42,9 @@ export default makeStyles(() => ({
         padding: '10px 15px',
         boxSizing: 'border-box',
         '&:nth-of-type(2)': {
-            marginLeft: '-363px',
+            // marginLeft: pixel,
             // backgroundColor: 'grey',
+            marginLeft: ({ pixel }) => pixel,
             transition: '0.2s ease-in-out',
         },
     },

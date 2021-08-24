@@ -1,9 +1,9 @@
 import { Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
 
-function Recommendation({ program, nextClick }) {
+function Recommendation({ program, nextClick, size }) {
     const monthConverter = (month) => {
         switch (month) {
             case 0:
@@ -35,17 +35,31 @@ function Recommendation({ program, nextClick }) {
         }
     };
 
-    const classes = useStyles();
+    const [props, setProps] = useState({
+        pixel: `-${size}px`,
+    });
+
+    const classes = useStyles(props);
 
     const [hover, setHover] = useState(false);
 
-    console.log(nextClick)
+
+    useEffect(() => {
+        setProps({ pixel: `${-size * nextClick}px` });
+    }, [nextClick, size])
+
+    console.log('size', size);
+    // console.log('nextClick', nextClick);
 
     return (
         <>
-            <div
-                className={nextClick ? classes.videoHover : classes.video}
+            <Grid
+            xs={12}
+            sm={6}
+            lg={4}
+                className={nextClick > 0 ? classes.videoHover : classes.video}
                 style={{ paddingBottom: "0px" }}
+                id='foo'
             >
                 <Grid
                     component={Link}
@@ -89,7 +103,7 @@ function Recommendation({ program, nextClick }) {
                         </div>
                     </div>
                 </Grid>
-            </div>
+            </Grid>
         </>
     );
 }
