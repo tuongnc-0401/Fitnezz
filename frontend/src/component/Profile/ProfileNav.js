@@ -60,7 +60,7 @@ const ProfileNav = ({ current }) => {
                     <Grid item xs="12" >
                         <Button
                             component={changeURL}
-                            to="/bmihistory"
+                            to="/healthhistory"
                             variant={current === 2 && "contained"}
                             className={current === 2 && classes.pink}
 
@@ -71,7 +71,7 @@ const ProfileNav = ({ current }) => {
                                     <MenuBookIcon />
                                 </Grid>
                                 <Grid item xs="8" container justifyContent="flex-start">
-                                    <Typography>BMI history</Typography>
+                                    <Typography>Health history</Typography>
                                 </Grid>
                             </Grid>
                         </Button>

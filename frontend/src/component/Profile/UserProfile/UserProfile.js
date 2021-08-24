@@ -14,7 +14,8 @@ const UserProfile = () => {
     const { loading, error, user } = useSelector(state => state.userDetails)
     const [err, setErr] = useState({})
     const [dataForm, setDataForm] = useState({ name: "", email: "", gender: "", password: "", confirmPassword: "" });
-    const { success: successUpdate, error: errorUpdate, loading: loadingUpdate } = useSelector(state => state.userUpdateProfile)
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success: successUpdate, error: errorUpdate, loading: loadingUpdate } = userUpdateProfile
     const handleDataForm = (e) => {
         setDataForm({ ...dataForm, [e.target.name]: e.target.value });
     };
@@ -59,6 +60,14 @@ const UserProfile = () => {
             }
         }
     }, [dispatch, user, userInfo._id, userInfo])
+
+
+    useEffect(() => {
+        if (userUpdateProfile) {
+            userUpdateProfile.success = false
+        }
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <Box mt={5.5}>

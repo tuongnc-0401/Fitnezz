@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { cartIngredientReducer } from './reducers/cartIngredientReducers.js';
-import { calculatorCreateReducer } from './reducers/calculatorReducers.js';
+import { calculatorCreateReducer, calculatorMineReducer } from './reducers/calculatorReducers.js';
 import { cartReducer } from './reducers/cartReducers.js';
 
 
@@ -9,10 +9,11 @@ import { cartReducer } from './reducers/cartReducers.js';
 import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReducer, ingredientRemovedReducer, ingredientCreatedReducer } from './reducers/ingredientReducers.js';
 
 
-import { orderCreateReducer, orderDetailsReducer, orderMineListReducer } from './reducers/orderReducers.js';
+import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderUpdateReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
-import { userDetailsReducer, userRegisterReducer, userSignInReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
-import { getAllProgramsReducer, getOneProgramReducer } from './reducers/programReducers';
+import { getAllProgramsReducer, getOneProgramReducer, delProgramReducer } from './reducers/programReducers';
+import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
+
 
 const initialState = {
     cart: {
@@ -47,6 +48,15 @@ const reducer = combineReducers({
     getAllPrograms: getAllProgramsReducer,
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
+    delProgram: delProgramReducer,
+    orderUpdate: orderUpdateReducer,
+    orderList: orderListReducer,
+    userList: userListReducer,
+    removeUser: userRemovedReducer,
+    newUser: userCreatedReducer,
+    updateUser: userUpdatedReducer,
+    userAdminDetails: userAdminDetailsReducer,
+    calculatorMine: calculatorMineReducer,
 
 
 })

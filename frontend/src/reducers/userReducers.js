@@ -1,4 +1,4 @@
-import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_RESET, USER_UPDATE_PROFILE_SUCCESS } from "../constants/userConstants";
+import { USER_ADMIN_DETAILS_FAIL, USER_ADMIN_DETAILS_REQUEST, USER_ADMIN_DETAILS_RESET, USER_ADMIN_DETAILS_SUCCESS, USER_ADMIN_UPDATE_FAIL, USER_ADMIN_UPDATE_REQUEST, USER_ADMIN_UPDATE_SUCCESS, USER_CREATE_FAIL, USER_CREATE_REQUEST, USER_CREATE_SUCCESS, USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REMOVE_FAIL, USER_REMOVE_REQUEST, USER_REMOVE_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_RESET, USER_UPDATE_PROFILE_SUCCESS } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
     switch (action.type) {
@@ -52,5 +52,72 @@ export const userUpdateProfileReducer = (state = {}, action) => {
             return {}
         default:
             return state
+    }
+}
+
+export const userAdminDetailsReducer = (state = { user: {}, loading: true }, action) => {
+    switch (action.type) {
+        case USER_ADMIN_DETAILS_REQUEST:
+            return { loading: true }
+        case USER_ADMIN_DETAILS_SUCCESS:
+            return { loading: false, user: action.payload }
+        case USER_ADMIN_DETAILS_FAIL:
+            return { loading: false, error: action.payload }
+        case USER_ADMIN_DETAILS_RESET:
+            return { user: {}, success: true }
+        default:
+            return state
+    }
+}
+
+export const userListReducer = (state = { users: [] }, action) => {
+    switch (action.type) {
+        case USER_LIST_REQUEST:
+            return { loading: true }
+        case USER_LIST_SUCCESS:
+            return { loading: false, users: action.payload }
+        case USER_LIST_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+export const userRemovedReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_REMOVE_REQUEST:
+            return { loading: true };
+        case USER_REMOVE_SUCCESS:
+            return { loading: false, success: true, user: action.payload }
+        case USER_REMOVE_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state;
+    }
+}
+
+
+export const userCreatedReducer = (state = { user: {}, success: false }, action) => {
+    switch (action.type) {
+        case USER_CREATE_REQUEST:
+            return { loading: true };
+        case USER_CREATE_SUCCESS:
+            return { loading: false, success: true, user: action.payload }
+        case USER_CREATE_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const userUpdatedReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_ADMIN_UPDATE_REQUEST:
+            return { loading: true };
+        case USER_ADMIN_UPDATE_SUCCESS:
+            return { loading: false, success: true, user: action.payload }
+        case USER_ADMIN_UPDATE_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state;
     }
 }

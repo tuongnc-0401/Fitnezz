@@ -1,27 +1,71 @@
-import { Box, Button, CircularProgress, Divider, Grid, Paper, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Dialog, DialogActions, DialogTitle, Divider, Grid, Paper, Slide, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import React, { useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as changeURL, useParams } from "react-router-dom";
-import { detailsOrder } from '../../actions/orderActions';
+import { detailsOrder, updateOrder } from '../../actions/orderActions';
+
+const Transition = forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const OrderDetails = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const { order, loading, error } = useSelector((state) => state.orderDetails)
+    const orderUpdate = useSelector(state => state.orderUpdate)
+    const { success, loading: loadingUpdate, error: errorUpdate } = orderUpdate
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleUpdate = () => {
+        setOpen(false)
+        dispatch(updateOrder({ id: id, status: "Canceled" }))
+    }
+    useEffect(() => {
+        orderUpdate.success = false
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     useEffect(() => {
         dispatch(detailsOrder(id))
-    }, [dispatch, id])
+    }, [dispatch, id, success])
     return loading ? (
         <CircularProgress color="secondary" />
     ) : error ? (
         <Alert severity="error">{error}</Alert>
     ) : (
         <Box mt={3}>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle id="alert-dialog-slide-title">{"Cancel this order?"}</DialogTitle>
+
+                <DialogActions>
+                    <Button variant="outlined" color="primary" onClick={handleClose}>
+                        Disagree
+                    </Button>
+                    <Button variant="contained" color="secondary" onClick={handleUpdate} >
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Box Box ml={6} mr={6} >
                 <Grid container spacing={5}>
                     <Grid item xs={12} md={9}>
                         <Box marginBottom={3}>
+                            {loadingUpdate && <CircularProgress style={{ marginBottom: '10px' }} color="secondary" />}
+                            {errorUpdate && <Alert style={{ marginBottom: '10px' }} severity="error">{error}</Alert>}
+                            {success && <Alert style={{ marginBottom: '10px' }} severity="success">Successfully Cancel This Order</Alert>}
                             <Paper elevation={3}>
                                 <Box>
                                     <Box ml={6} mr={6}>
@@ -50,7 +94,7 @@ const OrderDetails = () => {
                                                 <Typography variant="h5">Address: <span style={{ fontSize: "20px" }}>{order.shippingAddress.address}, {order.shippingAddress.ward}, {order.shippingAddress.district}, {order.shippingAddress.city}, {order.shippingAddress.country}</span>.</Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                {order.isDelivered ? (<Alert severity="success">Delivered at {order.deliveriedAt}</Alert>) : (<Alert severity="error">Not Deliveried</Alert>)}
+                                                {order.isDelivered ? (<Alert severity="success">Delivered at {order.deliveredAt.slice(0, 10)} {order.deliveredAt.slice(11, 19)}</Alert>) : (<Alert severity="error">Not Deliveried</Alert>)}
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -69,7 +113,7 @@ const OrderDetails = () => {
                                                 <Typography variant="h5">Method: <span style={{ fontSize: "20px" }}>{order.paymentMethod}</span>.</Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                {order.isPaid ? (<Alert severity="success">Delivered at {order.paidAt}</Alert>) : (<Alert severity="error">Not Paid</Alert>)}
+                                                {order.isPaid ? (<Alert severity="success">Paid at {order.paidAt.slice(0, 10)} {order.paidAt.slice(11, 19)}</Alert>) : (<Alert severity="error">Not Paid</Alert>)}
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -191,6 +235,19 @@ const OrderDetails = () => {
                                             Back to history
                                         </Button>
                                     </Grid>
+                                    {(order.status === "Canceled" || order.status === "Completed") ? null : (
+                                        <Grid item xs="12">
+                                            <Button
+                                                onClick={handleClickOpen}
+                                                variant="contained"
+                                                color="secondary"
+                                                style={{ width: "100%" }}
+                                            >
+                                                Cancel Order
+                                            </Button>
+                                        </Grid>
+                                    )}
+
                                 </Grid>
 
                             </Box>
