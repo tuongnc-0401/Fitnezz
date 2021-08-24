@@ -220,7 +220,7 @@ const HealthHistory = () => {
                               variant="h6"
                               style={{ marginLeft: "10px" }}
                             >
-                              {item.numTDEE} calo 1 day
+                              {item.numTDEE} kcal/day
                             </Typography>
                           </Grid>
                           <Grid
@@ -285,7 +285,7 @@ const HealthHistory = () => {
                                   variant="h6"
                                   style={{ marginLeft: "10px" }}
                                 >
-                                  {item.caloGainLoss} calo 1 day
+                                  {item.caloGainLoss} kcal/day
                                 </Typography>
                               </Grid>
                               <Grid
@@ -306,7 +306,7 @@ const HealthHistory = () => {
                                   variant="h6"
                                   style={{ marginLeft: "10px" }}
                                 >
-                                  s{item.estimateDay}
+                                  {item.estimateDay}
                                 </Typography>
                               </Grid>
                             </div>
