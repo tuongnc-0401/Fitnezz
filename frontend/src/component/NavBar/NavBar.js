@@ -84,6 +84,9 @@ const NavBar = () => {
                             <Grid item >
                                 <Button color="inherit" component={Link} to="/calculator">Calculator</Button>
                             </Grid>
+                            <Grid item >
+                                <Button color="inherit" component={Link} to="/videos">Videos</Button>
+                            </Grid>
                         </Grid>
                     </Typography>
                     <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">

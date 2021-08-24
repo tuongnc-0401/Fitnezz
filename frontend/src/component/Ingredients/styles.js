@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
         color: '#f73471'
     },
     fixed: {
+        zIndex: '100',
         [theme.breakpoints.up('lg')]: {
             position: "fixed",
             width: '30%',

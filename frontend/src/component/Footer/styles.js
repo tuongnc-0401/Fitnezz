@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
         width: "100%",
         padding: theme.spacing(3, 0),
         backgroundColor: "#2A2B2E",
+        marginTop: '50px'
     },
 
     pink: {
