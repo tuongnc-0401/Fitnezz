@@ -34,55 +34,54 @@ const AppRoute = () => {
   return (
     <div className="App">
       {!location.pathname.includes("/admin") && <NavBar />}
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/products" exact component={Products} />
-        <Route path="/product/:id" exact component={ProductDetail} />
-        <Route path="/cart" exact component={Cart} />
-        <Route path="/signin" exact component={SignIn} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/shipping" exact component={Shipping} />
-        <Route path="/payment" exact component={Payment} />
-        <Route path="/placeorder" exact component={PlaceOrder} />
-        <Route path="/userprofile" exact component={UserProfile} />
-        <Route path="/order/:id" exact component={OrderDetails} />
-        <Route path="/orderhistory" exact component={OrderHistory} />
-        <Route path="/aboutus" exact component={AboutUs} />
-
-        <PrivateRoute path="/ingredients" exact component={Ingredients} />
-        <PrivateRoute path="/videos" exact component={FitnessVideo} />
-        <PrivateRoute path="/videos/:id" component={FitnessVideoDetail} />
-        <PrivateRoute
-          path="/calculator"
-          exact
-          component={Calculator}
-        ></PrivateRoute>
-
-        <AdminRoute path="/admin" exact component={Admin} />
-        <AdminRoute
-          path="/admin/product/create"
-          exact
-          component={CreateProduct}
-        />
-        <AdminRoute path="/admin/product" exact component={AdminProduct} />
-        <AdminRoute path="/admin/product/:id" exact component={UpdateProduct} />
-
-        <AdminRoute
-          path="/admin/ingredient/create"
-          exact
-          component={CreateIngredient}
-        />
-        <AdminRoute
-          path="/admin/ingredient"
-          exact
-          component={AdminIngredient}
-        />
-        <AdminRoute
-          path="/admin/ingredient/:id"
-          exact
-          component={UpdateIngredient}
-        />
-      </Switch>
+      <div style={{ minHeight: "75vh" }}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/products" exact component={Products} />
+          <Route path="/product/:id" exact component={ProductDetail} />
+          <Route path="/cart" exact component={Cart} />
+          <Route path="/signin" exact component={SignIn} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/shipping" exact component={Shipping} />
+          <Route path="/payment" exact component={Payment} />
+          <Route path="/placeorder" exact component={PlaceOrder} />
+          <Route path="/userprofile" exact component={UserProfile} />
+          <Route path="/order/:id" exact component={OrderDetails} />
+          <Route path="/orderhistory" exact component={OrderHistory} />
+          <Route path="/aboutus" exact component={AboutUs} />
+          <PrivateRoute path="/ingredients" exact component={Ingredients} />
+          <PrivateRoute path="/videos" exact component={FitnessVideo} />
+          <PrivateRoute path="/videos/:id" component={FitnessVideoDetail} />
+          <PrivateRoute
+            path="/calculator"
+            exact
+            component={Calculator}
+          ></PrivateRoute>
+          <AdminRoute path="/admin" exact component={Admin} />
+          <AdminRoute
+            path="/admin/product/create"
+            exact
+            component={CreateProduct}
+          />
+          <AdminRoute path="/admin/product" exact component={AdminProduct} />
+          <AdminRoute path="/admin/product/:id" exact component={UpdateProduct} />
+          <AdminRoute
+            path="/admin/ingredient/create"
+            exact
+            component={CreateIngredient}
+          />
+          <AdminRoute
+            path="/admin/ingredient"
+            exact
+            component={AdminIngredient}
+          />
+          <AdminRoute
+            path="/admin/ingredient/:id"
+            exact
+            component={UpdateIngredient}
+          />
+        </Switch>
+      </div>
       {location.pathname === "/" ||
         (location.pathname.includes("/admin") ? null : <Footer />)}
     </div>

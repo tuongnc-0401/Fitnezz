@@ -5,7 +5,6 @@ export default makeStyles((theme) => ({
         position: 'relative',
         bottom: "0px",
         width: "100%",
-        marginTop: 'auto',
         padding: theme.spacing(3, 0),
         backgroundColor: "#2A2B2E",
     },
