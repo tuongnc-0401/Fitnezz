@@ -1,23 +1,29 @@
-import { Box, Button, CircularProgress, Dialog, DialogActions, DialogTitle, Divider, Grid, Paper, Slide, Typography } from '@material-ui/core';
+import { Box, Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogTitle, Divider, Grid, Paper, Slide, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { forwardRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as changeURL, useParams } from "react-router-dom";
-import { detailsOrder, updateOrder } from '../../actions/orderActions';
+import { detailsOrder, updateOrder } from '../../../actions/orderActions';
+
+
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const OrderDetails = () => {
+const UpdateOrder = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const { order, loading, error } = useSelector((state) => state.orderDetails)
     const orderUpdate = useSelector(state => state.orderUpdate)
+    const [checked, setChecked] = useState({ isDelivered: order?.isDelivered, isPaid: order?.isPaid });
     const { success, loading: loadingUpdate, error: errorUpdate } = orderUpdate
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
+    };
+    const handleChange = (e) => {
+        setChecked({ ...checked, [e.target.name]: e.target.checked });
     };
 
     const handleClose = () => {
@@ -25,12 +31,20 @@ const OrderDetails = () => {
     };
     const handleUpdate = () => {
         setOpen(false)
-        dispatch(updateOrder({ id: id, status: "Canceled" }))
+        dispatch(updateOrder({ id: id, isDelivered: checked.isDelivered, isPaid: checked.isPaid }))
     }
     useEffect(() => {
         orderUpdate.success = false
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        if (order) {
+            setChecked({ isDelivered: order.isDelivered, isPaid: order.isPaid })
+        }
+
+    }, [order])
     useEffect(() => {
         dispatch(detailsOrder(id))
     }, [dispatch, id, success])
@@ -48,7 +62,7 @@ const OrderDetails = () => {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"Cancel this order?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"Do you want to update?"}</DialogTitle>
 
                 <DialogActions>
                     <Button variant="outlined" color="primary" onClick={handleClose}>
@@ -65,7 +79,7 @@ const OrderDetails = () => {
                         <Box marginBottom={3}>
                             {loadingUpdate && <CircularProgress style={{ marginBottom: '10px' }} color="secondary" />}
                             {errorUpdate && <Alert style={{ marginBottom: '10px' }} severity="error">{error}</Alert>}
-                            {success && <Alert style={{ marginBottom: '10px' }} severity="success">Successfully Cancel This Order</Alert>}
+                            {success && <Alert style={{ marginBottom: '10px' }} severity="success">Successfully Update This Order</Alert>}
                             <Paper elevation={3}>
                                 <Box>
                                     <Box ml={6} mr={6}>
@@ -87,8 +101,46 @@ const OrderDetails = () => {
                                 <Box>
                                     <Box ml={6} mr={6}>
                                         <Grid container spacing={2}>
+                                            <Grid item xs={6}>
+                                                <Typography variant="h5">Payment</Typography>
+                                            </Grid>
+                                            {order.paymentMethod === "COD" ? null : (
+                                                <Grid item container justifyContent="flex-end" xs={6}>
+                                                    <Checkbox
+                                                        name="isPaid"
+                                                        checked={checked.isPaid ? checked.isPaid : false}
+                                                        onChange={handleChange}
+                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                    />
+                                                </Grid>)
+                                            }
+
                                             <Grid item xs={12}>
+                                                <Typography variant="h5">Method: <span style={{ fontSize: "20px" }}>{order.paymentMethod}</span>.</Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                {order.isPaid ? (<Alert severity="success">Paid at {order.paidAt.slice(0, 10)} {order.paidAt.slice(11, 19)}</Alert>) : (<Alert severity="error">Not Paid</Alert>)}
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </Box>
+                            </Paper>
+                        </Box>
+                        <Box marginBottom={3}>
+                            <Paper elevation={3}>
+                                <Box>
+                                    <Box ml={6} mr={6}>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={6}>
                                                 <Typography variant="h5">Shipping</Typography>
+                                            </Grid>
+                                            <Grid item container justifyContent="flex-end" xs={6}>
+                                                <Checkbox
+                                                    name="isDelivered"
+                                                    checked={checked.isDelivered ? checked.isDelivered : false}
+                                                    onChange={handleChange}
+                                                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Typography variant="h5">Address: <span style={{ fontSize: "20px" }}>{order.shippingAddress.address}, {order.shippingAddress.ward}, {order.shippingAddress.district}, {order.shippingAddress.city}, {order.shippingAddress.country}</span>.</Typography>
@@ -101,25 +153,7 @@ const OrderDetails = () => {
                                 </Box>
                             </Paper>
                         </Box>
-                        <Box marginBottom={3}>
-                            <Paper elevation={3}>
-                                <Box>
-                                    <Box ml={6} mr={6}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12}>
-                                                <Typography variant="h5">Payment</Typography>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Typography variant="h5">Method: <span style={{ fontSize: "20px" }}>{order.paymentMethod}</span>.</Typography>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                {order.isPaid ? (<Alert severity="success">Paid at {order.paidAt.slice(0, 10)} {order.paidAt.slice(11, 19)}</Alert>) : (<Alert severity="error">Not Paid</Alert>)}
-                                            </Grid>
-                                        </Grid>
-                                    </Box>
-                                </Box>
-                            </Paper>
-                        </Box>
+
                         <Box marginBottom={3}>
                             <Paper elevation={3}>
                                 <Box>
@@ -227,7 +261,7 @@ const OrderDetails = () => {
                                     <Grid item xs="12">
                                         <Button
                                             component={changeURL}
-                                            to="/orderhistory"
+                                            to="/admin/order"
                                             variant="outlined"
                                             color="secondary"
                                             style={{ width: "100%" }}
@@ -235,7 +269,7 @@ const OrderDetails = () => {
                                             Back to history
                                         </Button>
                                     </Grid>
-                                    {(order.status === "Canceled" || order.status === "Completed") ? null : (
+                                    {(order.status === "Canceled" || order.status === "Completed") ? null :
                                         <Grid item xs="12">
                                             <Button
                                                 onClick={handleClickOpen}
@@ -243,10 +277,12 @@ const OrderDetails = () => {
                                                 color="secondary"
                                                 style={{ width: "100%" }}
                                             >
-                                                Cancel Order
+                                                Update
                                             </Button>
                                         </Grid>
-                                    )}
+                                    }
+
+
 
                                 </Grid>
 
@@ -261,4 +297,4 @@ const OrderDetails = () => {
     )
 }
 
-export default OrderDetails
+export default UpdateOrder
