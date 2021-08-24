@@ -1,29 +1,123 @@
 import { CircularProgress, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProgram } from "./../../actions/programActions";
 import Program from "./Program/Program";
+import Recommendation from "./Recommendation/Recommendation";
 import useStyles from "./styles";
+
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+
+
+function useWindowSize() {
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  return size;
+}
 
 function FitnessVideo(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [width, height] = useWindowSize();
+
+  console.log(height);
+
+  const [nextClick, setNextClick] = useState(0);
+  const [size, setSize] = useState(0);
+  const [disableRight, setDisableRight] = useState(false);
+  const [disableLeft, setDisableLeft] = useState(false);
+
   // const { order, loading, error } = useSelector((state) => state.orderDetails)
   const listAllProgram = useSelector((state) => state.getAllPrograms);
   const { listPrograms, loading, error } = listAllProgram;
 
-  console.log(listAllProgram);
+  // console.log(listAllProgram);
 
-  if (listPrograms) {
-    // const date = )
-    console.log(new Date(listPrograms[0].releaseDate).getMonth());
-  }
+  // if (listPrograms) {
+  //   // const date = )
+  //   console.log(new Date(listPrograms[0].releaseDate).getMonth());
+  // }
 
   useEffect(() => {
     dispatch(getAllProgram());
   }, [dispatch]);
+
+  const nextImg = () => {
+    setSize(document.getElementById('foo').clientWidth);
+    if (nextClick === timesClickable()) {
+      return;
+    }
+    setNextClick(nextClick + 1);
+  };
+
+  const preImg = () => {
+    setSize(document.getElementById('foo')?.clientWidth);
+    setNextClick(forcePositive(nextClick) - 1);
+  }
+
+  const forcePositive = (num) => {
+    if (num <= 1) {
+      setDisableLeft(true);
+      return 1;
+    }
+    setDisableLeft(false);
+    return num;
+  };
+
+  const timesClickable = () => {
+    var defaultTimes = 3;
+    if (width <= 600) {
+      defaultTimes = 1;
+    }
+    if (width >= 600 && width <= 1280) {
+      defaultTimes = 2;
+    }
+    const res = listPrograms?.length - defaultTimes;
+    return res;
+  };
+
+  // eslint-disable-next-line
+  useEffect(() => {
+    if (nextClick === timesClickable()) {
+      setDisableRight(true)
+    } else {
+      setDisableRight(false);
+    }
+  });
+
+  // eslint-disable-next-line
+  useEffect(() => {
+    if (nextClick === 0) {
+      setDisableLeft(false);
+    } else {
+      setDisableLeft(true);
+    }
+  })
+
+  // console.log('nextClick', nextClick);
+
+
+  useEffect(() => {
+    if (width <= 600) {
+      setSize(document.getElementById('foo')?.clientWidth);
+    }
+    if (width >= 600 && width <= 1280) {
+      setSize(document.getElementById('foo')?.clientWidth);
+    }
+    if (width >= 1280) {
+      setSize(document.getElementById('foo')?.clientWidth);
+    }
+  }, [width]);
 
   return (
     <div>
@@ -54,6 +148,43 @@ function FitnessVideo(props) {
       <div className={classes.body}>
         <div className={classes.line}></div>
 
+        <div
+          style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
+        >
+          Recommendation
+          {/* <div style={{ color: 'black' }}>{`${width} ne ${height} ne`}</div> */}
+        </div>
+
+        {listAllProgram && (
+          <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
+            </div>
+            <Grid container spacing={4} className={classes.showRec}>
+              {listPrograms?.map((program) => (
+                <Recommendation size={size} program={program} nextClick={nextClick} />
+              ))}
+
+              {/* linedown */}
+
+              {/* For Del purpose */}
+
+              <div className={classes.video4del}
+              ></div>
+
+              <div className={classes.video4del}
+              ></div>
+
+              <div className={classes.video4del}
+              ></div>
+            </Grid>
+            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
+            </div>
+          </div>
+        )}
+
+        <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
         >

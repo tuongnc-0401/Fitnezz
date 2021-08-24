@@ -89,7 +89,7 @@ const AdminNav = () => {
                 </Grid>
             </Grid>
 
-            <Grid className={hoverVideo ? classes.itemHover : classes.item} onMouseEnter={() => setHoverVideo(true)} onMouseLeave={() => setHoverVideo(false)}>
+            <Grid component={changeURL} to="/admin/videos" className={hoverVideo ? classes.itemHover : classes.item} onMouseEnter={() => setHoverVideo(true)} onMouseLeave={() => setHoverVideo(false)}>
                 <VideoLibraryIcon />
                 <Grid style={{ marginLeft: '5px' }}>
                     Videos

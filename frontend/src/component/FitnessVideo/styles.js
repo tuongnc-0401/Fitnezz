@@ -10,6 +10,34 @@ export default makeStyles(() => ({
         backgroundSize: 'cover',
     },
 
+    rightIcon: {
+        padding: '8px 9px',
+        borderRadius: '30px', 
+        backgroundColor: '#8f8d8d', 
+        cursor: 'pointer',
+    },
+
+    rightIconDisable: {
+        padding: '8px 9px',
+        borderRadius: '30px', 
+        backgroundColor: '#c2c2c2', 
+        cursor: 'pointer',
+    },
+
+    leftIcon: {
+        padding: '8px 9px',
+        borderRadius: '30px', 
+        backgroundColor: '#8f8d8d', 
+        cursor: 'pointer',
+    },
+
+    leftIconDisable: {
+        padding: '8px 9px',
+        borderRadius: '30px', 
+        backgroundColor: '#c2c2c2', 
+        cursor: 'pointer',
+    },
+
     body: {
         width: '100%',
         height: '100%',
@@ -21,6 +49,18 @@ export default makeStyles(() => ({
         width: '10%',
         height: '60px',
         borderBottom: 'solid 1px black',
+    },
+
+    showRec: {
+        display: 'flex',
+        margin: '0px',
+        width: '90%',
+        overflow: 'hidden',
+        justifyContent: 'flex-start',
+        boxSizing: 'border-box',
+        paddingBottom: '0px',
+        // transform: 'translateX(-360px)',
+        flexWrap: 'nowrap',
     },
 
     showVideo: {

@@ -8,6 +8,7 @@ const programSchema = new mongoose.Schema({
     timeMinute : { type: Number, required: true },
     duration: { type: Number, required: true },
     imgUrl: { type: String, required: true },
+    gender: { type: Boolean, required: true },
     videos: [
         {videoUrl: { type: String, required: true }},
     ]

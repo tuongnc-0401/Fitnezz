@@ -11,8 +11,9 @@ import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReduc
 
 import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderUpdateReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
+import { getAllProgramsReducer, getOneProgramReducer, delProgramReducer } from './reducers/programReducers';
 import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
-import { getAllProgramsReducer, getOneProgramReducer } from './reducers/programReducers';
+
 
 const initialState = {
     cart: {
@@ -47,6 +48,7 @@ const reducer = combineReducers({
     getAllPrograms: getAllProgramsReducer,
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
+    delProgram: delProgramReducer,
     orderUpdate: orderUpdateReducer,
     orderList: orderListReducer,
     userList: userListReducer,

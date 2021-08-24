@@ -27,12 +27,15 @@ import AdminIngredient from "./componentAdmin/AdminDashboard/AdminIngredient/Adm
 import FitnessVideo from "./component/FitnessVideo/FitnessVideo";
 import FitnessVideoDetail from "./component/FitnessVideo/FitnessVideoDetail/FitnessVideoDetail";
 import Footer from "./component/Footer/Footer";
+import AdminProgram from "./componentAdmin/AdminProgram/AdminProgram";
+import AdminProgramCreate from './componentAdmin/Programs/CreateProgram/CreateProgram';
 import AdminOrder from "./componentAdmin/AdminDashboard/AdminOrder/AdminOrder";
 import UpdateOrder from "./componentAdmin/Orders/UpdateOrder/UpdateOrder";
 import AdminUser from "./componentAdmin/AdminDashboard/AdminUser/AdminUser";
 import CreateUser from "./componentAdmin/Users/CreateUser/CreateUser";
 import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
 import HealthHistory from "./component/Profile/HealthHistory/HealthHistory";
+
 
 
 const AppRoute = () => {
@@ -87,12 +90,13 @@ const AppRoute = () => {
           exact
           component={UpdateIngredient}
         />
+        <AdminRoute path="/admin/videos" exact component={AdminProgram} />
+        <AdminRoute path="/admin/videos/create" exact component={AdminProgramCreate} />
         <AdminRoute
           path="/admin/order"
           exact
           component={AdminOrder}
         />
-
         <AdminRoute
           path="/admin/order/:id"
           exact
