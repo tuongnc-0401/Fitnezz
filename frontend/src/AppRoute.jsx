@@ -30,6 +30,7 @@ import Footer from "./component/Footer/Footer";
 import AdminUser from "./componentAdmin/AdminDashboard/AdminUser/AdminUser";
 import CreateUser from "./componentAdmin/Users/CreateUser/CreateUser";
 import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
+import HealthHistory from "./component/Profile/HealthHistory/HealthHistory";
 
 const AppRoute = () => {
   const location = useLocation();
@@ -49,7 +50,7 @@ const AppRoute = () => {
         <Route path="/userprofile" exact component={UserProfile} />
         <Route path="/order/:id" exact component={OrderDetails} />
         <Route path="/orderhistory" exact component={OrderHistory} />
-
+        <Route path="/healthhistory" exact component={HealthHistory} />
         <PrivateRoute path="/ingredients" exact component={Ingredients} />
         <PrivateRoute path="/videos" exact component={FitnessVideo} />
         <PrivateRoute path="/videos/:id" component={FitnessVideoDetail} />
