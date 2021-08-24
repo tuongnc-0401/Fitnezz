@@ -25,7 +25,7 @@ const AboutUs = () => {
 
                     <Grid container item justifyContent="space-around" xs={12} style={{ width: "100%" }}>
                         <Box borderBottom={0}><img className={classes.image} src="/AboutFitnezz.jpg" alt="aboutus" /></Box>
-                        <Box borderBottom={0}><img className={classes.image} src="/healthyfood.jpg" alt="aboutus" /></Box>
+                        <Box borderBottom={0}><img className={classes.image} src="/healthy-food.jpg" alt="aboutus" /></Box>
                     </Grid>
 
                     <Grid container item justifyContent="center" alighItems="center" >
@@ -69,99 +69,99 @@ const AboutUs = () => {
                         </Card>
                     </Grid>
 
-                    <Grid container item direction="row" spacing={2}>
-                        <Grid item md={3} xs={12}>
-                            <Card>
-                                <CardMedia className={classes.media} image="/huuhuy.jpg" />
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" gutterBottom>
-                                        Pham Huu Huy
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Role: Backend, Function Handler
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Major: Information Technology
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Year: 2
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        School: RMIT University
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
 
-                        <Grid item xs={12} sm={6} md={4} lg={3}>
-                            <Card>
-                                <CardMedia className={classes.media} image="/quochuy.jpg" />
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" gutterBottom>
-                                        Nguyen Quoc Huy
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Role: Backend, Function Handler
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Major: Information Technology
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Year: 2
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        School: RMIT University
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={4} lg={3}>
-                            <Card>
-                                <CardMedia className={classes.media} image="/nhochuy.jpg" />
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" gutterBottom>
-                                        Nguyen Dinh Nhat Huy
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Role: Frontend, Data Analysis
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Major: Information Technology
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Year: 2
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        School: RMIT University
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={4} lg={3}>
-                            <Card>
-                                <CardMedia className={classes.media} image="/tuan.jpg" />
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" gutterBottom>
-                                        Hoang Ngoc Tuan
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Role: Frontend, Data Analysis
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Major: Information Technology
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        Year: 2
-                                    </Typography>
-                                    <Typography variant="body2" color="textPrimary" component="p">
-                                        School: RMIT University
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
+                    <Grid container item justifyContent="center" alighItems="center" xs={12} sm={6} md={4} lg={3}>
+                        <Card>
+                            <CardMedia className={classes.media} image="/huuhuy.jpg" />
+                            <CardContent>
+                                <Typography variant="h5" component="h2" gutterBottom>
+                                    Pham Huu Huy
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Role: Backend, Function Handler
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Major: Information Technology
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Year: 2
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    School: RMIT University
+                                </Typography>
+                            </CardContent>
+                        </Card>
                     </Grid>
+
+                    <Grid container item justifyContent="center" alighItems="center" xs={12} sm={6} md={4} lg={3}>
+                        <Card>
+                            <CardMedia className={classes.media} image="/quochuy.jpg" />
+                            <CardContent>
+                                <Typography variant="h5" component="h2" gutterBottom>
+                                    Nguyen Quoc Huy
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Role: Backend, Function Handler
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Major: Information Technology
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Year: 2
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    School: RMIT University
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid container item justifyContent="center" alighItems="center" xs={12} sm={6} md={4} lg={3}>
+                        <Card>
+                            <CardMedia className={classes.media} image="/nhochuy.jpg" />
+                            <CardContent>
+                                <Typography variant="h5" component="h2" gutterBottom>
+                                    Nguyen Dinh Nhat Huy
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Role: Frontend, Data Analysis
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Major: Information Technology
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Year: 2
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    School: RMIT University
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid container item justifyContent="center" alighItems="center" xs={12} sm={6} md={4} lg={3}>
+                        <Card>
+                            <CardMedia className={classes.media} image="/tuan1.jpg" />
+                            <CardContent>
+                                <Typography variant="h5" component="h2" gutterBottom>
+                                    Hoang Ngoc Tuan
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Role: Frontend, Data Analysis
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Major: Information Technology
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    Year: 2
+                                </Typography>
+                                <Typography variant="body2" color="textPrimary" component="p">
+                                    School: RMIT University
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
                 </Grid>
             </Container>
             <Box mb={4} />

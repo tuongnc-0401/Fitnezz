@@ -19,6 +19,7 @@ export default makeStyles((theme) => ({
         height: 400,
         width: 350,
         position: "center",
+        backgroundPosition: 'center',
 
     },
 
