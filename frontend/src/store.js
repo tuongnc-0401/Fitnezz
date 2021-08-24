@@ -11,7 +11,7 @@ import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReduc
 
 import { orderCreateReducer, orderDetailsReducer, orderMineListReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
-import { userDetailsReducer, userRegisterReducer, userSignInReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
+import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
 import { getAllProgramsReducer, getOneProgramReducer } from './reducers/programReducers';
 
 const initialState = {
@@ -47,7 +47,13 @@ const reducer = combineReducers({
     getAllPrograms: getAllProgramsReducer,
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
+    userList: userListReducer,
+    removeUser: userRemovedReducer,
+    newUser: userCreatedReducer,
+    updateUser: userUpdatedReducer,
+    userAdminDetails: userAdminDetailsReducer,
     calculatorMine: calculatorMineReducer,
+
 
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

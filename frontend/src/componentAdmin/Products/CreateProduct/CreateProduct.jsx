@@ -23,7 +23,6 @@ const CreateProduct = () => {
         } else {
             setErrorRating(true)
         }
-
     }
     useEffect(() => {
         if (newProduct) {

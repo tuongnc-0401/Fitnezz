@@ -24,6 +24,10 @@ const UpdateIngredient = () => {
         dispatch(updatedIngredients(ingredientData))
     }
     useEffect(() => {
+        dispatch({ type: INGREDIENT_DETAILS_RESET })
+        // eslint-disable-next-line 
+    }, [])
+    useEffect(() => {
         if (updateIngredient) {
             updateIngredient.success = false
         }
@@ -31,7 +35,7 @@ const UpdateIngredient = () => {
     useEffect(() => {
         console.log(ingredient);
         if (ingredient && Object.keys(ingredient).length === 0 && ingredient.constructor === Object) {
-            console.log("heheconcho");
+
             dispatch(detailsIngredient(id))
         }
         setIngredientData(ingredient)
