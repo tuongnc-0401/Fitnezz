@@ -68,7 +68,7 @@ const AdminNav = () => {
                 </Grid>
             </Grid>
 
-            <Grid className={hoverUser ? classes.itemHover : classes.item} onMouseEnter={() => setHoverUser(true)} onMouseLeave={() => setHoverUser(false)}>
+            <Grid component={changeURL} to="/admin/user" className={hoverUser ? classes.itemHover : classes.item} onMouseEnter={() => setHoverUser(true)} onMouseLeave={() => setHoverUser(false)}>
                 <PeopleIcon />
                 <Grid style={{ marginLeft: '5px' }}>
                     Users

@@ -3,6 +3,12 @@ import express from 'express'
 import Product from '../models/productModel.js'
 import data from '../data.js'
 import { isAdmin, isAuth } from '../utils.js'
+import cloudinary from 'cloudinary'
+cloudinary.config({
+    cloud_name: 'tuongtuong0401',
+    api_key: '542792612474969',
+    api_secret: 'WFMTbxBh13oyoH24EDQxxlzgUNk',
+})
 const productRouter = express.Router()
 
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
@@ -16,10 +22,21 @@ productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
 }))
 
 productRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    try {
+        const fileStr = req.body.image;
+        var uploadedResponse = await cloudinary.uploader.upload(
+            fileStr, {
+            upload_preset: 'Fitnezz'
+        }
+        )
+    } catch (error) {
+        res.status(500).json({ message: "upload image error" })
+    }
+
     const newProduct = new Product({
         name: req.body.name,
         category: req.body.category,
-        image: req.body.image,
+        image: uploadedResponse.url,
         price: req.body.price,
         brand: req.body.brand,
         rating: req.body.rating,
@@ -54,6 +71,18 @@ productRouter.delete("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, re
 }))
 
 productRouter.put("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    if (req.body.image) {
+        try {
+            const fileStr = req.body.image;
+            var uploadedResponse = await cloudinary.uploader.upload(
+                fileStr, {
+                upload_preset: 'Fitnezz'
+            }
+            )
+        } catch (error) {
+            res.status(500).json({ message: "upload image error" })
+        }
+    }
     const product = await Product.findById(req.params.id)
     if (product) {
         product.name = req.body.name || product.name
@@ -63,7 +92,7 @@ productRouter.put("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) 
         product.price = req.body.price || product.price
         product.rating = req.body.rating || product.rating
         product.numReviews = req.body.numReviews || product.numReviews
-        product.image = req.body.image || product.image
+        product.image = uploadedResponse.url || product.image
         const updated = await product.save()
         res.send(updated)
     } else {

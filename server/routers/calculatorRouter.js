@@ -5,10 +5,15 @@ import { isAuth } from '../utils.js'
 
 const calculatorRouter = express.Router();
 
-// calculatorRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
-//     const orders = await Order.find({ user: req.user._id })
-//     res.send(orders)
-// }))
+calculatorRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
+    const calculators = await CalculatorInfo.find({ user: req.user._id }).sort({ createdAt: -1 })
+    res.send(calculators);
+}))
+
+calculatorRouter.get('/getOne', isAuth, expressAsyncHandler(async (req, res) => {
+    const calculators = await CalculatorInfo.findOne({ user: req.user._id }).sort({ createdAt: -1 })
+    res.send(calculators);
+}))
 
 calculatorRouter.post('/', isAuth, expressAsyncHandler(async (req, res) => {
 
@@ -26,6 +31,8 @@ calculatorRouter.post('/', isAuth, expressAsyncHandler(async (req, res) => {
         target: req.body.target,
         weight: req.body.weight,
         weightTarget: req.body.weightTarget,
+        createDate: req.body.createDate,
+        createTime: req.body.createTime,
         user: req.user._id
     })
     const createdInfo = await calculatorInfo.save()

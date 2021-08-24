@@ -286,7 +286,11 @@ const Calculator = () => {
         resultEstimateDate = estimateDateInDate(targetDate);
         setDayEstimateInDate(resultEstimateDate);
       }
-
+      var vnTime = new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Bangkok",
+      });
+      var dateVN = vnTime.split(",")[0];
+      var timeVN = vnTime.split(",")[1];
       const dataSent = {
         ...dataForm,
         numTDEE: resultTDEE,
@@ -295,6 +299,8 @@ const Calculator = () => {
         caloGainLoss: resultGainLoss || "",
         estimateDate: estimateDateDay || "",
         estimateDay: resultEstimateDate || "",
+        createDate: dateVN,
+        createTime: timeVN,
       };
       setDataSubmit(dataSent);
       dispatch(createCalculator(dataSent));

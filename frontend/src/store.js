@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { cartIngredientReducer } from './reducers/cartIngredientReducers.js';
-import { calculatorCreateReducer } from './reducers/calculatorReducers.js';
+import { calculatorCreateReducer, calculatorMineReducer } from './reducers/calculatorReducers.js';
 import { cartReducer } from './reducers/cartReducers.js';
 
 
@@ -11,7 +11,7 @@ import { ingredientDetailsReducer, ingredientListReducer, ingredientUpdatedReduc
 
 import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderUpdateReducer } from './reducers/orderReducers.js';
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
-import { userDetailsReducer, userRegisterReducer, userSignInReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
+import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
 import { getAllProgramsReducer, getOneProgramReducer } from './reducers/programReducers';
 
 const initialState = {
@@ -48,7 +48,15 @@ const reducer = combineReducers({
     getOneProgram: getOneProgramReducer,
     calculatorCreate: calculatorCreateReducer,
     orderUpdate: orderUpdateReducer,
-    orderList: orderListReducer
+    orderList: orderListReducer,
+    userList: userListReducer,
+    removeUser: userRemovedReducer,
+    newUser: userCreatedReducer,
+    updateUser: userUpdatedReducer,
+    userAdminDetails: userAdminDetailsReducer,
+    calculatorMine: calculatorMineReducer,
+
+
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(thunk)))
