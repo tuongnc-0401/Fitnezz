@@ -228,7 +228,6 @@ programRouter.get('/:id', expressAsyncHandler(async (req, res) => {
 //delete router
 programRouter.post('/', expressAsyncHandler(async (req, res) => {
     const deletedProgram = await Program.findById(req.body.id);
-    console.log('day ne', req.body.id);
     if (deletedProgram) {
         await deletedProgram.remove();
         res.send({ message: 'Successfully deleted program' });

@@ -30,6 +30,8 @@ function FitnessVideo(props) {
 
   const [width, height] = useWindowSize();
 
+  console.log(height);
+
   const [nextClick, setNextClick] = useState(0);
   const [size, setSize] = useState(0);
   const [disableRight, setDisableRight] = useState(false);
@@ -81,10 +83,10 @@ function FitnessVideo(props) {
       defaultTimes = 2;
     }
     const res = listPrograms?.length - defaultTimes;
-    console.log(res);
     return res;
   };
 
+  // eslint-disable-next-line
   useEffect(() => {
     if (nextClick === timesClickable()) {
       setDisableRight(true)
@@ -93,30 +95,27 @@ function FitnessVideo(props) {
     }
   });
 
+  // eslint-disable-next-line
   useEffect(() => {
     if (nextClick === 0) {
       setDisableLeft(false);
-      console.log('leu leu' ,disableLeft)
     } else {
       setDisableLeft(true);
     }
   })
 
-  console.log('nextClick', nextClick);
+  // console.log('nextClick', nextClick);
 
 
   useEffect(() => {
     if (width <= 600) {
       setSize(document.getElementById('foo')?.clientWidth);
-      console.log('day ne', document.getElementById('foo')?.clientWidth);
     }
     if (width >= 600 && width <= 1280) {
       setSize(document.getElementById('foo')?.clientWidth);
-      console.log('day ne', document.getElementById('foo')?.clientWidth);
     }
     if (width >= 1280) {
       setSize(document.getElementById('foo')?.clientWidth);
-      console.log('day ne', document.getElementById('foo')?.clientWidth);
     }
   }, [width]);
 
