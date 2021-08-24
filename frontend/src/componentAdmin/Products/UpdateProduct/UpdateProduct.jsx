@@ -32,6 +32,10 @@ const UpdateProduct = () => {
 
     }
     useEffect(() => {
+        dispatch({ type: PRODUCT_DETAILS_RESET })
+        // eslint-disable-next-line 
+    }, [])
+    useEffect(() => {
         if (updateProduct) {
             updateProduct.success = false
         }
@@ -72,6 +76,10 @@ const UpdateProduct = () => {
                         <FileBase type="file" multiple={false} onDone={({ base64 }) => setProductData({ ...productData, image: base64 })}>
                         </FileBase>
                     </div>
+                    {productData?.image && (
+                        <div>
+                            < img src={productData.image} width="50%" alt="productimage" />
+                        </div>)}
                     <Grid container spacing={1} style={{ marginTop: "5px" }}>
                         <Grid item xs="12" md="6">
                             <Button component={changeURL} to="/admin/product/" onClick={() => dispatch({ type: PRODUCT_DETAILS_RESET })} variant="outlined" fullWidth>Go Back</Button>

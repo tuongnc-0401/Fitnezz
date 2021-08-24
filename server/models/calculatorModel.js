@@ -14,6 +14,8 @@ const calculatorSchema = new mongoose.Schema({
     target: { type: String },
     weight: { type: String },
     weightTarget: { type: String },
+    createDate: { type: String },
+    createTime: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 
 }, { timestamps: true }
