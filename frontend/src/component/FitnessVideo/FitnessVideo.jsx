@@ -152,7 +152,7 @@ function FitnessVideo(props) {
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
         >
-          Recommandation
+          Recommendation
           {/* <div style={{ color: 'black' }}>{`${width} ne ${height} ne`}</div> */}
         </div>
 
