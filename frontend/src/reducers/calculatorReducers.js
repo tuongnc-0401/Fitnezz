@@ -26,7 +26,7 @@ export const calculatorMineReducer = (state = { calculators: [] }, action) => {
     }
 }
 
-export const getOneBMIReducer = (state = { userBMI: [] }, action) => {
+export const getOneBMIReducer = (state = { loading: true, userBMI: [] }, action) => {
     switch (action.type) {
         case GET_USER_BMI_REQUEST:
             return { loading: true };

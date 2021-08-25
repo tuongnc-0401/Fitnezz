@@ -59,7 +59,7 @@ const Meals = () => {
   useEffect(() => {
     dispatch(getOneUserBMI());
   }, [dispatch]);
-  if (!userBMI) {
+  if (userBMI === "") {
     return (
       <Box mt={3} m={3}>
         <Alert severity="error">

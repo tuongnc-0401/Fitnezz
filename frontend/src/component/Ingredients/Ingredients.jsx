@@ -90,7 +90,7 @@ const Ingredients = () => {
     setSearchIngredient(ingredients);
   }, [ingredients]);
 
-  if (!userBMI) {
+  if (userBMI === "") {
     return (
       <Box mt={3} m={3}>
         <Alert severity="error">
