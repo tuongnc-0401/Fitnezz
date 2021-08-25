@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CALCULATOR_CREATE_FAIL, CALCULATOR_CREATE_REQUEST, CALCULATOR_CREATE_SUCCESS, CALCULATOR_MINE_LIST_FAIL, CALCULATOR_MINE_LIST_REQUEST, CALCULATOR_MINE_LIST_SUCCESS } from '../constants/calculatorConstants'
+import { CALCULATOR_CREATE_FAIL, CALCULATOR_CREATE_REQUEST, CALCULATOR_CREATE_SUCCESS, CALCULATOR_MINE_LIST_FAIL, CALCULATOR_MINE_LIST_REQUEST, CALCULATOR_MINE_LIST_SUCCESS, GET_USER_BMI_FAIL, GET_USER_BMI_REQUEST, GET_USER_BMI_SUCCESS } from '../constants/calculatorConstants'
 
 export const createCalculator = (calculatorInfo) => async (dispatch, getState) => {
     dispatch({ type: CALCULATOR_CREATE_REQUEST, payload: calculatorInfo })
@@ -38,6 +38,29 @@ export const getAllCalculatorHistory = () => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: CALCULATOR_MINE_LIST_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+        })
+    }
+}
+
+export const getOneUserBMI = () => async (dispatch, getState) => {
+    dispatch({ type: GET_USER_BMI_REQUEST });
+    try {
+        const { userSignIn: { userInfo } } = getState();
+        const { data } = await axios.get('/api/calculators/getOne', {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+
+        dispatch({ type: GET_USER_BMI_SUCCESS, payload: data });
+
+    } catch (error) {
+        dispatch({
+            type: GET_USER_BMI_FAIL,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

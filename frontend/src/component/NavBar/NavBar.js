@@ -85,6 +85,9 @@ const NavBar = () => {
                                 <Button color="inherit" component={Link} to="/calculator">Calculator</Button>
                             </Grid>
                             <Grid item >
+                                <Button color="inherit" component={Link} to="/meals">Meals</Button>
+                            </Grid>
+                            <Grid item >
                                 <Button color="inherit" component={Link} to="/videos">Videos</Button>
                             </Grid>
                         </Grid>
