@@ -7,6 +7,8 @@ import orderRouter from './routers/orderRouter.js';
 import programRouter from './routers/programRouter.js'
 import ingredientRouter from './routers/ingredientRouter.js'
 import calculatorRouter from './routers/calculatorRouter.js';
+import mealRouter from './routers/mealRouter.js'
+
 
 
 
@@ -27,6 +29,7 @@ app.use('/api/orders', orderRouter)
 app.use('/api/ingredients', ingredientRouter)
 app.use('/api/fitnessvideo', programRouter)
 app.use('/api/calculators', calculatorRouter)
+app.use('/api/meals', mealRouter)
 
 
 app.get('/', (req, res) => {
