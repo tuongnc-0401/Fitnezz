@@ -1,4 +1,4 @@
-import { CALCULATOR_CREATE_FAIL, CALCULATOR_CREATE_REQUEST, CALCULATOR_CREATE_SUCCESS, CALCULATOR_MINE_LIST_FAIL, CALCULATOR_MINE_LIST_REQUEST, CALCULATOR_MINE_LIST_SUCCESS } from "../constants/calculatorConstants";
+import { CALCULATOR_CREATE_FAIL, CALCULATOR_CREATE_REQUEST, CALCULATOR_CREATE_SUCCESS, CALCULATOR_MINE_LIST_FAIL, CALCULATOR_MINE_LIST_REQUEST, CALCULATOR_MINE_LIST_SUCCESS, GET_USER_BMI_FAIL, GET_USER_BMI_REQUEST, GET_USER_BMI_SUCCESS } from "../constants/calculatorConstants";
 
 export const calculatorCreateReducer = (state = {}, action) => {
     switch (action.type) {
@@ -20,6 +20,19 @@ export const calculatorMineReducer = (state = { calculators: [] }, action) => {
         case CALCULATOR_MINE_LIST_SUCCESS:
             return { loading: false, calculators: action.payload };
         case CALCULATOR_MINE_LIST_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const getOneBMIReducer = (state = { userBMI: [] }, action) => {
+    switch (action.type) {
+        case GET_USER_BMI_REQUEST:
+            return { loading: true };
+        case GET_USER_BMI_SUCCESS:
+            return { loading: false, userBMI: action.payload };
+        case GET_USER_BMI_FAIL:
             return { loading: false, error: action.payload };
         default:
             return state;
