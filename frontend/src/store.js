@@ -13,7 +13,7 @@ import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineLis
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
 import { getAllProgramsReducer, getOneProgramReducer, delProgramReducer } from './reducers/programReducers';
 import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
-import { mealListReducer, mealRemovedReducer } from './reducers/mealReducers.js';
+import { mealCreatedReducer, mealDetailsReducer, mealListReducer, mealRemovedReducer, mealUpdatedReducer } from './reducers/mealReducers.js';
 
 
 const initialState = {
@@ -60,6 +60,9 @@ const reducer = combineReducers({
     calculatorMine: calculatorMineReducer,
     mealList: mealListReducer,
     removeMeal: mealRemovedReducer,
+    newMeal: mealCreatedReducer,
+    mealDetails: mealDetailsReducer,
+    updateMeal: mealUpdatedReducer,
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(thunk)))

@@ -38,6 +38,7 @@ import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
 import HealthHistory from "./component/Profile/HealthHistory/HealthHistory";
 import AdminMeal from "./componentAdmin/AdminDashboard/AdminMeal/AdminMeal";
 import CreateMeal from "./componentAdmin/Meals/CreateMeal/CreateMeal";
+import UpdateMeal from "./componentAdmin/Meals/UpdateMeal/UpdateMeal";
 
 
 
@@ -131,6 +132,11 @@ const AppRoute = () => {
             path="/admin/meal/create"
             exact
             component={CreateMeal}
+          />
+          <AdminRoute
+            path="/admin/meal/:id"
+            exact
+            component={UpdateMeal}
           />
         </Switch>
       </div>
