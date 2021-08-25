@@ -29,15 +29,18 @@ import FitnessVideoDetail from "./component/FitnessVideo/FitnessVideoDetail/Fitn
 import Footer from "./component/Footer/Footer";
 import AboutUs from "./component/About-Us/AboutUs";
 import AdminProgram from "./componentAdmin/AdminProgram/AdminProgram";
-import AdminProgramCreate from './componentAdmin/Programs/CreateProgram/CreateProgram';
+import AdminProgramCreate from "./componentAdmin/Programs/CreateProgram/CreateProgram";
 import AdminOrder from "./componentAdmin/AdminDashboard/AdminOrder/AdminOrder";
 import UpdateOrder from "./componentAdmin/Orders/UpdateOrder/UpdateOrder";
 import AdminUser from "./componentAdmin/AdminDashboard/AdminUser/AdminUser";
 import CreateUser from "./componentAdmin/Users/CreateUser/CreateUser";
 import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
 import HealthHistory from "./component/Profile/HealthHistory/HealthHistory";
+
 import Recipe from "./component/Recipe/Recipe";
 
+
+import Meals from "./component/Meals/Meals";
 
 
 const AppRoute = () => {
@@ -62,6 +65,8 @@ const AppRoute = () => {
           <Route path="/healthhistory" exact component={HealthHistory} />
           <Route path="/aboutus" exact component={AboutUs} />
           <PrivateRoute path="/recipe" exact component={Recipe} />
+          <PrivateRoute path="/meals" component={Meals} />
+
           <PrivateRoute path="/ingredients" exact component={Ingredients} />
           <PrivateRoute path="/videos" exact component={FitnessVideo} />
           <PrivateRoute path="/videos/:id" component={FitnessVideoDetail} />
@@ -78,7 +83,11 @@ const AppRoute = () => {
             component={CreateProduct}
           />
           <AdminRoute path="/admin/product" exact component={AdminProduct} />
-          <AdminRoute path="/admin/product/:id" exact component={UpdateProduct} />
+          <AdminRoute
+            path="/admin/product/:id"
+            exact
+            component={UpdateProduct}
+          />
 
           <AdminRoute
             path="/admin/ingredient/create"
@@ -96,32 +105,16 @@ const AppRoute = () => {
             component={UpdateIngredient}
           />
           <AdminRoute path="/admin/videos" exact component={AdminProgram} />
-          <AdminRoute path="/admin/videos/create" exact component={AdminProgramCreate} />
           <AdminRoute
-            path="/admin/order"
+            path="/admin/videos/create"
             exact
-            component={AdminOrder}
+            component={AdminProgramCreate}
           />
-          <AdminRoute
-            path="/admin/order/:id"
-            exact
-            component={UpdateOrder}
-          />
-          <AdminRoute
-            path="/admin/user"
-            exact
-            component={AdminUser}
-          />
-          <AdminRoute
-            path="/admin/user/create"
-            exact
-            component={CreateUser}
-          />
-          <AdminRoute
-            path="/admin/user/:id"
-            exact
-            component={UpdateUser}
-          />
+          <AdminRoute path="/admin/order" exact component={AdminOrder} />
+          <AdminRoute path="/admin/order/:id" exact component={UpdateOrder} />
+          <AdminRoute path="/admin/user" exact component={AdminUser} />
+          <AdminRoute path="/admin/user/create" exact component={CreateUser} />
+          <AdminRoute path="/admin/user/:id" exact component={UpdateUser} />
         </Switch>
       </div>
       {location.pathname === "/" ||
