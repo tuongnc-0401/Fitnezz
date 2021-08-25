@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import useStyles from "./styles.js";
 import RestaurantIcon from "@material-ui/icons/Restaurant";
@@ -30,6 +30,13 @@ const Meals = () => {
     dairy: "6124f74dab9a228c14faf65b",
     grain: "6124f74dab9a228c14faf65b",
     protein: "6124f74dab9a228c14faf65b",
+  };
+
+  const ingredients = {
+    name: "Avocado",
+    img: "https://picsum.photos/200",
+    amount: "48",
+    calo: "56",
   };
   return (
     <div>
@@ -96,9 +103,16 @@ const Meals = () => {
         <Grid container>
           {/* Recipes */}
           <Grid item sm="12" md="5">
-            <Paper style={{ margin: "10px" }}>
+            <Paper
+              elevation={5}
+              style={{
+                margin: "10px",
+                padding: "0 0 20px 0",
+                height: "600px",
+              }}
+            >
               <img
-                style={{ width: "100%", height: "500px" }}
+                style={{ width: "100%", height: "400px" }}
                 src={recipe.image}
                 alt=""
               />
@@ -120,11 +134,74 @@ const Meals = () => {
                   {recipe.type}
                 </Typography>
               </Grid>
+              <Grid
+                container
+                justifyContent="flex-end"
+                className={classes.title}
+                style={{ paddingRight: "10px" }}
+              >
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#f73471",
+                    color: "white",
+                  }}
+                >
+                  Detail
+                </Button>
+              </Grid>
             </Paper>
           </Grid>
           {/* end Recipes */}
           {/* Details */}
-          <Grid item sm="12" md="7"></Grid>
+          <Grid item sm="12" md="7">
+            <Paper style={{ margin: "10px", padding: "10px", height: "600px" }}>
+              {/*  ONE INGREDIENTS */}
+              <Grid
+                container
+                alignItems="center"
+                xs="12"
+                container
+                justifyContent="center"
+                style={{ padding: "0 20px 0 20px" }}
+              >
+                <Grid item sm="3" xs="3" container>
+                  {ingredients.name}
+                </Grid>
+                <Grid item sm="3" xs="3" container justifyContent="center">
+                  <img
+                    src={ingredients.img}
+                    alt="ingredients"
+                    height={100}
+                  ></img>
+                </Grid>
+                <Grid item sm="3" xs="3" container justifyContent="center">
+                  {ingredients.amount}
+                </Grid>
+                <Grid item sm="3" xs="3" container justifyContent="flex-end">
+                  {ingredients.calo} calo
+                </Grid>
+              </Grid>
+              <Divider
+                style={{ marginTop: "5px", marginBottom: "5px" }}
+              ></Divider>
+              {/* END ONE INGREDIENTS */}
+              {/* Result */}
+              <Grid
+                container
+                style={{ padding: "0 20px 0 20px" }}
+                alignItems="center"
+              >
+                <Grid item xs="6">
+                  Total:
+                </Grid>
+                <Grid container item xs="6" justifyContent="flex-end">
+                  560 calo
+                </Grid>
+              </Grid>
+              {/* ENd Result */}
+            </Paper>
+          </Grid>
           {/* end Details */}
         </Grid>
       </Paper>
