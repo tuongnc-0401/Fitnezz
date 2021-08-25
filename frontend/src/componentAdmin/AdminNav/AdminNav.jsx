@@ -96,7 +96,7 @@ const AdminNav = () => {
                 </Grid>
             </Grid>
 
-            <Grid className={hoverRecommendation ? classes.itemHover : classes.item} onMouseEnter={() => setHoverRecommendation(true)} onMouseLeave={() => setHoverRecommendation(false)}>
+            <Grid component={changeURL} to="/admin/meal" className={hoverRecommendation ? classes.itemHover : classes.item} onMouseEnter={() => setHoverRecommendation(true)} onMouseLeave={() => setHoverRecommendation(false)}>
                 <CommentIcon />
                 <Grid style={{ marginLeft: '5px' }}>
                     Recommendations
