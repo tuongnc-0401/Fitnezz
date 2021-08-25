@@ -57,6 +57,19 @@ export default makeStyles((theme) => ({
             padding: '5px',
             marginBottom: '10px'
         }
+    },
+    input: {
+        '&[type=number]': {
+            '-moz-appearance': 'textfield',
+        },
+        '&::-webkit-outer-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0,
+        },
+        '&::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0,
+        },
     }
 
 

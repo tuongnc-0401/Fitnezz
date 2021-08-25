@@ -36,7 +36,12 @@ import AdminUser from "./componentAdmin/AdminDashboard/AdminUser/AdminUser";
 import CreateUser from "./componentAdmin/Users/CreateUser/CreateUser";
 import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
 import HealthHistory from "./component/Profile/HealthHistory/HealthHistory";
+
+import Recipe from "./component/Recipe/Recipe";
+
+
 import Meals from "./component/Meals/Meals";
+
 
 const AppRoute = () => {
   const location = useLocation();
@@ -59,7 +64,9 @@ const AppRoute = () => {
           <Route path="/orderhistory" exact component={OrderHistory} />
           <Route path="/healthhistory" exact component={HealthHistory} />
           <Route path="/aboutus" exact component={AboutUs} />
+          <PrivateRoute path="/recipe" exact component={Recipe} />
           <PrivateRoute path="/meals" component={Meals} />
+
           <PrivateRoute path="/ingredients" exact component={Ingredients} />
           <PrivateRoute path="/videos" exact component={FitnessVideo} />
           <PrivateRoute path="/videos/:id" component={FitnessVideoDetail} />
