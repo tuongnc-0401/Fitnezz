@@ -42,7 +42,6 @@ function UpdateProgram({ match }) {
     };
 
     const handleDel = (e) => {
-        console.log('cccccc')
         const index = +e.target.parentElement.parentElement.id - 1;
         const newVideos = [...videos];
         newVideos.splice(index, 1);

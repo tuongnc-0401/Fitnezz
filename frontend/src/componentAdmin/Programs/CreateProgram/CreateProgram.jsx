@@ -59,6 +59,31 @@ function CreateProgram(props) {
         }
     }, [createProgram])
 
+    const handleDel = (e) => {
+        if (videos.length > 0) {
+            const index = +e.target.parentElement.parentElement.id - 1;
+            const newVideos = [...videos];
+            newVideos.splice(index, 1);
+            setVideos(newVideos);
+            setAddBtn(videos?.length - 1);
+            setDuration(videos?.length - 1);
+        } else {
+            setAddBtn(addBtn - 1);
+            setDuration(addBtn - 1);
+        }
+    };
+
+    const handleAdd = () => {
+        const lengthInput = document.getElementsByClassName('textField').length + 1;
+
+        if (videos.length > 0) {
+            setAddBtn(videos?.length - 1);
+        } else {
+            setAddBtn(addBtn + 1)
+        }
+        setDuration(lengthInput);
+    }
+
     return (
         <Container component="main" style={{ width: '40%' }}>
             <CssBaseline />
@@ -92,19 +117,19 @@ function CreateProgram(props) {
                             </Select>
                         </FormControl>
                     </div>
-                    <TextField autoComplete="type" value={type} margin="normal" name="type" variant="outlined" label="Type" fullWidth onChange={(e) => setType(e.target.value)}></TextField>
-                    <TextField autoComplete="equipment" value={equipment} margin="normal" name="equipment" variant="outlined" label="Equipment" fullWidth onChange={(e) => setEquipment(e.target.value)}></TextField>
 
-                    <div style={{ width: '100%' }}>
-                        <TextField autoComplete="timeMinute" type="number" value={timeMinute} margin="normal" name="timeMinute" variant="outlined" label="Time per exercise" style={{ width: '50%', paddingRight: '3%' }} onChange={(e) => setTimeMinute(parseInt(e.target.value))}></TextField>
-                        <TextField autoComplete="duration" type="number" value={duration} margin="normal" name="duration" variant="outlined" label="Program's Duration" style={{ width: '50%' }} onChange={(e) => setDuration(e.target.value)}></TextField>
+                    <div style={{ width: '100%', display: 'flex' }}>
+                        <TextField autoComplete="type" value={type} margin="normal" name="type" variant="outlined" label="Type" style={{ width: '50%', paddingRight: '3%' }} onChange={(e) => setType(e.target.value)}></TextField>
+                        <TextField autoComplete="timeMinute" type="number" value={timeMinute} margin="normal" name="timeMinute" variant="outlined" label="Time per exercise" style={{ width: '50%' }} onChange={(e) => setTimeMinute(parseInt(e.target.value))}></TextField>
                     </div>
 
+                    <TextField autoComplete="equipment" value={equipment} margin="normal" name="equipment" variant="outlined" label="Equipment" fullWidth onChange={(e) => setEquipment(e.target.value)}></TextField>
+
                     {[...Array(addBtn)].map((x, i) =>
-                    (<div key={i} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                    (<div key={i} id={i} className={'textField'} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                         <TextField multiline margin="normal" name="video1" variant="outlined" label={`Video ${i + 1}`} style={{ width: '90%' }} onChange={(e) => setTemp({ videoUrl: e.target.value })} onBlur={() => (temp && setVideos([...videos, temp]))}></TextField>
                         <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <div onClick={() => setAddBtn(addBtn - 1)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
+                            <div onClick={(e) => handleDel(e)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                                 -
                             </div>
                         </div>
@@ -112,7 +137,7 @@ function CreateProgram(props) {
                     }
 
                     <div style={{ width: '100%', padding: '5px 5px 0px 5px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Button onClick={() => setAddBtn(addBtn + 1)} variant="outlined" size="medium" color="grey" style={{ fontSize: '15px', padding: '5px 40px' }}>
+                        <Button onClick={handleAdd} variant="outlined" size="medium" color="grey" style={{ fontSize: '15px', padding: '5px 40px' }}>
                             +
                         </Button>
                     </div>
