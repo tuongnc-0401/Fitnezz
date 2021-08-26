@@ -41,6 +41,46 @@ const Meals = () => {
     console.log("click");
   };
 
+  var fruitCalo = 10 / 100,
+    dairyCalo = 10 / 100,
+    vegetableCalo = 15 / 100,
+    grainCalo = 15 / 100,
+    proteinCalo = 50 / 100;
+
+  if (userBMI?.statusBMI === "Underweight") {
+    fruitCalo = 10 / 100;
+    dairyCalo = 10 / 100;
+    vegetableCalo = 20 / 100;
+    grainCalo = 20 / 100;
+    proteinCalo = 40 / 100;
+  }
+  if (userBMI?.statusBMI === "Overweight") {
+    fruitCalo = 15 / 100;
+    dairyCalo = 10 / 100;
+    vegetableCalo = 25 / 100;
+    grainCalo = 10 / 100;
+    proteinCalo = 40 / 100;
+  }
+
+  if (userBMI?.statusBMI === "Obesity class I") {
+    fruitCalo = 15 / 100;
+    dairyCalo = 75 / 1000;
+    vegetableCalo = 30 / 100;
+    grainCalo = 75 / 1000;
+    proteinCalo = 40 / 100;
+  }
+
+  if (
+    userBMI?.statusBMI === "Obesity class II" ||
+    userBMI?.statusBMI === "Obesity class III"
+  ) {
+    fruitCalo = 20 / 100;
+    dairyCalo = 50 / 1000;
+    vegetableCalo = 35 / 100;
+    grainCalo = 50 / 1000;
+    proteinCalo = 35 / 100;
+  }
+
   useEffect(() => {
     dispatch(listIngredients());
     dispatch(getOneUserBMI());
@@ -267,7 +307,7 @@ const Meals = () => {
                           container
                           justifyContent="center"
                         >
-                          {Math.trunc((caloMeal * 0.1) / fruit?.calo)} gam
+                          {Math.trunc((caloMeal * fruitCalo) / fruit?.calo)} gam
                         </Grid>
                         <Grid
                           item
@@ -276,7 +316,7 @@ const Meals = () => {
                           container
                           justifyContent="flex-end"
                         >
-                          {(caloMeal * 10) / 100} calo
+                          {(caloMeal * fruitCalo).toFixed(1)} calo
                         </Grid>
                       </Grid>
                       <Divider
@@ -314,7 +354,7 @@ const Meals = () => {
                           container
                           justifyContent="center"
                         >
-                          {Math.trunc((caloMeal * 0.15) / dairy?.calo)} gam
+                          {Math.trunc((caloMeal * dairyCalo) / dairy?.calo)} gam
                         </Grid>
                         <Grid
                           item
@@ -323,7 +363,7 @@ const Meals = () => {
                           container
                           justifyContent="flex-end"
                         >
-                          {(caloMeal * 15) / 100} calo
+                          {(caloMeal * dairyCalo).toFixed(1)} calo
                         </Grid>
                       </Grid>
                       <Divider
@@ -361,7 +401,10 @@ const Meals = () => {
                           container
                           justifyContent="center"
                         >
-                          {Math.trunc((caloMeal * 0.15) / vegetable?.calo)} gam
+                          {Math.trunc(
+                            (caloMeal * vegetableCalo) / vegetable?.calo
+                          )}{" "}
+                          gam
                         </Grid>
                         <Grid
                           item
@@ -370,7 +413,7 @@ const Meals = () => {
                           container
                           justifyContent="flex-end"
                         >
-                          {(caloMeal * 15) / 100} calo
+                          {(caloMeal * vegetableCalo).toFixed(1)} calo
                         </Grid>
                       </Grid>
                       <Divider
@@ -408,7 +451,7 @@ const Meals = () => {
                           container
                           justifyContent="center"
                         >
-                          {Math.trunc((caloMeal * 0.1) / grain?.calo)} gam
+                          {Math.trunc((caloMeal * grainCalo) / grain?.calo)} gam
                         </Grid>
                         <Grid
                           item
@@ -417,7 +460,7 @@ const Meals = () => {
                           container
                           justifyContent="flex-end"
                         >
-                          {(caloMeal * 10) / 100} calo
+                          {(caloMeal * grainCalo).toFixed(1)} calo
                         </Grid>
                       </Grid>
                       <Divider
@@ -455,7 +498,8 @@ const Meals = () => {
                           container
                           justifyContent="center"
                         >
-                          {Math.trunc((caloMeal * 0.5) / protein?.calo)} gam
+                          {Math.trunc((caloMeal * proteinCalo) / protein?.calo)}{" "}
+                          gam
                         </Grid>
                         <Grid
                           item
@@ -464,7 +508,7 @@ const Meals = () => {
                           container
                           justifyContent="flex-end"
                         >
-                          {(caloMeal * 50) / 100} calo
+                          {(caloMeal * proteinCalo).toFixed(1)} calo
                         </Grid>
                       </Grid>
                       <Divider
