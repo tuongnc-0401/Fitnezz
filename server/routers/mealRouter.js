@@ -44,6 +44,12 @@ mealRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     res.send(meals)
 }))
 
+
+mealRouter.get('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const meal = await Meal.findById(req.params.id)
+    res.send(meal)
+ }))
+
 mealRouter.post('/getone', expressAsyncHandler(async (req, res) => {
     const _id = req.body?._id || 0;
 
@@ -65,9 +71,6 @@ mealRouter.post('/getone', expressAsyncHandler(async (req, res) => {
         }
         res.send(meals)
     }
-
-
-
 
 }))
 
@@ -115,6 +118,39 @@ mealRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
         res.status(201).json(req.body);
     } catch (error) {
         res.status(409).json({ message: error.message });
+    }
+}))
+
+mealRouter.put("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    if (req.body.image) {
+        try {
+            const fileStr = req.body.image;
+            var uploadedResponse = await cloudinary.uploader.upload(
+                fileStr, {
+                upload_preset: 'Fitnezz'
+            }
+            )
+        } catch (error) {
+            res.status(500).json({ message: "upload image error" })
+        }
+    }
+    const meal = await Meal.findById(req.params.id)
+    if (meal) {
+        meal.name = req.body.name || meal.name
+        meal.type = req.body.type || meal.type
+        meal.instruction = req.body.instruction || meal.instruction
+        meal.ingredients = req.body.ingredients || meal.ingredients
+        meal.url = req.body.url || meal.url
+        meal.fruit = req.body.fruit || meal.fruit
+        meal.vegetable = req.body.vegetable || meal.vegetable
+        meal.dairy = req.body.dairy || meal.dairy
+        meal.grain = req.body.grain || meal.grain
+        meal.protein = req.body.protein || meal.protein
+        meal.image = uploadedResponse.url || meal.image
+        const updated = await meal.save()
+        res.send(updated)
+    } else {
+        res.send("Error in Updation.")
     }
 }))
 

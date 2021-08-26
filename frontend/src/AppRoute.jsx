@@ -38,6 +38,7 @@ import UpdateUser from "./componentAdmin/Users/UpdateUser/UpdateUser";
 import HealthHistory from "./component/Profile/HealthHistory/HealthHistory";
 import AdminMeal from "./componentAdmin/AdminDashboard/AdminMeal/AdminMeal";
 import CreateMeal from "./componentAdmin/Meals/CreateMeal/CreateMeal";
+import UpdateMeal from "./componentAdmin/Meals/UpdateMeal/UpdateMeal";
 
 import Recipe from "./component/Recipe/Recipe";
 
@@ -112,7 +113,6 @@ const AppRoute = () => {
             exact
             component={AdminProgramCreate}
           />
-
           <AdminRoute
             path="/admin/meal"
             exact
@@ -123,13 +123,16 @@ const AppRoute = () => {
             exact
             component={CreateMeal}
           />
-
+          <AdminRoute
+            path="/admin/meal/:id"
+            exact
+            component={UpdateMeal}
+          />
           <AdminRoute path="/admin/order" exact component={AdminOrder} />
           <AdminRoute path="/admin/order/:id" exact component={UpdateOrder} />
           <AdminRoute path="/admin/user" exact component={AdminUser} />
           <AdminRoute path="/admin/user/create" exact component={CreateUser} />
           <AdminRoute path="/admin/user/:id" exact component={UpdateUser} />
-
         </Switch>
       </div>
       {location.pathname === "/" ||

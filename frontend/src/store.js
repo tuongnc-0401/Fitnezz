@@ -13,7 +13,9 @@ import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineLis
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
 import { getAllProgramsReducer, getOneProgramReducer, delProgramReducer } from './reducers/programReducers';
 import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
-import { mealListReducer, mealOneReducer, mealRemovedReducer } from './reducers/mealReducers.js';
+
+import { mealCreatedReducer, mealDetailsReducer, mealListReducer, mealRemovedReducer, mealUpdatedReducer , mealOneReducer} from './reducers/mealReducers.js';
+
 
 
 const initialState = {
@@ -61,6 +63,9 @@ const reducer = combineReducers({
 
     mealList: mealListReducer,
     removeMeal: mealRemovedReducer,
+    newMeal: mealCreatedReducer,
+    mealDetails: mealDetailsReducer,
+    updateMeal: mealUpdatedReducer,
 
     getUserBMI: getOneBMIReducer,
     mealOne: mealOneReducer,
