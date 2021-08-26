@@ -104,7 +104,7 @@ const Ingredients = () => {
   } else {
     return (
       <main className={classes.container}>
-        {loading ? (
+        {loading || loadingBMI ? (
           <CircularProgress color="secondary" />
         ) : error ? (
           <Alert severity="error">{error}</Alert>

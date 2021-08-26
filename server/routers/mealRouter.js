@@ -44,6 +44,33 @@ mealRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     res.send(meals)
 }))
 
+mealRouter.post('/getone', expressAsyncHandler(async (req, res) => {
+    const _id = req.body?._id || 0;
+
+    const count = await Meal.estimatedDocumentCount();
+    var rand = Math.floor(Math.random() * count);
+    var meals = await Meal.findOne().skip(rand);
+
+    if (_id === 0) {
+        res.send(meals)
+
+    } else {
+
+        while (_id.toString() === meals._id.toString()) {
+
+            rand = Math.floor(Math.random() * count);
+            meals = await Meal.findOne().skip(rand);
+
+
+        }
+        res.send(meals)
+    }
+
+
+
+
+}))
+
 mealRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     const deletedMeal = await Meal.findById(req.params.id)
     if (deletedMeal) {

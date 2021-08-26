@@ -17,48 +17,54 @@ import { Link as goBackBMI } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
 import { getOneUserBMI } from "../../actions/calculatorActions.js";
 import { useEffect } from "react";
+import { listIngredients } from "../../actions/ingredientActions.js";
+import { getOneMeal } from "../../actions/mealAction.js";
 const Meals = () => {
   const classes = useStyles();
   const userBMIList = useSelector((state) => state.getUserBMI);
   const { loading: loadingBMI, error: errorBMI, userBMI } = userBMIList;
+  const ingredientList = useSelector((state) => state.ingredientList);
+  const { loading, error, ingredients } = ingredientList;
+
+  const mealOne = useSelector((state) => state.mealOne);
+  const { loading: loadingMeal, error: errorMeal, meal } = mealOne;
+
   const dispatch = useDispatch();
-  const userCalculatorInfo = {
-    caloGainLoss: "2063",
-    numBMI: "23.5",
-    numTDEE: "1875",
-    statusBMI: "Normal",
-    target: "2",
-  };
+
   const caloMeal =
-    userCalculatorInfo.target === "1"
-      ? Math.trunc(userCalculatorInfo.numTDEE / 3)
-      : Math.trunc(userCalculatorInfo.caloGainLoss / 3);
+    userBMI?.target === "1"
+      ? Math.trunc(userBMI?.numTDEE / 3)
+      : Math.trunc(userBMI?.caloGainLoss / 3) || 0;
 
-  const recipe = {
-    name: "qh",
-    image: "https://picsum.photos/200",
-    type: "protein",
-    instruction:
-      "high quality product high quality product high quality product high quality product high quality product high quality product",
-    ingredients: "hehe",
-    url: "https://www.youtube.com/embed/P1mInEK7BEU",
-    fruit: "6124f74dab9a228c14faf65b",
-    vegetable: "6124f74dab9a228c14faf65b",
-    dairy: "6124f74dab9a228c14faf65b",
-    grain: "6124f74dab9a228c14faf65b",
-    protein: "6124f74dab9a228c14faf65b",
-  };
-
-  const ingredients = {
-    name: "Avocado",
-    img: "https://picsum.photos/200",
-    amount: "48",
-    calo: "56",
+  const handleOnRefresh = () => {
+    dispatch(getOneMeal(meal?._id));
+    console.log("click");
   };
 
   useEffect(() => {
+    dispatch(listIngredients());
     dispatch(getOneUserBMI());
+    dispatch(getOneMeal());
   }, [dispatch]);
+
+  if (ingredients.length > 0) {
+    var fruit = ingredients.find(
+      (item) => item._id.toString() === meal?.fruit.toString()
+    );
+    var dairy = ingredients.find(
+      (item) => item._id.toString() === meal?.dairy.toString()
+    );
+    var vegetable = ingredients.find(
+      (item) => item._id.toString() === meal?.vegetable.toString()
+    );
+    var grain = ingredients.find(
+      (item) => item._id.toString() === meal?.grain.toString()
+    );
+    var protein = ingredients.find(
+      (item) => item._id.toString() === meal?.protein.toString()
+    );
+  }
+
   if (userBMI === "") {
     return (
       <Box mt={3} m={3}>
@@ -73,9 +79,9 @@ const Meals = () => {
   } else {
     return (
       <div>
-        {loadingBMI ? (
+        {loadingBMI || loading || loadingMeal ? (
           <CircularProgress color="secondary" />
-        ) : errorBMI ? (
+        ) : errorBMI || error || errorMeal ? (
           <Alert severity="error">{errorBMI}</Alert>
         ) : (
           <Paper elevation={5} style={{ margin: "25px", padding: "25px" }}>
@@ -102,6 +108,7 @@ const Meals = () => {
               >
                 <Button
                   variant="contained"
+                  onClick={handleOnRefresh}
                   style={{
                     backgroundColor: "#f73471",
                     color: "white",
@@ -114,132 +121,359 @@ const Meals = () => {
             {/* END TITLE */}
 
             {/* HEALTH INFO */}
-            <Paper elevation={5} style={{ margin: "10px", padding: "10px" }}>
-              <Grid container justifyContent="center">
-                <Typography variant="h5">
-                  Your body is{" "}
-                  <span style={{ color: "#f73471" }}>
-                    {userCalculatorInfo.statusBMI}{" "}
-                  </span>
-                  {userCalculatorInfo.target !== "1" && (
-                    <span>
-                      and your target is
-                      <span style={{ color: "#f73471" }}>
-                        {" "}
-                        {userCalculatorInfo.target === "2"
-                          ? "GAIN WEIGHT "
-                          : "LOSE WEIGHT "}
-                      </span>
+            {loadingBMI ? (
+              <CircularProgress color="secondary" />
+            ) : errorBMI ? (
+              <Alert severity="error">{errorBMI}</Alert>
+            ) : (
+              <Paper elevation={5} style={{ margin: "10px", padding: "10px" }}>
+                <Grid container justifyContent="center">
+                  <Typography variant="h5">
+                    Your body is{" "}
+                    <span style={{ color: "#f73471" }}>
+                      {userBMI.statusBMI}{" "}
                     </span>
-                  )}
-                  so you need to consume approximately{" "}
-                  <span style={{ color: "#f73471" }}> {caloMeal}</span> calories
-                  in each meal.
-                </Typography>
-              </Grid>
-            </Paper>
+                    {userBMI.target !== "1" && (
+                      <span>
+                        and your target is
+                        <span style={{ color: "#f73471" }}>
+                          {" "}
+                          {userBMI.target === "2"
+                            ? "GAIN WEIGHT "
+                            : "LOSE WEIGHT "}
+                        </span>
+                      </span>
+                    )}
+                    so you need to consume approximately{" "}
+                    <span style={{ color: "#f73471" }}> {caloMeal}</span>{" "}
+                    calories in each meal.
+                  </Typography>
+                </Grid>
+              </Paper>
+            )}
+
             {/* END HEALTH INFO */}
+
             <Grid container>
               {/* Recipes */}
-              <Grid item sm="12" md="5">
-                <Paper
-                  elevation={5}
-                  style={{
-                    margin: "10px",
-                    padding: "0 0 20px 0",
-                    height: "600px",
-                  }}
-                >
-                  <img
-                    style={{ width: "100%", height: "400px" }}
-                    src={recipe.image}
-                    alt=""
-                  />
-                  <Grid
-                    container
-                    style={{ margin: "20px" }}
-                    alignItems="center"
+
+              {loadingMeal ? (
+                <CircularProgress color="secondary" />
+              ) : errorMeal ? (
+                <Alert severity="error">{errorMeal}</Alert>
+              ) : (
+                <Grid item sm="12" md="5">
+                  <Paper
+                    elevation={5}
+                    style={{
+                      margin: "10px",
+                      padding: "0 0 20px 0",
+                      height: "600px",
+                    }}
                   >
-                    <RestaurantIcon
-                      className={classes.colorPink}
-                      style={{ fontSize: 40 }}
-                    ></RestaurantIcon>
-                    <Typography variant="h5" style={{ marginLeft: "20px" }}>
-                      {recipe.name}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    style={{ margin: "20px" }}
-                    alignItems="center"
-                  >
-                    <ScheduleIcon
-                      className={classes.colorPink}
-                      style={{ fontSize: 40 }}
-                    ></ScheduleIcon>
-                    <Typography variant="h5" style={{ marginLeft: "20px" }}>
-                      {recipe.type}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    justifyContent="flex-end"
-                    className={classes.title}
-                    style={{ paddingRight: "10px" }}
-                  >
-                    <Button
-                      variant="contained"
-                      style={{
-                        backgroundColor: "#f73471",
-                        color: "white",
-                      }}
+                    <img
+                      style={{ width: "100%", height: "400px" }}
+                      src={meal?.image}
+                      alt=""
+                    />
+                    <Grid
+                      container
+                      style={{ margin: "20px" }}
+                      alignItems="center"
                     >
-                      Detail
-                    </Button>
-                  </Grid>
-                </Paper>
-              </Grid>
+                      <RestaurantIcon
+                        className={classes.colorPink}
+                        style={{ fontSize: 40 }}
+                      ></RestaurantIcon>
+                      <Typography variant="h5" style={{ marginLeft: "20px" }}>
+                        {meal.name}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      container
+                      style={{ margin: "20px" }}
+                      alignItems="center"
+                    >
+                      <ScheduleIcon
+                        className={classes.colorPink}
+                        style={{ fontSize: 40 }}
+                      ></ScheduleIcon>
+                      <Typography variant="h5" style={{ marginLeft: "20px" }}>
+                        {meal.type}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      container
+                      justifyContent="flex-end"
+                      className={classes.title}
+                      style={{ paddingRight: "10px" }}
+                    >
+                      <Button
+                        variant="contained"
+                        style={{
+                          backgroundColor: "#f73471",
+                          color: "white",
+                        }}
+                        component={goBackBMI}
+                        to={`/recipe/${meal._id}`}
+                      >
+                        Detail
+                      </Button>
+                    </Grid>
+                  </Paper>
+                </Grid>
+              )}
               {/* end Recipes */}
+
               {/* Details */}
               <Grid item sm="12" md="7">
                 <Paper
                   style={{ margin: "10px", padding: "10px", height: "600px" }}
                 >
-                  {/*  ONE INGREDIENTS */}
-                  <Grid
-                    container
-                    alignItems="center"
-                    xs="12"
-                    justifyContent="center"
-                    style={{ padding: "0 20px 0 20px" }}
-                  >
-                    <Grid item sm="3" xs="3" container>
-                      {ingredients.name}
-                    </Grid>
-                    <Grid item sm="3" xs="3" container justifyContent="center">
-                      <img
-                        src={ingredients.img}
-                        alt="ingredients"
-                        height={100}
-                      ></img>
-                    </Grid>
-                    <Grid item sm="3" xs="3" container justifyContent="center">
-                      {ingredients.amount}
-                    </Grid>
-                    <Grid
-                      item
-                      sm="3"
-                      xs="3"
-                      container
-                      justifyContent="flex-end"
-                    >
-                      {ingredients.calo} calo
-                    </Grid>
-                  </Grid>
-                  <Divider
-                    style={{ marginTop: "5px", marginBottom: "5px" }}
-                  ></Divider>
-                  {/* END ONE INGREDIENTS */}
+                  {loading ? (
+                    <CircularProgress color="secondary" />
+                  ) : error ? (
+                    <Alert severity="error">{error}</Alert>
+                  ) : (
+                    <div>
+                      {/*  ONE INGREDIENTS */}
+                      <Grid
+                        container
+                        alignItems="center"
+                        xs="12"
+                        justifyContent="center"
+                        style={{ padding: "0 20px 0 20px" }}
+                      >
+                        <Grid item sm="3" xs="3" container>
+                          {fruit?.name}
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          <img
+                            src={fruit?.image}
+                            alt="ingredients"
+                            height={100}
+                          ></img>
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          {Math.trunc((caloMeal * 0.1) / fruit?.calo)} gam
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="flex-end"
+                        >
+                          {(caloMeal * 10) / 100} calo
+                        </Grid>
+                      </Grid>
+                      <Divider
+                        style={{ marginTop: "5px", marginBottom: "5px" }}
+                      ></Divider>
+                      {/* END ONE INGREDIENTS */}
+                      {/*  ONE INGREDIENTS */}
+                      <Grid
+                        container
+                        alignItems="center"
+                        xs="12"
+                        justifyContent="center"
+                        style={{ padding: "0 20px 0 20px" }}
+                      >
+                        <Grid item sm="3" xs="3" container>
+                          {dairy?.name}
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          <img
+                            src={dairy?.image}
+                            alt="ingredients"
+                            height={100}
+                          ></img>
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          {Math.trunc((caloMeal * 0.15) / dairy?.calo)} gam
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="flex-end"
+                        >
+                          {(caloMeal * 15) / 100} calo
+                        </Grid>
+                      </Grid>
+                      <Divider
+                        style={{ marginTop: "5px", marginBottom: "5px" }}
+                      ></Divider>
+                      {/* END ONE INGREDIENTS */}
+                      {/*  ONE INGREDIENTS */}
+                      <Grid
+                        container
+                        alignItems="center"
+                        xs="12"
+                        justifyContent="center"
+                        style={{ padding: "0 20px 0 20px" }}
+                      >
+                        <Grid item sm="3" xs="3" container>
+                          {vegetable?.name}
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          <img
+                            src={vegetable?.image}
+                            alt="ingredients"
+                            height={100}
+                          ></img>
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          {Math.trunc((caloMeal * 0.15) / vegetable?.calo)} gam
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="flex-end"
+                        >
+                          {(caloMeal * 15) / 100} calo
+                        </Grid>
+                      </Grid>
+                      <Divider
+                        style={{ marginTop: "5px", marginBottom: "5px" }}
+                      ></Divider>
+                      {/* END ONE INGREDIENTS */}
+                      {/*  ONE INGREDIENTS */}
+                      <Grid
+                        container
+                        alignItems="center"
+                        xs="12"
+                        justifyContent="center"
+                        style={{ padding: "0 20px 0 20px" }}
+                      >
+                        <Grid item sm="3" xs="3" container>
+                          {grain?.name}
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          <img
+                            src={grain?.image}
+                            alt="ingredients"
+                            height={100}
+                          ></img>
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          {Math.trunc((caloMeal * 0.1) / grain?.calo)} gam
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="flex-end"
+                        >
+                          {(caloMeal * 10) / 100} calo
+                        </Grid>
+                      </Grid>
+                      <Divider
+                        style={{ marginTop: "5px", marginBottom: "5px" }}
+                      ></Divider>
+                      {/* END ONE INGREDIENTS */}
+                      {/*  ONE INGREDIENTS */}
+                      <Grid
+                        container
+                        alignItems="center"
+                        xs="12"
+                        justifyContent="center"
+                        style={{ padding: "0 20px 0 20px" }}
+                      >
+                        <Grid item sm="3" xs="3" container>
+                          {protein?.name}
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          <img
+                            src={protein?.image}
+                            alt="ingredients"
+                            height={100}
+                          ></img>
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="center"
+                        >
+                          {Math.trunc((caloMeal * 0.5) / protein?.calo)} gam
+                        </Grid>
+                        <Grid
+                          item
+                          sm="3"
+                          xs="3"
+                          container
+                          justifyContent="flex-end"
+                        >
+                          {(caloMeal * 50) / 100} calo
+                        </Grid>
+                      </Grid>
+                      <Divider
+                        style={{ marginTop: "5px", marginBottom: "5px" }}
+                      ></Divider>
+                      {/* END ONE INGREDIENTS */}
+                    </div>
+                  )}
+
                   {/* Result */}
                   <Grid
                     container
@@ -250,7 +484,7 @@ const Meals = () => {
                       Total:
                     </Grid>
                     <Grid container item xs="6" justifyContent="flex-end">
-                      560 calo
+                      {caloMeal} calo
                     </Grid>
                   </Grid>
                   {/* ENd Result */}
