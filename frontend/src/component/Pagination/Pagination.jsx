@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Pagination, PaginationItem } from '@material-ui/lab'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { listProducts } from '../../actions/productActions'
+import { useSelector } from 'react-redux'
 const Paginate = ({ page }) => {
-    const dispatch = useDispatch()
     const { numberOfPage } = useSelector(state => state.productList)
 
     return (
