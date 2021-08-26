@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { MEAL_CREATE_FAIL, MEAL_CREATE_REQUEST, MEAL_CREATE_SUCCESS, MEAL_DETAILS_FAIL, MEAL_DETAILS_REQUEST, MEAL_DETAILS_SUCCESS, MEAL_LIST_FAIL, MEAL_LIST_REQUEST, MEAL_LIST_SUCCESS, MEAL_REMOVE_FAIL, MEAL_REMOVE_REQUEST, MEAL_REMOVE_SUCCESS, MEAL_UPDATE_FAIL, MEAL_UPDATE_REQUEST, MEAL_UPDATE_SUCCESS } from '../constants/mealConstants'
+
+import { MEAL_CREATE_FAIL, MEAL_CREATE_REQUEST, MEAL_CREATE_SUCCESS, MEAL_DETAILS_FAIL, MEAL_DETAILS_REQUEST, MEAL_DETAILS_SUCCESS, MEAL_LIST_FAIL, MEAL_LIST_REQUEST, MEAL_LIST_SUCCESS, MEAL_REMOVE_FAIL, MEAL_REMOVE_REQUEST, MEAL_REMOVE_SUCCESS, MEAL_UPDATE_FAIL, MEAL_UPDATE_REQUEST, MEAL_UPDATE_SUCCESS , MEAL_ONE_FAIL, MEAL_ONE_REQUEST, MEAL_ONE_SUCCESS} from '../constants/mealConstants'
+
 
 export const listMeal = () => async (dispatch, getState) => {
     dispatch({ type: MEAL_LIST_REQUEST })
@@ -95,6 +97,35 @@ export const updatedMeal = (meal) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: MEAL_UPDATE_FAIL,
+                    payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+        })
+    }
+}
+
+export const getOneMeal = (id) => async (dispatch) => {
+    if (!id) {
+        id = 0;
+    }
+    const dataSent = {
+        _id: id
+    };
+
+    dispatch({
+        type: MEAL_ONE_REQUEST,
+        payload: dataSent
+    })
+    try {
+        const { data } = await axios.post("/api/meals/getone", dataSent);
+        dispatch({
+            type: MEAL_ONE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: MEAL_ONE_FAIL,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

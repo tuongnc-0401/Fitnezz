@@ -44,9 +44,34 @@ mealRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     res.send(meals)
 }))
 
+
 mealRouter.get('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
     const meal = await Meal.findById(req.params.id)
     res.send(meal)
+ }))
+
+mealRouter.post('/getone', expressAsyncHandler(async (req, res) => {
+    const _id = req.body?._id || 0;
+
+    const count = await Meal.estimatedDocumentCount();
+    var rand = Math.floor(Math.random() * count);
+    var meals = await Meal.findOne().skip(rand);
+
+    if (_id === 0) {
+        res.send(meals)
+
+    } else {
+
+        while (_id.toString() === meals._id.toString()) {
+
+            rand = Math.floor(Math.random() * count);
+            meals = await Meal.findOne().skip(rand);
+
+
+        }
+        res.send(meals)
+    }
+
 }))
 
 mealRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
@@ -111,17 +136,6 @@ mealRouter.put("/:id", isAuth, isAdmin, expressAsyncHandler(async (req, res) => 
     }
     const meal = await Meal.findById(req.params.id)
     if (meal) {
-        // name: req.body.name,
-        // image: uploadedResponse.url,
-        // type: req.body.type,
-        // instruction: req.body.instruction,
-        // ingredients: req.body.ingredients,
-        // url: req.body.url,
-        // fruit: req.body.fruit,
-        // vegetable: req.body.vegetable,
-        // dairy: req.body.dairy,
-        // grain: req.body.grain,
-        // protein: req.body.protein,
         meal.name = req.body.name || meal.name
         meal.type = req.body.type || meal.type
         meal.instruction = req.body.instruction || meal.instruction
