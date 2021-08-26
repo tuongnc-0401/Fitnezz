@@ -14,15 +14,9 @@ function UpdateProgram({ match }) {
     const updateProgram = useSelector(state => state.updateProgram);
     const { loading, success, error } = updateProgram;
 
-    const [checkLength, setCheckLength] = useState(true);
-
-    const [checkLengthUpdate, setCheckLengthUpdate] = useState(false);
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        const lengthInput = document.getElementsByClassName('textcmnField').length;
-
-        // dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
+        dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
         console.log('id', match.params.id);
         console.log('name', name);
         console.log('gender', gender);
@@ -174,7 +168,7 @@ function UpdateProgram({ match }) {
 
 
                         <div style={{ width: '100%', display: 'flex' }}>
-                            <TextField autoComplete="type" value={type} margin="normal" name="type" variant="outlined" label="Type"  style={{ width: '50%', paddingRight: '3%' }} onChange={(e) => setType(e.target.value)}></TextField>
+                            <TextField autoComplete="type" value={type} margin="normal" name="type" variant="outlined" label="Type" style={{ width: '50%', paddingRight: '3%' }} onChange={(e) => setType(e.target.value)}></TextField>
                             <TextField autoComplete="timeMinute" type="number" value={timeMinute} margin="normal" name="timeMinute" variant="outlined" label="Time per exercise" style={{ width: '50%' }} onChange={(e) => setTimeMinute(parseInt(e.target.value))}></TextField>
                         </div>
 
@@ -201,6 +195,7 @@ function UpdateProgram({ match }) {
                         </div>))
                         }
 
+                        {/* eslint-disable-next-line */}
                         {[...Array(addBtn)].map((x, i) => {
                             if (i >= videos?.length) {
                                 return (<div key={i} className='textcmnField' id={i} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
@@ -223,17 +218,6 @@ function UpdateProgram({ match }) {
                         })
                         }
 
-                        {checkLength === false &&
-                            <div style={{ width: '100%' }} >
-                                <Alert style={{ marginTop: '10px' }} severity="warning">The videos are over the duration (1video/day)</Alert>
-                            </div>
-                        }
-
-                        {checkLengthUpdate &&
-                            <div style={{ width: '100%' }} >
-                                <Alert style={{ marginTop: '10px' }} severity="warning">Please add more videos</Alert>
-                            </div>
-                        }
                         <div style={{ width: '100%', padding: '5px 5px 0px 5px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <Button onClick={handleAdd} variant="outlined" size="medium" color="grey" style={{ fontSize: '15px', padding: '5px 40px' }}>
                                 +
