@@ -3,6 +3,12 @@ import expressAsyncHandler from 'express-async-handler'
 import Program from '../models/programModel.js';
 const programRouter = express.Router();
 import { isAdmin, isAuth } from '../utils.js';
+import cloudinary from 'cloudinary'
+cloudinary.config({
+    cloud_name: 'tuongtuong0401',
+    api_key: '542792612474969',
+    api_secret: 'WFMTbxBh13oyoH24EDQxxlzgUNk',
+})
 
 const Programsss = [{
     releaseDate: new Date("2015-03"),
@@ -176,29 +182,7 @@ const Programsss = [{
 },
 ];
 
-//Lam ko thanh cong
-
-// programRouter.post('/', expressAsyncHandler(async (req, res) => {
-//     const program = new Program({
-//         name: req.body.name,
-//         type: req.body.type,
-//         equipment: req.body.equipment,
-//         timeMinute: req.body.timeMinute,
-//         duration: req.body.duration,
-//         imgUrl: req.body.imgUrl,
-//         videos: req.body.videos, //chua add dc videos
-//     });
-
-//     const createdProgram = await program.save();
-//     if (createdProgram) {
-//         res.send({ createdProgram });
-//         return;
-//     }
-//     res.status(404).send({ message: 'Failed to create program' })
-// }));
-
-
-//get all program
+//get all 
 programRouter.get('/', expressAsyncHandler(async (req, res) => {
     const program = await Program.find({})
     if (program) {
@@ -226,8 +210,8 @@ programRouter.get('/:id', expressAsyncHandler(async (req, res) => {
 }))
 
 //delete router
-programRouter.post('/', expressAsyncHandler(async (req, res) => {
-    const deletedProgram = await Program.findById(req.body.id);
+programRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const deletedProgram = await Program.findById(req.params.id);
     if (deletedProgram) {
         await deletedProgram.remove();
         res.send({ message: 'Successfully deleted program' });
@@ -235,6 +219,70 @@ programRouter.post('/', expressAsyncHandler(async (req, res) => {
         res.send('Error in deletion');
     }
 }));
+
+//create
+programRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    try {
+        const fileStr = req.body.imgUrl;
+        var uploadedResponse = await cloudinary.uploader.upload(
+            fileStr, {
+            upload_preset: 'Fitnezz'
+        }
+        )
+    } catch (error) {
+        res.status(500).json({ message: "Upload image error" })
+    }
+    const program = new Program({
+        name: req.body.name,
+        type: req.body.type,
+        equipment: req.body.equipment,
+        timeMinute: req.body.timeMinute,
+        duration: req.body.duration,
+        imgUrl: uploadedResponse.url,
+        gender: req.body.gender,
+        videos: req.body.videos,
+    });
+
+    const createdProgram = await program.save();
+    if (createdProgram) {
+        res.send({ createdProgram });
+        return;
+    }
+    res.status(404).send({ message: 'Failed to create program' })
+}));
+
+//update
+programRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    if (req.body.imgUrl) {
+        try {
+            const fileStr = req.body.imgUrl;
+            var uploadedResponse = await cloudinary.uploader.upload(
+                fileStr, {
+                upload_preset: 'Fitnezz'
+            }
+            )
+        } catch (error) {
+            res.status(500).json({ message: "Upload image error" })
+        }
+    }
+
+    const program = await Program.findById(req.params.id)
+    if (program) {
+        program.name = req.body.name || program.name
+        program.type = req.body.type || program.type
+        program.equipment = req.body.equipment || program.equipment
+        program.timeMinute = req.body.timeMinute || program.timeMinute
+        program.duration = req.body.duration || program.duration
+        program.imgUrl = uploadedResponse.url || program.imgUrl
+        program.gender = req.body.gender || program.gender
+        program.videos = req.body.videos || program.videos
+        program.releaseDate = new Date();
+        const updated = await program.save()
+        res.send(updated)
+    } else {
+        res.send("Error in Updation.")
+    }
+}))
 
 
 export default programRouter;
