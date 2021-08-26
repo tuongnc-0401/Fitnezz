@@ -84,7 +84,10 @@ const Meals = () => {
   useEffect(() => {
     dispatch(listIngredients());
     dispatch(getOneUserBMI());
-    dispatch(getOneMeal());
+    if (!meal) {
+      dispatch(getOneMeal());
+    }
+    // eslint-disable-next-line
   }, [dispatch]);
 
   if (ingredients.length > 0) {
