@@ -20,42 +20,50 @@ function UpdateProgram({ match }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const lengthInput = document.getElementsByClassName('textcmnField').length + 1;
-        if (lengthInput < duration) {
-            setCheckLengthUpdate(true);
-            return;
-        }
-        dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
-        // console.log('id', match.params.id);
-        // console.log('name', name);
-        // console.log('gender', gender);
-        // console.log('type', type);
-        // console.log('equipment', equipment);
-        // console.log('timeMinute', timeMinute);
-        // console.log('duration', duration);
-        // console.log('image', image);
-        // console.log('videos', videos);
+        const lengthInput = document.getElementsByClassName('textcmnField').length;
+
+        // dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
+        console.log('id', match.params.id);
+        console.log('name', name);
+        console.log('gender', gender);
+        console.log('type', type);
+        console.log('equipment', equipment);
+        console.log('timeMinute', timeMinute);
+        console.log('duration', duration);
+        console.log('image', image);
+        console.log('videos', videos);
     }
 
     const handleAdd = () => {
         const lengthInput = document.getElementsByClassName('textcmnField').length + 1;
-        if (lengthInput <= duration) {
-            setCheckLength(true);
-            setAddBtn(addBtn + 1);
-        }
+        setDuration(lengthInput);
+        // if (lengthInput <= duration) {
+        //     setCheckLength(true);
+        setAddBtn(addBtn + 1);
+        // }
 
-        if (lengthInput > duration) {
-            setCheckLength(false);
-        }
+        // if (lengthInput > duration) {
+        //     setCheckLength(false);
+        // }
     };
 
     const handleDel = (e) => {
+        console.log('cccccc')
         const index = +e.target.parentElement.parentElement.id - 1;
         const newVideos = [...videos];
         newVideos.splice(index, 1);
         setVideos(newVideos);
         setAddBtn(videos.length - 1);
-    }
+        setDuration(videos.length - 1);
+    };
+
+    const handleDel2 = (e) => {
+        setAddBtn(addBtn - 1);
+        setDuration(addBtn - 1);
+    };
+
+
+
 
     //gender
 
@@ -122,12 +130,13 @@ function UpdateProgram({ match }) {
         setVideos(newVideos);
     }
 
-    console.log('temp ne', videos);
+    console.log('duration ne', duration);
+
     var count = 0;
     var countId = 0;
     var idTextField = 0;
     return (
-        <Container component="main" style={{ width: '40%' }}>
+        <Container component="main" style={{ width: '40%', paddingRight: '5%' }}>
             <CssBaseline />
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
@@ -162,13 +171,14 @@ function UpdateProgram({ match }) {
                                 </Select>
                             </FormControl>
                         </div>
-                        <TextField autoComplete="type" value={type} margin="normal" name="type" variant="outlined" label="Type" fullWidth onChange={(e) => setType(e.target.value)}></TextField>
-                        <TextField autoComplete="equipment" value={equipment} margin="normal" name="equipment" variant="outlined" label="Equipment" fullWidth onChange={(e) => setEquipment(e.target.value)}></TextField>
 
-                        <div style={{ width: '100%' }}>
-                            <TextField autoComplete="timeMinute" type="number" value={timeMinute} margin="normal" name="timeMinute" variant="outlined" label="Time per exercise" style={{ width: '50%', paddingRight: '3%' }} onChange={(e) => setTimeMinute(parseInt(e.target.value))}></TextField>
-                            <TextField autoComplete="duration" type="number" value={duration} margin="normal" name="duration" variant="outlined" label="Program's Duration" style={{ width: '50%' }} onChange={(e) => setDuration(e.target.value)}></TextField>
+
+                        <div style={{ width: '100%', display: 'flex' }}>
+                            <TextField autoComplete="type" value={type} margin="normal" name="type" variant="outlined" label="Type"  style={{ width: '50%', paddingRight: '3%' }} onChange={(e) => setType(e.target.value)}></TextField>
+                            <TextField autoComplete="timeMinute" type="number" value={timeMinute} margin="normal" name="timeMinute" variant="outlined" label="Time per exercise" style={{ width: '50%' }} onChange={(e) => setTimeMinute(parseInt(e.target.value))}></TextField>
                         </div>
+
+                        <TextField autoComplete="equipment" value={equipment} margin="normal" name="equipment" variant="outlined" label="Equipment" fullWidth onChange={(e) => setEquipment(e.target.value)}></TextField>
 
                         {videos && videos.map((video) =>
                         (<div className='textcmnField' id={`${++countId}`} key={video.id} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
@@ -204,7 +214,7 @@ function UpdateProgram({ match }) {
                                         onBlur={() => (temp && setVideos([...videos, temp]))}
                                     ></TextField>
                                     <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        <div onClick={() => setAddBtn(addBtn - 1)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
+                                        <div onClick={handleDel2} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                                             -
                                         </div>
                                     </div>
