@@ -10,13 +10,16 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
 import { Link as changeURL } from 'react-router-dom'
+import { signout } from "../../actions/userActions";
 
 const AdminNav = () => {
     const classes = useStyles();
     const userSignIn = useSelector(state => state.userSignIn);
+    const dispatch = useDispatch()
+
 
     //for hover
     const [hoverDashboard, setHoverDashboard] = useState(false);
@@ -103,7 +106,7 @@ const AdminNav = () => {
                 </Grid>
             </Grid>
 
-            <Grid className={hoverLogin ? classes.itemHover : classes.item} onMouseEnter={() => setHoverLogin(true)} onMouseLeave={() => setHoverLogin(false)}>
+            <Grid onClick={() => dispatch(signout())} component={changeURL} className={hoverLogin ? classes.itemHover : classes.item} onMouseEnter={() => setHoverLogin(true)} onMouseLeave={() => setHoverLogin(false)}>
                 <ExitToAppIcon />
                 <Grid style={{ marginLeft: '5px' }}>
                     Logout
