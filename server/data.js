@@ -95,52 +95,53 @@ const data =
             name: 'Apple',
             image: 'https://picsum.photos/200',
             calo: 8.2,
-            category:'grain',
+            category: 'grain',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
         {
             name: 'Banana',
             image: 'https://picsum.photos/200',
             calo: 3.4,
-            category:'dairy',
+            category: 'dairy',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
         {
             name: 'Mango',
             image: 'https://picsum.photos/200',
             calo: 1.4,
-            category:'fruit',
+            category: 'fruit',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
         {
             name: 'Durian',
             image: 'https://picsum.photos/200',
             calo: 2.5,
-            category:'vegetable',
+            category: 'vegetable',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
         {
             name: 'Mit',
             image: 'https://picsum.photos/200',
             calo: 1.6,
-            category:'protein',
+            category: 'protein',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
         {
             name: 'Dragon Fruit',
             image: 'https://picsum.photos/200',
             calo: 4.6,
-            category:'protein',
+            category: 'protein',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
         {
             name: 'Vai',
             image: 'https://picsum.photos/200',
             calo: 0.6,
-            category:'protein',
+            category: 'protein',
             description: 'high quality product high quality product high quality product high quality product high quality product high quality product',
         },
     ]
+
 }
 
 export default data

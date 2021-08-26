@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { cartIngredientReducer } from './reducers/cartIngredientReducers.js';
-import { calculatorCreateReducer, calculatorMineReducer } from './reducers/calculatorReducers.js';
+import { calculatorCreateReducer, calculatorMineReducer, getOneBMIReducer } from './reducers/calculatorReducers.js';
 import { cartReducer } from './reducers/cartReducers.js';
 
 
@@ -13,6 +13,9 @@ import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMineLis
 import { productCreatedReducer, productDetailsReducer, productListReducer, productRemovedReducer, productUpdatedReducer } from './reducers/productReducers.js'
 import { getAllProgramsReducer, getOneProgramReducer, delProgramReducer } from './reducers/programReducers';
 import { userAdminDetailsReducer, userCreatedReducer, userDetailsReducer, userListReducer, userRegisterReducer, userRemovedReducer, userSignInReducer, userUpdatedReducer, userUpdateProfileReducer } from './reducers/userReducers.js';
+
+import { mealCreatedReducer, mealDetailsReducer, mealListReducer, mealRemovedReducer, mealUpdatedReducer , mealOneReducer} from './reducers/mealReducers.js';
+
 
 
 const initialState = {
@@ -57,6 +60,15 @@ const reducer = combineReducers({
     updateUser: userUpdatedReducer,
     userAdminDetails: userAdminDetailsReducer,
     calculatorMine: calculatorMineReducer,
+
+    mealList: mealListReducer,
+    removeMeal: mealRemovedReducer,
+    newMeal: mealCreatedReducer,
+    mealDetails: mealDetailsReducer,
+    updateMeal: mealUpdatedReducer,
+
+    getUserBMI: getOneBMIReducer,
+    mealOne: mealOneReducer,
 
 
 })
