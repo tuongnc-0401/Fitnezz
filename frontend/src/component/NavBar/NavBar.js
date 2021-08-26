@@ -75,6 +75,9 @@ const NavBar = () => {
                             <Grid item >
                                 <Button component={Link} to="/" variant="text" color="inherit" >Home</Button>
                             </Grid>
+                            <Grid item >
+                                <Button component={Link} to="/aboutus" variant="text" color="inherit" >About Us</Button>
+                            </Grid>
                             <Grid item>
                                 <Button component={Link} to="/products" color="inherit" >Product</Button>
                             </Grid  >
