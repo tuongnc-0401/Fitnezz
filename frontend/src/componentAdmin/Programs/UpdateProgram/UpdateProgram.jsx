@@ -16,19 +16,23 @@ function UpdateProgram({ match }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
-        console.log('id', match.params.id);
-        console.log('name', name);
-        console.log('gender', gender);
-        console.log('type', type);
-        console.log('equipment', equipment);
-        console.log('timeMinute', timeMinute);
-        console.log('duration', duration);
-        console.log('image', image);
-        console.log('videos', videos);
+        if (checkSubmit === false) {
+            dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
+            console.log('id', match.params.id);
+            console.log('name', name);
+            console.log('gender', gender);
+            console.log('type', type);
+            console.log('equipment', equipment);
+            console.log('timeMinute', timeMinute);
+            console.log('duration', duration);
+            console.log('image', image);
+            console.log('videos', videos);
+        }
     }
 
     const [checkAddInput, setCheckAddInput] = useState(false);
+
+    
 
     const handleAdd = () => {
         if (videos.length >= duration) {
@@ -40,7 +44,6 @@ function UpdateProgram({ match }) {
         }
     };
 
-    console.log('ccc', checkAddInput)
 
     const handleDel = (e) => {
         const index = +e.target.parentElement.parentElement.id - 1;
@@ -115,16 +118,48 @@ function UpdateProgram({ match }) {
     }, [dispatch, id, programOne]);
 
 
-
+    const [checkEmpty, setCheckEmpty] = useState(false);
+    const [checkSubmit, setCheckSubmit] = useState(false);
 
     const handleChangeVideos = (e) => {
+        setTemp('');
         const i = e.target.id;
         const newVideos = [...videos];
+
+        console.log(e.target.value)
         newVideos[i].videoUrl = e.target.value;
         setVideos(newVideos);
+        if (newVideos[i].videoUrl === '') {
+            setCheckSubmit(true);
+        } else {
+            setCheckSubmit(false);
+        }
+
+        if (e.target.value) {
+            setCheckEmpty(true)
+        }
     }
 
-    console.log('duration ne', duration);
+    const handleChangeMap = (e) => {
+        if (e.target.value !== '') {
+            setTemp({ videoUrl: e.target.value });
+            setCheckEmpty(true)
+            console.log('clcc')
+        } else {
+            setCheckEmpty(false)
+        }
+    }
+
+    const handleBlur = () => {
+        if (checkEmpty && temp != '') {
+            setVideos([...videos, temp])
+        }
+    }
+    // console.log('duration ne', duration);
+
+    // console.log('videos', checkEmpty)
+
+    console.log(checkSubmit)
 
     var count = 0;
     var countId = 0;
@@ -185,7 +220,7 @@ function UpdateProgram({ match }) {
                                 style={{ width: '90%' }}
                                 value={video.videoUrl}
                                 onChange={(e) => handleChangeVideos(e)}
-                                onBlur={() => (temp && setVideos([...videos, temp]))}
+                                onBlur={handleBlur}
                             ></TextField>
                             <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <div onClick={(e) => handleDel(e)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
@@ -205,8 +240,8 @@ function UpdateProgram({ match }) {
                                         variant="outlined"
                                         label={`Video ${i + 1}`}
                                         style={{ width: '90%' }}
-                                        onChange={(e) => setTemp({ videoUrl: e.target.value })}
-                                        onBlur={() => (temp && setVideos([...videos, temp]))}
+                                        onChange={(e) => handleChangeMap(e)}
+                                        onBlur={() => (checkEmpty && setVideos([...videos, temp]))}
                                     ></TextField>
                                     <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                         <div onClick={handleDel2} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
@@ -216,6 +251,10 @@ function UpdateProgram({ match }) {
                                 </div>)
                             }
                         })
+                        }
+
+                        {
+                            checkSubmit && <Alert style={{ marginTop: '10px' }} severity="error">Please do not leave the text field blank</Alert>
                         }
 
                         <div style={{ width: '100%', padding: '5px 5px 0px 5px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
