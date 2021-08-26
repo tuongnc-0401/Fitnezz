@@ -45,10 +45,10 @@ mealRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
 }))
 
 
-mealRouter.get('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+mealRouter.get('/:id', isAuth, expressAsyncHandler(async (req, res) => {
     const meal = await Meal.findById(req.params.id)
     res.send(meal)
- }))
+}))
 
 mealRouter.post('/getone', expressAsyncHandler(async (req, res) => {
     const _id = req.body?._id || 0;

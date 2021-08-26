@@ -67,7 +67,7 @@ const AppRoute = () => {
           <Route path="/orderhistory" exact component={OrderHistory} />
           <Route path="/healthhistory" exact component={HealthHistory} />
           <Route path="/aboutus" exact component={AboutUs} />
-          <PrivateRoute path="/recipe" exact component={Recipe} />
+          <PrivateRoute path="/recipe/:id" exact component={Recipe} />
           <PrivateRoute path="/meals" component={Meals} />
 
           <PrivateRoute path="/ingredients" exact component={Ingredients} />
