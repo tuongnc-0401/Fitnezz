@@ -28,18 +28,19 @@ function UpdateProgram({ match }) {
         console.log('videos', videos);
     }
 
-    const handleAdd = () => {
-        const lengthInput = document.getElementsByClassName('textcmnField').length + 1;
-        setDuration(lengthInput);
-        // if (lengthInput <= duration) {
-        //     setCheckLength(true);
-        setAddBtn(addBtn + 1);
-        // }
+    const [checkAddInput, setCheckAddInput] = useState(false);
 
-        // if (lengthInput > duration) {
-        //     setCheckLength(false);
-        // }
+    const handleAdd = () => {
+        if (videos.length >= duration) {
+            const lengthInput = document.getElementsByClassName('textcmnField').length + 1;
+            setDuration(lengthInput);
+            setAddBtn(addBtn + 1);
+        } else {
+            setCheckAddInput(true);
+        }
     };
+
+    console.log('ccc', checkAddInput)
 
     const handleDel = (e) => {
         const index = +e.target.parentElement.parentElement.id - 1;
