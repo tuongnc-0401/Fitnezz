@@ -40,7 +40,6 @@ function CreateProgram(props) {
         console.log('videos', videos);
     }
 
-    console.log(videos)
     //gender
 
     const [open, setOpen] = React.useState(false);
@@ -74,15 +73,38 @@ function CreateProgram(props) {
     };
 
     const handleAdd = () => {
+        setTemp('');
         const lengthInput = document.getElementsByClassName('textField').length + 1;
 
         if (videos.length > 0) {
-            setAddBtn(videos?.length - 1);
+            setAddBtn(lengthInput);
         } else {
             setAddBtn(addBtn + 1)
         }
         setDuration(lengthInput);
     }
+
+    const handleChangeVideo = (e) => {
+        setTemp({ videoUrl: e.target.value })
+    };
+
+    const handleBlur = () => {
+        if (temp !== '' && bypass) {
+            setVideos([...videos, temp]);
+        }
+    };
+
+    const [bypass, setBypass] = useState(true);
+    const handleFor = (e) => {
+        if (e.target.value !== '') {
+            setBypass(false);
+        }else {
+            setBypass(true);
+        }
+    }
+
+
+    console.log('videos', videos);
 
     return (
         <Container component="main" style={{ width: '40%' }}>
@@ -127,7 +149,7 @@ function CreateProgram(props) {
 
                     {[...Array(addBtn)].map((x, i) =>
                     (<div key={i} id={i} className={'textField'} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                        <TextField multiline margin="normal" name="video1" variant="outlined" label={`Video ${i + 1}`} style={{ width: '90%' }} onChange={(e) => setTemp({ videoUrl: e.target.value })} onBlur={() => (temp && setVideos([...videos, temp]))}></TextField>
+                        <TextField multiline margin="normal" name="video1" variant="outlined" label={`Video ${i + 1}`} style={{ width: '90%' }} onFocus={(e) => handleFor(e)} onChange={(e) => handleChangeVideo(e)} onBlur={handleBlur}></TextField>
                         <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div onClick={(e) => handleDel(e)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                                 -

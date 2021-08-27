@@ -74,7 +74,7 @@ function FitnessVideoDetail({ match }) {
           >
             <div className={classes.information}>
               <div className={classes.forTheme}>
-                <div style={{ marginTop: "20px", marginBottom: "50px" }}>
+                <div style={{ marginTop: "28px", marginBottom: "37px", fontWeight: '700', fontSize: '18px' }}>
                   Release date:{" "}
                   {monthConverter(new Date(program.releaseDate).getMonth())}{" "}
                   {new Date(program.releaseDate).getFullYear()}
@@ -83,7 +83,7 @@ function FitnessVideoDetail({ match }) {
                   style={{
                     fontSize: "46px",
                     fontWeight: "bold",
-                    padding: "10px 0px 30px 0px",
+                    padding: "0px 0px 30px 0px",
                     borderBottom: "solid 1px lightgrey",
                   }}
                 >
