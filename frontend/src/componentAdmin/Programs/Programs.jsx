@@ -31,7 +31,7 @@ const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Programs = () => {
+const Programs = ({ history }) => {
     const dispatch = useDispatch()
 
     const delProgram = useSelector(state => state.delProgram);
@@ -58,6 +58,7 @@ const Programs = () => {
     };
     const handleRemove = () => {
         setOpen(false);
+        // history.push(`/api/fitnessvideo/${programChosen}`);
         dispatch(deleteOneProgram(programChosen));
     }
 
@@ -142,7 +143,7 @@ const Programs = () => {
                                             variant="h5"
                                             style={{ marginBottom: "10px", color: "#052963" }}
                                         >
-                                            INGREDIENTS
+                                            PROGRAMS
                                         </Typography>
                                     </Box>
                                     <Box ml="auto">
@@ -187,7 +188,7 @@ const Programs = () => {
                                                     <StyledTableCell align="center">{program.type}</StyledTableCell>
 
                                                     <StyledTableCell align="center">{program.equipment}</StyledTableCell>
-                                                    <StyledTableCell align="center">{monthConverter(new Date(program.releaseDate).getMonth())}{" "}
+                                                    <StyledTableCell align="center">{new Date(program.releaseDate).getDate()}{" "}{monthConverter(new Date(program.releaseDate).getMonth())}{" "}
                                                         {new Date(program.releaseDate).getFullYear()}</StyledTableCell>
                                                     <StyledTableCell align="center">{program.timeMinute}</StyledTableCell>
 
@@ -199,7 +200,8 @@ const Programs = () => {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.pink}
-                                                                    // onClick={}
+                                                                    component={ changeURL }
+                                                                    to={`/admin/videos/${program._id}`}
                                                                     fullWidth
                                                                 >
                                                                     Update

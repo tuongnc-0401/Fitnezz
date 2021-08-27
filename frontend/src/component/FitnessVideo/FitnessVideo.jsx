@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from "@material-ui/core";
+import { Box, CircularProgress, Grid, Link } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,9 +6,10 @@ import { getAllProgram } from "./../../actions/programActions";
 import Program from "./Program/Program";
 import Recommendation from "./Recommendation/Recommendation";
 import useStyles from "./styles";
-
+import { Link as goBackBMI } from "react-router-dom";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import { getOneUserBMI } from "../../actions/calculatorActions";
 
 
 function useWindowSize() {
@@ -41,6 +42,9 @@ function FitnessVideo(props) {
   const listAllProgram = useSelector((state) => state.getAllPrograms);
   const { listPrograms, loading, error } = listAllProgram;
 
+  const userBMIList = useSelector((state) => state.getUserBMI);
+  const { loading: loadingBMI, error: errorBMI, userBMI } = userBMIList;
+
   // console.log(listAllProgram);
 
   // if (listPrograms) {
@@ -50,6 +54,7 @@ function FitnessVideo(props) {
 
   useEffect(() => {
     dispatch(getAllProgram());
+    dispatch(getOneUserBMI())
   }, [dispatch]);
 
   const nextImg = () => {
@@ -86,6 +91,18 @@ function FitnessVideo(props) {
     return res;
   };
 
+  const convertType = (type) => {
+    switch (type) {
+      case '0':
+        return 'Lose Weight'
+      case '1':
+        return 'Maintain'
+      case '2':
+        return 'Gain Weight'
+      default:
+        return
+    }
+  }
   // eslint-disable-next-line
   useEffect(() => {
     if (nextClick === timesClickable()) {
@@ -146,44 +163,56 @@ function FitnessVideo(props) {
       </div>
 
       <div className={classes.body}>
-        <div className={classes.line}></div>
 
+        <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
         >
           Recommendation
           {/* <div style={{ color: 'black' }}>{`${width} ne ${height} ne`}</div> */}
         </div>
+        {userBMI === "" ?
+          <Box mt={3} m={3}>
+            <Alert severity="error">
+              Please calculate your BMI before visiting the ingredients page!{" "}
+              <Link component={goBackBMI} to="/calculator">
+                Go back to calculator
+              </Link>
+            </Alert>
+          </Box> :
 
-        {listAllProgram && (
-          <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
+          listAllProgram && (
+            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+              <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
+              </div>
+              <Grid container spacing={4} className={classes.showRec}>
+                {listPrograms?.map((program) => {
+                  if (program.type.toLowerCase().includes(convertType(userBMI?.target).toLowerCase())) {
+                    return (<Recommendation size={size} program={program} nextClick={nextClick} />)
+                  }
+                  return null
+                })}
+
+                {/* linedown */}
+
+                {/* For Del purpose */}
+
+                <div className={classes.video4del}
+                ></div>
+
+                <div className={classes.video4del}
+                ></div>
+
+                <div className={classes.video4del}
+                ></div>
+              </Grid>
+              <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
+              </div>
             </div>
-            <Grid container spacing={4} className={classes.showRec}>
-              {listPrograms?.map((program) => (
-                <Recommendation size={size} program={program} nextClick={nextClick} />
-              ))}
-
-              {/* linedown */}
-
-              {/* For Del purpose */}
-
-              <div className={classes.video4del}
-              ></div>
-
-              <div className={classes.video4del}
-              ></div>
-
-              <div className={classes.video4del}
-              ></div>
-            </Grid>
-            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
-            </div>
-          </div>
-        )}
-
+          )
+        }
         <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}

@@ -39,20 +39,24 @@ const Recipe = () => {
                     <div id="printContain">
                         <Typography variant="h3" className={classes.title}>Chilled Avocado & Zucchini Soup</Typography>
                         <Grid container spacing={3} style={{ marginTop: '30px' }}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} container justifyContent="center" >
                                 <Box style={{ height: '600px' }}>
                                     <img src={meal?.image} alt="recipedetails" style={{ width: '100%', height: '100%' }} />
                                 </Box>
                             </Grid>
                         </Grid>
-                        <Grid container style={{ marginTop: '30px' }}>
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h4" style={{ color: '#f73471', fontWeight: '600', marginBottom: '5px' }}>Instruction</Typography>
-                                <Typography dangerouslySetInnerHTML={{ __html: meal?.instruction }} style={{ color: 'rgb(134, 142, 150)' }}></Typography>
+                        <Grid container style={{ marginTop: '30px' }} spacing={5}>
+                            <Grid item xs={12} md={6} className={classes.justify} container justifyContent="center">
+                                <Box>
+                                    <Typography variant="h4" style={{ color: '#f73471', fontWeight: '600', marginBottom: '5px' }}>Instruction</Typography>
+                                    <Typography dangerouslySetInnerHTML={{ __html: meal?.instruction }} style={{ color: 'rgb(134, 142, 150)' }}></Typography>
+                                </Box>
                             </Grid>
-                            <Grid item xs={12} md={6} style={{ minHeight: '100%' }}>
-                                <Typography variant="h4" style={{ color: '#f73471', fontWeight: '600', marginBottom: '5px' }}>Ingredients</Typography>
-                                <Typography dangerouslySetInnerHTML={{ __html: meal?.ingredients }} style={{ color: 'rgb(134, 142, 150)', marginBottom: '20px' }}></Typography>
+                            <Grid item xs={12} md={6} container className={classes.justify} justifyContent="center" style={{ minHeight: '100%' }}>
+                                <Box>
+                                    <Typography variant="h4" style={{ color: '#f73471', fontWeight: '600', marginBottom: '5px' }}>Ingredients</Typography>
+                                    <Typography dangerouslySetInnerHTML={{ __html: meal?.ingredients }} style={{ color: 'rgb(134, 142, 150)', marginBottom: '20px' }}></Typography>
+                                </Box>
                             </Grid>
                         </Grid>
                     </div>

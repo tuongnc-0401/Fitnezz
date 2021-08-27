@@ -90,7 +90,7 @@ const Meals = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (ingredients.length > 0) {
+  if (ingredients.length > 0 && meal) {
     var fruit = ingredients.find(
       (item) => item._id.toString() === meal?.fruit.toString()
     );
@@ -229,7 +229,7 @@ const Meals = () => {
                         style={{ fontSize: 40 }}
                       ></RestaurantIcon>
                       <Typography variant="h5" style={{ marginLeft: "20px" }}>
-                        {meal.name}
+                        {meal?.name}
                       </Typography>
                     </Grid>
                     <Grid
