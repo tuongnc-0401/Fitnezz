@@ -34,10 +34,15 @@ export default function SignIn(props) {
         e.preventDefault()
         dispatch(signin(form.email, form.password))
     }
-    console.log('hehe', props.location.search)
+
     const redirect = props.location.search
         ? props.location.search.split("=")[1]
         : "/";
+
+    const redirectCalculator = props.location.search
+        ? props.location.search.split("=")[1]
+        : "/calculator";
+
     useEffect(() => {
         if (userInfo) {
             history.push(redirect)
@@ -103,7 +108,7 @@ export default function SignIn(props) {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link component={Register} to={`/register?redirect=${redirect}`} variant="body2">
+                            <Link component={Register} to={`/register?redirect=${redirectCalculator}`} variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

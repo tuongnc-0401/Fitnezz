@@ -12,8 +12,16 @@ cloudinary.config({
 const productRouter = express.Router()
 
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
-    const products = await Product.find({})
-    res.send(products)
+    const { page } = req.query
+    try {
+        const LIMIT = 8
+        const startIndex = (Number(page) - 1) * LIMIT
+        const total = await Product.countDocuments({})
+        const products = await Product.find({}).limit(LIMIT).skip(startIndex)
+        res.send({ data: products, currentPage: Number(page), numberOfPage: Math.ceil(total / LIMIT) })
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
 }))
 
 productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
