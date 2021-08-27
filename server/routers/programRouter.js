@@ -274,7 +274,7 @@ programRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) 
         program.timeMinute = req.body.timeMinute || program.timeMinute
         program.duration = req.body.duration || program.duration
         program.imgUrl = uploadedResponse.url || program.imgUrl
-        program.gender = req.body.gender || program.gender
+        program.gender = req.body.gender
         program.videos = req.body.videos || program.videos
         program.releaseDate = new Date();
         const updated = await program.save()

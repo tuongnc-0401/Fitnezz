@@ -7,6 +7,7 @@ import useStyles from './styles';
 import { Link as changeURL } from "react-router-dom";
 import { createOneProgram } from './../../../actions/programActions';
 
+
 function CreateProgram(props) {
     const dispatch = useDispatch()
     const classes = useStyles()
@@ -17,27 +18,39 @@ function CreateProgram(props) {
     const [type, setType] = useState('');
     const [equipment, setEquipment] = useState('');
     const [timeMinute, setTimeMinute] = useState(0);
-    const [duration, setDuration] = useState(0);
     const [videos, setVideos] = useState([]);
     const [image, setImage] = useState('');
-    const [temp, setTemp] = useState('');
 
     //add btn
-    const [addBtn, setAddBtn] = useState(0);
+    const [checkPass, setCheckPass] = useState(false);
 
     const createProgram = useSelector(state => state.createProgram);
     const { loading, success, error } = createProgram;
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(createOneProgram(name, gender, type, equipment, timeMinute, duration, videos, image))
-        console.log('name', name);
-        console.log('gender', gender);
-        console.log('type', type);
-        console.log('equipment', equipment);
-        console.log('timeMinute', timeMinute);
-        console.log('duration', duration);
-        console.log('image', image);
-        console.log('videos', videos);
+        let check = true;
+        videos.map((video) => {
+            if (video.videoUrl === '') {
+                setCheckPass(true);
+                check = false;
+                return;
+            } else {
+                setCheckPass(false);
+            }
+        })
+
+        if (check) {
+            const duration = videos.length;
+            dispatch(createOneProgram(name, gender, type, equipment, timeMinute, duration, videos, image))
+            console.log('name', name);
+            console.log('gender', gender);
+            console.log('type', type);
+            console.log('equipment', equipment);
+            console.log('timeMinute', timeMinute);
+            console.log('duration', duration);
+            console.log('image', image);
+            console.log('videos', videos);
+        }
     }
 
     //gender
@@ -56,55 +69,65 @@ function CreateProgram(props) {
         if (createProgram) {
             createProgram.success = false
         }
-    }, [createProgram])
+    }, [createProgram]);
+
+
 
     const handleDel = (e) => {
-        if (videos.length > 0) {
-            const index = +e.target.parentElement.parentElement.id - 1;
-            const newVideos = [...videos];
-            newVideos.splice(index, 1);
-            setVideos(newVideos);
-            setAddBtn(videos?.length - 1);
-            setDuration(videos?.length - 1);
-        } else {
-            setAddBtn(addBtn - 1);
-            setDuration(addBtn - 1);
-        }
+        // if (videos.length > 0) {
+        const index = +e.target.parentElement.parentElement.id;
+        const newVideos = [...videos];
+        newVideos.splice(index, 1);
+        setVideos(newVideos);
+        // } else {
+        //     setAddBtn(addBtn - 1);
+        //     setDuration(addBtn - 1);
+        //     console.log('cl')
+        // }
     };
 
     const handleAdd = () => {
-        setTemp('');
-        const lengthInput = document.getElementsByClassName('textField').length + 1;
+        // setTemp('');
+        // const lengthInput = document.getElementsByClassName('textField').length + 1;
 
-        if (videos.length > 0) {
-            setAddBtn(lengthInput);
-        } else {
-            setAddBtn(addBtn + 1)
-        }
-        setDuration(lengthInput);
+        // if (videos.length > 0) {
+        //     setAddBtn(lengthInput);
+        // } else {
+        //     setAddBtn(addBtn + 1)
+        // }
+        // setDuration(lengthInput);
+        setVideos([...videos, { videoUrl: '' }]);
     }
 
     const handleChangeVideo = (e) => {
-        setTemp({ videoUrl: e.target.value })
+        const index = +e.target.parentElement.parentElement.parentElement.id;
+        const newVideos = [...videos];
+        newVideos[index].videoUrl = e.target.value;
+        setVideos(newVideos);
+        // setTemp({ videoUrl: e.target.value })
     };
 
     const handleBlur = () => {
-        if (temp !== '' && bypass) {
-            setVideos([...videos, temp]);
-        }
+        // if (temp !== '' && bypass) {
+        //     setVideos([...videos, temp]);
+        // }
     };
 
     const [bypass, setBypass] = useState(true);
     const handleFor = (e) => {
-        if (e.target.value !== '') {
-            setBypass(false);
-        }else {
-            setBypass(true);
-        }
+        // if (e.target.value !== '') {
+        //     setBypass(false);
+        // } else {
+        //     setBypass(true);
+        // }
     }
 
+    useEffect(() => {
+        console.log(videos)
+    }, [videos])
 
-    console.log('videos', videos);
+
+    // console.log('videos', videos);
 
     return (
         <Container component="main" style={{ width: '40%' }}>
@@ -147,16 +170,31 @@ function CreateProgram(props) {
 
                     <TextField autoComplete="equipment" value={equipment} margin="normal" name="equipment" variant="outlined" label="Equipment" fullWidth onChange={(e) => setEquipment(e.target.value)}></TextField>
 
-                    {[...Array(addBtn)].map((x, i) =>
+                    {videos.map((video, i) =>
                     (<div key={i} id={i} className={'textField'} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                        <TextField multiline margin="normal" name="video1" variant="outlined" label={`Video ${i + 1}`} style={{ width: '90%' }} onFocus={(e) => handleFor(e)} onChange={(e) => handleChangeVideo(e)} onBlur={handleBlur}></TextField>
+                        <TextField
+                            multiline
+                            margin="normal"
+                            name="video1"
+                            variant="outlined"
+                            label={`Video ${i + 1}`}
+                            style={{ width: '90%' }}
+                            onFocus={(e) => handleFor(e)}
+                            onChange={(e) => handleChangeVideo(e)}
+                            onBlur={handleBlur}
+                            value={video.videoUrl}></TextField
+                        >
                         <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div onClick={(e) => handleDel(e)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                                 -
                             </div>
                         </div>
-                    </div>))
+                    </div>))}
+                    
+                    {
+                        checkPass && <Alert elevation={2} severity="warning" fullWidth>Cannot leave the text field blank</Alert>
                     }
+
 
                     <div style={{ width: '100%', padding: '5px 5px 0px 5px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Button onClick={handleAdd} variant="outlined" size="medium" color="grey" style={{ fontSize: '15px', padding: '5px 40px' }}>

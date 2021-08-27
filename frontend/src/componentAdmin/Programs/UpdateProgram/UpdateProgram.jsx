@@ -28,7 +28,7 @@ function UpdateProgram({ match }) {
             console.log('image', image);
             console.log('videos', videos);
         }
-    }    
+    }
 
     const handleAdd = () => {
         if (videos.length >= duration) {
@@ -101,7 +101,7 @@ function UpdateProgram({ match }) {
 
     useEffect(() => {
         setName(programOne?.name);
-        setGender(programOne?.gender);
+        setGender(programOne?.gender.toString());
         setType(programOne?.type);
         setEquipment(programOne?.equipment);
         setTimeMinute(programOne?.timeMinute);
@@ -153,7 +153,18 @@ function UpdateProgram({ match }) {
 
     // console.log('videos', checkEmpty)
 
-    console.log(checkSubmit)
+    const convertBoo = (str) => {
+        switch (str) {
+            case 'true':
+                return true;
+            case 'false':
+                return false;
+            default:
+                break;
+        }
+    }
+
+    console.log('gender', gender)
 
     var count = 0;
     var countId = 0;
@@ -186,11 +197,11 @@ function UpdateProgram({ match }) {
                                     open={open}
                                     onClose={handleClose}
                                     onOpen={handleOpen}
-                                    value={gender || ''}
-                                    onChange={(e) => setGender(e.target.value)}
+                                    value={gender?.toString() || ''}
+                                    onChange={(e) => setGender(convertBoo((e.target.value)))}
                                 >
-                                    <MenuItem value={true}>Male</MenuItem>
-                                    <MenuItem value={false}>Female</MenuItem>
+                                    <MenuItem value='true'>Male</MenuItem>
+                                    <MenuItem value='false'>Female</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
