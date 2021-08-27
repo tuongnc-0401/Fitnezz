@@ -29,7 +29,8 @@ import FitnessVideoDetail from "./component/FitnessVideo/FitnessVideoDetail/Fitn
 import Footer from "./component/Footer/Footer";
 import AboutUs from "./component/About-Us/AboutUs";
 import AdminProgram from "./componentAdmin/AdminProgram/AdminProgram";
-import AdminProgramCreate from "./componentAdmin/Programs/CreateProgram/CreateProgram";
+import AdminProgramCreate from './componentAdmin/Programs/CreateProgram/CreateProgram';
+import AdminProgramUpdate from './componentAdmin/Programs/UpdateProgram/UpdateProgram';
 import AdminOrder from "./componentAdmin/AdminDashboard/AdminOrder/AdminOrder";
 import UpdateOrder from "./componentAdmin/Orders/UpdateOrder/UpdateOrder";
 import AdminUser from "./componentAdmin/AdminDashboard/AdminUser/AdminUser";
@@ -107,12 +108,13 @@ const AppRoute = () => {
             exact
             component={UpdateIngredient}
           />
-          <AdminRoute path="/admin/videos" exact component={AdminProgram} />
           <AdminRoute
             path="/admin/videos/create"
             exact
             component={AdminProgramCreate}
           />
+          <AdminRoute path="/admin/videos" exact component={AdminProgram} />
+          <AdminRoute path="/admin/videos/:id" exact component={AdminProgramUpdate} />
           <AdminRoute
             path="/admin/meal"
             exact
