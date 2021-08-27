@@ -9,6 +9,7 @@ import useStyles from "./styles";
 import { Link as goBackBMI } from "react-router-dom";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import { getOneUserBMI } from "../../actions/calculatorActions";
 
 
 function useWindowSize() {
@@ -53,6 +54,7 @@ function FitnessVideo(props) {
 
   useEffect(() => {
     dispatch(getAllProgram());
+    dispatch(getOneUserBMI())
   }, [dispatch]);
 
   const nextImg = () => {
@@ -89,6 +91,18 @@ function FitnessVideo(props) {
     return res;
   };
 
+  const convertType = (type) => {
+    switch (type) {
+      case '0':
+        return 'Lose Weight'
+      case '1':
+        return 'Maintain'
+      case '2':
+        return 'Gain Weight'
+      default:
+        return
+    }
+  }
   // eslint-disable-next-line
   useEffect(() => {
     if (nextClick === timesClickable()) {
@@ -149,33 +163,36 @@ function FitnessVideo(props) {
       </div>
 
       <div className={classes.body}>
-        <div className={classes.line}></div>
 
+        <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
         >
           Recommendation
           {/* <div style={{ color: 'black' }}>{`${width} ne ${height} ne`}</div> */}
         </div>
+        {userBMI === "" ?
+          <Box mt={3} m={3}>
+            <Alert severity="error">
+              Please calculate your BMI before visiting the ingredients page!{" "}
+              <Link component={goBackBMI} to="/calculator">
+                Go back to calculator
+              </Link>
+            </Alert>
+          </Box> :
 
-        {listAllProgram && (
-          <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
-            </div>
-            {userBMI === "" ?
-              <Box mt={3} m={3}>
-                <Alert severity="error">
-                  Please calculate your BMI before visiting the ingredients page!{" "}
-                  <Link component={goBackBMI} to="/calculator">
-                    Go back to calculator
-                  </Link>
-                </Alert>
-              </Box>
-              : <Grid container spacing={4} className={classes.showRec}>
-                {listPrograms?.map((program) => (
-                  <Recommendation size={size} program={program} nextClick={nextClick} />
-                ))}
+          listAllProgram && (
+            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+              <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
+              </div>
+              <Grid container spacing={4} className={classes.showRec}>
+                {listPrograms?.map((program) => {
+                  if (program.type.toLowerCase().includes(convertType(userBMI?.target).toLowerCase())) {
+                    return (<Recommendation size={size} program={program} nextClick={nextClick} />)
+                  }
+                  return null
+                })}
 
                 {/* linedown */}
 
@@ -190,13 +207,12 @@ function FitnessVideo(props) {
                 <div className={classes.video4del}
                 ></div>
               </Grid>
-            }
-            <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
+              <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
+              </div>
             </div>
-          </div>
-        )}
-
+          )
+        }
         <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
