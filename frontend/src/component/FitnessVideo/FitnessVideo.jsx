@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from "@material-ui/core";
+import { Box, CircularProgress, Grid, Link } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import { getAllProgram } from "./../../actions/programActions";
 import Program from "./Program/Program";
 import Recommendation from "./Recommendation/Recommendation";
 import useStyles from "./styles";
-
+import { Link as goBackBMI } from "react-router-dom";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
@@ -40,6 +40,9 @@ function FitnessVideo(props) {
   // const { order, loading, error } = useSelector((state) => state.orderDetails)
   const listAllProgram = useSelector((state) => state.getAllPrograms);
   const { listPrograms, loading, error } = listAllProgram;
+
+  const userBMIList = useSelector((state) => state.getUserBMI);
+  const { loading: loadingBMI, error: errorBMI, userBMI } = userBMIList;
 
   // console.log(listAllProgram);
 
@@ -160,24 +163,34 @@ function FitnessVideo(props) {
             <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
             </div>
-            <Grid container spacing={4} className={classes.showRec}>
-              {listPrograms?.map((program) => (
-                <Recommendation size={size} program={program} nextClick={nextClick} />
-              ))}
+            {userBMI === "" ?
+              <Box mt={3} m={3}>
+                <Alert severity="error">
+                  Please calculate your BMI before visiting the ingredients page!{" "}
+                  <Link component={goBackBMI} to="/calculator">
+                    Go back to calculator
+                  </Link>
+                </Alert>
+              </Box>
+              : <Grid container spacing={4} className={classes.showRec}>
+                {listPrograms?.map((program) => (
+                  <Recommendation size={size} program={program} nextClick={nextClick} />
+                ))}
 
-              {/* linedown */}
+                {/* linedown */}
 
-              {/* For Del purpose */}
+                {/* For Del purpose */}
 
-              <div className={classes.video4del}
-              ></div>
+                <div className={classes.video4del}
+                ></div>
 
-              <div className={classes.video4del}
-              ></div>
+                <div className={classes.video4del}
+                ></div>
 
-              <div className={classes.video4del}
-              ></div>
-            </Grid>
+                <div className={classes.video4del}
+                ></div>
+              </Grid>
+            }
             <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
             </div>
