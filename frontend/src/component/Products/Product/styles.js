@@ -5,6 +5,8 @@ export default makeStyles((theme) => ({
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
+        backgroundPosition: "center",
+        backgroundSize: "contain",
     },
     cardActions: {
         justifyContent: 'space-around'

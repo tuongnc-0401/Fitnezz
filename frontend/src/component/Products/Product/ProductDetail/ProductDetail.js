@@ -60,9 +60,7 @@ const ProductDetail = () => {
                                         </Box>
                                     </Box>
                                     <Typography variant="h5" style={{ color: '#f73471', marginBottom: "15px" }}>${product.price}</Typography>
-                                    <Typography variant="body1" className={classes.description} style={{ marginBottom: "30px" }}>
-                                        {product.description}
-                                    </Typography>
+                                    <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant="body1" className={classes.description} style={{ marginBottom: "30px" }} />
                                     <Box class={classes.buttonContain} >
                                         <Box display="flex" alignItems="center" className={classes.buttons}>
                                             <Button type="button" style={{ fontSize: '13px' }} disabled={qty <= 1 ? true : false} onClick={() => {
@@ -81,23 +79,6 @@ const ProductDetail = () => {
                                             <FavoriteBorderIcon variant="contained" style={{ color: "#f73471" }}>
                                             </FavoriteBorderIcon>
                                         </Button>
-                                    </Box>
-                                    <Box mb={3} className={classes.line}></Box>
-                                    <Box display="flex" mb={3}>
-                                        <Typography variant="h6" style={{ fontWeight: '600' }}>Availability</Typography>
-                                        <Typography variant="h6" style={{ marginLeft: '70px' }}>In stock</Typography>
-                                    </Box>
-                                    <Box display="flex" mb={3}>
-                                        <Typography variant="h6" style={{ fontWeight: '600' }}>Availability</Typography>
-                                        <Typography variant="h6" style={{ marginLeft: '70px' }}>In stock</Typography>
-                                    </Box>
-                                    <Box display="flex" mb={3}>
-                                        <Typography variant="h6" style={{ fontWeight: '600' }}>Availability</Typography>
-                                        <Typography variant="h6" style={{ marginLeft: '70px' }}>In stock</Typography>
-                                    </Box>
-                                    <Box display="flex">
-                                        <Typography variant="h6" style={{ fontWeight: '600' }}>Availability</Typography>
-                                        <Typography variant="h6" style={{ marginLeft: '70px' }}>In stock</Typography>
                                     </Box>
                                 </Grid>
                             </Grid>
