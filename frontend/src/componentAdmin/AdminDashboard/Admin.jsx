@@ -90,13 +90,14 @@ const Admin = () => {
       chartType="BarChart"
       loader={<div>Loading Chart</div>}
       data={[
-        ['Gender', 'Male', 'Female'],
-        ['UnderWeight', data[0].male, data[0].female],
-        ['Normal', data[1].male, data[1].female],
-        ['OverWeight', data[2].male, data[2].female],
-        ['Obesity Class I', data[3].male, data[3].female],
-        ['Obesity Class II', data[4].male, data[4].female],
-        ['Obesity Class III', data[5].male, data[5].female]
+        ['Gender', 'Male', 'Female', 'No BMI Info'],
+        ['UnderWeight', data[0].male, data[0].female, 0],
+        ['Normal', data[1].male, data[1].female, 0],
+        ['OverWeight', data[2].male, data[2].female, 0],
+        ['Obesity Class I', data[3].male, data[3].female, 0],
+        ['Obesity Class II', data[4].male, data[4].female, 0],
+        ['Obesity Class III', data[5].male, data[5].female, 0],
+        ['No info', 0, 0, users.length - userBMI.length]
       ]}
       options={{
         title: "Rate of user's gender by their status BMI ",
