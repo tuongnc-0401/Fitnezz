@@ -127,20 +127,23 @@ const NavBar = () => {
                         <div >
                             <Button component={Link} to="/" variant="text" color="inherit" >Home</Button>
                         </div>
-                        <div >
-                            <Button component={Link} to="/aboutus" variant="text" color="inherit" >About Us</Button>
-                        </div>
                         <div>
                             <Button component={Link} to="/products" color="inherit" >Product</Button>
-                        </div  >
-                        <div >
-                            <Button color="inherit" component={Link} to="/ingredients">Ingredients</Button>
                         </div>
                         <div >
                             <Button color="inherit" component={Link} to="/calculator">Calculator</Button>
                         </div>
                         <div >
-                            <Button color="inherit" component={Link} to="/videos">Videos</Button>
+                            <Button color="inherit" component={Link} to="/ingredients">Ingredients</Button>
+                        </div>
+                        <div >
+                            <Button color="inherit" component={Link} to="/meals">Meals</Button>
+                        </div>
+                        <div >
+                            <Button color="inherit" component={Link} to="/videos">Programs</Button>
+                        </div>
+                        <div >
+                            <Button component={Link} to="/aboutus" variant="text" color="inherit" >About Us</Button>
                         </div>
                     </div>
 
