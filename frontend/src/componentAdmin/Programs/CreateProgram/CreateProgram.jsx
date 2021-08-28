@@ -22,20 +22,25 @@ function CreateProgram(props) {
     const [image, setImage] = useState('');
 
     //add btn
-    const [checkPass, setCheckPass] = useState(false);
+    const [checkPass, setCheckPass] = useState([]);
 
     const createProgram = useSelector(state => state.createProgram);
     const { loading, success, error } = createProgram;
     const handleSubmit = (e) => {
         e.preventDefault()
         let check = true;
+        var newArray = [];
+        // eslint-disable-next-line
         videos.map((video) => {
+            if (video.videoUrl) {
+                newArray.push(false)
+                setCheckPass(newArray);
+            }
             if (video.videoUrl === '') {
-                setCheckPass(true);
-                check = false;
+                newArray.push(true)
+                setCheckPass(newArray);
+                check = false;// eslint-disable-next-line
                 return;
-            } else {
-                setCheckPass(false);
             }
         })
 
@@ -113,7 +118,6 @@ function CreateProgram(props) {
         // }
     };
 
-    const [bypass, setBypass] = useState(true);
     const handleFor = (e) => {
         // if (e.target.value !== '') {
         //     setBypass(false);
@@ -190,9 +194,9 @@ function CreateProgram(props) {
                             </div>
                         </div>
                     </div>))}
-                    
+
                     {
-                        checkPass && <Alert elevation={2} severity="warning" fullWidth>Cannot leave the text field blank</Alert>
+                        checkPass.includes(true) && <Alert style={{ marginTop: '10px' }} severity="error">Please do not leave the {checkPass.indexOf(true) + 1}th text field blank</Alert>
                     }
 
 
