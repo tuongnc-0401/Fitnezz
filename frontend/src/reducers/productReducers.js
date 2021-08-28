@@ -1,5 +1,5 @@
 
-import { PRODUCT_CREATE_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_RESET, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REMOVE_FAIL, PRODUCT_REMOVE_REQUEST, PRODUCT_REMOVE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS } from "../constants/productConstants";
+import { PRODUCT_CREATE_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_RESET, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_ALL_FAIL, PRODUCT_LIST_ALL_REQUEST, PRODUCT_LIST_ALL_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REMOVE_FAIL, PRODUCT_REMOVE_REQUEST, PRODUCT_REMOVE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS } from "../constants/productConstants";
 export const productListReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
@@ -7,6 +7,19 @@ export const productListReducer = (state = { products: [] }, action) => {
         case PRODUCT_LIST_SUCCESS:
             return { loading: false, products: action.payload.data, currentPage: action.payload.currentPage, numberOfPage: action.payload.numberOfPage }
         case PRODUCT_LIST_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const productListAllReducer = (state = { products: [] }, action) => {
+    switch (action.type) {
+        case PRODUCT_LIST_ALL_REQUEST:
+            return { loading: true, products: [] }
+        case PRODUCT_LIST_ALL_SUCCESS:
+            return { loading: false, products: action.payload }
+        case PRODUCT_LIST_ALL_FAIL:
             return { loading: false, error: action.payload }
         default:
             return state

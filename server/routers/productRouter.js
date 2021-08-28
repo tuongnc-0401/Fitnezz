@@ -24,6 +24,11 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
     }
 }))
 
+productRouter.get('/all', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const products = await Product.find({})
+    res.send(products)
+}))
+
 productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
     const createdProducts = await Product.insertMany(data.products)
     res.send({ createdProducts })

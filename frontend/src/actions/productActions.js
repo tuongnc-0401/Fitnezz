@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PRODUCT_CREATE_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REMOVE_FAIL, PRODUCT_REMOVE_REQUEST, PRODUCT_REMOVE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS } from "../constants/productConstants"
+import { PRODUCT_CREATE_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_ALL_FAIL, PRODUCT_LIST_ALL_REQUEST, PRODUCT_LIST_ALL_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_REMOVE_FAIL, PRODUCT_REMOVE_REQUEST, PRODUCT_REMOVE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS } from "../constants/productConstants"
 export const listProducts = (page) => async (dispatch) => {
     dispatch({
         type: PRODUCT_LIST_REQUEST
@@ -9,6 +9,23 @@ export const listProducts = (page) => async (dispatch) => {
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
     } catch (error) {
         dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message })
+    }
+}
+
+export const listAllProducts = () => async (dispatch, getState) => {
+    dispatch({
+        type: PRODUCT_LIST_ALL_REQUEST
+    })
+    const { userSignIn: { userInfo } } = getState()
+    try {
+        const { data } = await axios.get(`/api/products/all`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({ type: PRODUCT_LIST_ALL_SUCCESS, payload: data })
+    } catch (error) {
+        dispatch({ type: PRODUCT_LIST_ALL_FAIL, payload: error.message })
     }
 }
 

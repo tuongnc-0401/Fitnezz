@@ -7,7 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import React, { forwardRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as changeURL, useHistory } from 'react-router-dom';
-import { deletedProduct, listProducts } from '../../actions/productActions';
+import { deletedProduct, listAllProducts } from '../../actions/productActions';
 import useStyles from './styles.js';
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -33,13 +33,13 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 const Products = () => {
     const dispatch = useDispatch()
-    const productList = useSelector(state => state.productList)
-    const { loading, error, products } = productList
+    const productListAll = useSelector(state => state.productListAll)
+    const { loading, error, products } = productListAll
     const deleteProduct = useSelector(state => state.removeProduct)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = deleteProduct
     const history = useHistory()
     useEffect(() => {
-        dispatch(listProducts())
+        dispatch(listAllProducts())
     }, [dispatch, successDelete])
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import CalculatorInfo from '../models/calculatorModel.js'
-import { isAuth } from '../utils.js'
+import { isAdmin, isAuth } from '../utils.js'
 
 const calculatorRouter = express.Router();
 
@@ -14,6 +14,20 @@ calculatorRouter.get('/getOne', isAuth, expressAsyncHandler(async (req, res) => 
     const calculators = await CalculatorInfo.findOne({ user: req.user._id }).sort({ createdAt: -1 })
     res.send(calculators);
 }))
+
+calculatorRouter.get('/getBmiAllUser', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const calculators = await CalculatorInfo.find().sort({ createdAt: -1 })
+    var userBMI = new Map()
+    var calculator1 = []
+    for (var x of calculators) {
+        if (!userBMI.has(x.user.toString())) {
+            userBMI.set(x.user.toString())
+            calculator1.push(x)
+        }
+    }
+    res.send(calculator1);
+}))
+
 
 calculatorRouter.post('/', isAuth, expressAsyncHandler(async (req, res) => {
 
