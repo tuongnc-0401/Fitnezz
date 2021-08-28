@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import Img from './logo.jpg';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
     bigPicture: {
         height: '700px',
         width: '100%',
@@ -12,29 +12,29 @@ export default makeStyles(() => ({
 
     rightIcon: {
         padding: '8px 9px',
-        borderRadius: '30px', 
-        backgroundColor: '#8f8d8d', 
+        borderRadius: '30px',
+        backgroundColor: '#8f8d8d',
         cursor: 'pointer',
     },
 
     rightIconDisable: {
         padding: '8px 9px',
-        borderRadius: '30px', 
-        backgroundColor: '#c2c2c2', 
+        borderRadius: '30px',
+        backgroundColor: '#c2c2c2',
         cursor: 'pointer',
     },
 
     leftIcon: {
         padding: '8px 9px',
-        borderRadius: '30px', 
-        backgroundColor: '#8f8d8d', 
+        borderRadius: '30px',
+        backgroundColor: '#8f8d8d',
         cursor: 'pointer',
     },
 
     leftIconDisable: {
         padding: '8px 9px',
-        borderRadius: '30px', 
-        backgroundColor: '#c2c2c2', 
+        borderRadius: '30px',
+        backgroundColor: '#c2c2c2',
         cursor: 'pointer',
     },
 
@@ -42,6 +42,15 @@ export default makeStyles(() => ({
         width: '100%',
         height: '100%',
         padding: '0px 18%',
+        [theme.breakpoints.down('lg')]: {
+            padding: '0px 20%',
+        },
+        [theme.breakpoints.down('md')]: {
+            padding: '0px 20%',
+        },
+        [theme.breakpoints.down('md')]: {
+            padding: '0px 25%',
+        },
         boxSizing: 'border-box',
     },
 

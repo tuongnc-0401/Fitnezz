@@ -35,7 +35,7 @@ const Programs = ({ history }) => {
     const dispatch = useDispatch()
 
     const delProgram = useSelector(state => state.delProgram);
-    const { loading: loadingDelete, error: errorDelete, success: successDelete } = delProgram;
+    const { loading: loadingDelete, error: errorDelete, program: successDelete } = delProgram;
 
     // cua day
     useEffect(() => {
