@@ -40,9 +40,7 @@ const Recipe = () => {
                         <Typography variant="h3" className={classes.title}>Chilled Avocado & Zucchini Soup</Typography>
                         <Grid container spacing={3} style={{ marginTop: '30px' }}>
                             <Grid item xs={12} container justifyContent="center" >
-                                <Box style={{ height: '600px' }}>
-                                    <img src={meal?.image} alt="recipedetails" style={{ width: '100%', height: '100%' }} />
-                                </Box>
+                                <img src={meal?.image} alt="recipedetails" className={classes.image} />
                             </Grid>
                         </Grid>
                         <Grid container style={{ marginTop: '30px' }} spacing={5}>

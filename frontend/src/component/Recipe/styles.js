@@ -51,11 +51,18 @@ export default makeStyles((theme) => ({
             justifyContent: 'center'
         },
         [theme.breakpoints.down('sm')]: {
-            display: 'block'
+            display: 'block',
         },
         [theme.breakpoints.down('xs')]: {
-            display: 'block'
+            display: 'block',
         }
+    },
+    image: {
+        height: '600px',
+        width: '65%',
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+        },
     }
 
 }));
