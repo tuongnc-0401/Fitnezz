@@ -131,7 +131,7 @@ const Admin = () => {
           {loadingIngredient || loadingMeal || loadingOrder || loadingProduct || loadingProgram || loadingUser || loadingUserBMI ? <CircularProgress color="secondary" />
             : errorIngredient || errorMeal || errorOrder || errorProduct || errorProgram || errorUser ? <Alert severity="error">{errorIngredient}</Alert> :
               <Grid container spacing={3}>
-                <Grid item xs={12} lg={4} >
+                <Grid item xs={12} sm={6} md={4} >
                   <Paper elevation={4} style={{ display: 'flex', backgroundColor: 'white', width: '100%', height: '100px', }}>
                     <div style={{ backgroundColor: '#052963', display: 'flex', width: '65%', height: '100px', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
                       <div style={{ marginTop: '15px', fontWeight: '450' }}>
@@ -148,7 +148,7 @@ const Admin = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xs={12} lg={4} >
+                <Grid item xs={12} sm={6} md={4} >
                   <Paper elevation={4} style={{ display: 'flex', backgroundColor: 'white', width: '100%', height: '100px', }}>
 
                     <div style={{ backgroundColor: '#00c6d7', display: 'flex', width: '65%', height: '100px', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
@@ -166,7 +166,7 @@ const Admin = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xs={12} lg={4}>
+                <Grid item xs={12} sm={6} md={4}>
                   <Paper elevation={4} style={{ display: 'flex', backgroundColor: 'white', width: '100%', height: '100px', }}>
 
                     <div style={{ backgroundColor: '#052963', display: 'flex', width: '65%', height: '100px', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
@@ -174,7 +174,7 @@ const Admin = () => {
                         Have
                       </div>
                       <div style={{ marginTop: '8px', fontWeight: '600', fontSize: '25px' }}>
-                        Suggest Meal
+                        Meals
                       </div>
                     </div>
 
@@ -184,7 +184,7 @@ const Admin = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xs={12} lg={4} >
+                <Grid item xs={12} sm={6} md={4} >
                   <Paper elevation={4} style={{ display: 'flex', backgroundColor: 'white', width: '100%', height: '100px', }}>
 
                     <div style={{ backgroundColor: '#00c6d7', display: 'flex', width: '65%', height: '100px', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
@@ -201,7 +201,7 @@ const Admin = () => {
                     </div>
                   </Paper>
                 </Grid>
-                <Grid item xs={12} lg={4}>
+                <Grid item xs={12} sm={6} md={4}>
                   <Paper elevation={4} style={{ display: 'flex', backgroundColor: 'white', width: '100%', height: '100px', }}>
 
                     <div style={{ backgroundColor: '#052963', display: 'flex', width: '65%', height: '100px', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
@@ -218,7 +218,7 @@ const Admin = () => {
                     </div>
                   </Paper>
                 </Grid>
-                <Grid item xs={12} lg={4} >
+                <Grid item xs={12} sm={6} md={4} >
                   <Paper elevation={4} style={{ display: 'flex', backgroundColor: 'white', width: '100%', height: '100px', }}>
                     <div style={{ backgroundColor: '#052963', display: 'flex', width: '65%', height: '100px', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
                       <div style={{ marginTop: '15px', fontWeight: '450' }}>

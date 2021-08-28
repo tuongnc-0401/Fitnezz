@@ -19,6 +19,7 @@ export default makeStyles((theme) => ({
         width: '240px',
         left: '0px',
         boxShadow: '2px 0px 5px black',
+        zIndex: '100'
     },
 
     adminInfo: {
