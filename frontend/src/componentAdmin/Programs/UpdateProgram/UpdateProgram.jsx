@@ -14,49 +14,53 @@ function UpdateProgram({ match }) {
     const updateProgram = useSelector(state => state.updateProgram);
     const { loading, success, error } = updateProgram;
 
+    const [checkPass, setCheckPass] = useState([]);
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (checkSubmit === false) {
-            dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration, image, videos));
+        let check = true;
+        console.log(videos);
+        var newArray = [];
+        // eslint-disable-next-line
+        videos.map((video) => {
+            if (video.videoUrl) {
+                newArray.push(false)
+                setCheckPass(newArray);
+            }
+            if (video.videoUrl === '') {
+                newArray.push(true)
+                setCheckPass(newArray);
+                check = false;// eslint-disable-next-line
+                return;
+            } 
+
+        })
+
+        if (check) {
+            const duration2 = videos.length;
+            dispatch(updatedOneProgram(match.params.id, name, gender, type, equipment, timeMinute, duration2, image, videos));
             console.log('id', match.params.id);
             console.log('name', name);
             console.log('gender', gender);
             console.log('type', type);
             console.log('equipment', equipment);
             console.log('timeMinute', timeMinute);
-            console.log('duration', duration);
+            console.log('duration', duration2);
             console.log('image', image);
             console.log('videos', videos);
         }
     }
 
-    const [checkAddInput, setCheckAddInput] = useState(false);
-
-    
-
     const handleAdd = () => {
-        if (videos.length >= duration) {
-            const lengthInput = document.getElementsByClassName('textcmnField').length + 1;
-            setDuration(lengthInput);
-            setAddBtn(addBtn + 1);
-        } else {
-            setCheckAddInput(true);
-        }
-    };
-
+        setVideos([...videos, { videoUrl: '' }]);
+    }
 
     const handleDel = (e) => {
-        const index = +e.target.parentElement.parentElement.id - 1;
+        const index = +e.target.parentElement.parentElement.id;
         const newVideos = [...videos];
         newVideos.splice(index, 1);
         setVideos(newVideos);
-        setAddBtn(videos.length - 1);
-        setDuration(videos.length - 1);
-    };
-
-    const handleDel2 = (e) => {
-        setAddBtn(addBtn - 1);
-        setDuration(addBtn - 1);
     };
 
 
@@ -84,19 +88,14 @@ function UpdateProgram({ match }) {
     const getOneProgram = useSelector(state => state.getOneProgram);
     const { loading: loadingOne, program: programOne, error: errorOne } = getOneProgram;
 
-    //add btn
-    const [addBtn, setAddBtn] = useState(2);
-
     //data
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [type, setType] = useState('');
     const [equipment, setEquipment] = useState('');
     const [timeMinute, setTimeMinute] = useState(0);
-    const [duration, setDuration] = useState(0);
     const [videos, setVideos] = useState('');
     const [image, setImage] = useState('');
-    const [temp, setTemp] = useState('');
 
     const { id } = useParams()
 
@@ -107,63 +106,32 @@ function UpdateProgram({ match }) {
 
     useEffect(() => {
         setName(programOne?.name);
-        setGender(programOne?.gender);
+        setGender(programOne?.gender.toString());
         setType(programOne?.type);
         setEquipment(programOne?.equipment);
         setTimeMinute(programOne?.timeMinute);
-        setDuration(programOne?.duration);
         setVideos(programOne?.videos);
         setImage(programOne?.imgUrl);
-        setAddBtn(programOne?.videos.length);
     }, [dispatch, id, programOne]);
 
-
-    const [checkEmpty, setCheckEmpty] = useState(false);
-    const [checkSubmit, setCheckSubmit] = useState(false);
-
-    const handleChangeVideos = (e) => {
-        setTemp('');
-        const i = e.target.id;
+    const handleChangeVideo = (e) => {
+        const index = +e.target.parentElement.parentElement.parentElement.id;
         const newVideos = [...videos];
-
-        console.log(e.target.value)
-        newVideos[i].videoUrl = e.target.value;
+        newVideos[index].videoUrl = e.target.value;
         setVideos(newVideos);
-        if (newVideos[i].videoUrl === '') {
-            setCheckSubmit(true);
-        } else {
-            setCheckSubmit(false);
-        }
+    };
 
-        if (e.target.value) {
-            setCheckEmpty(true)
-        }
-    }
-
-    const handleChangeMap = (e) => {
-        if (e.target.value !== '') {
-            setTemp({ videoUrl: e.target.value });
-            setCheckEmpty(true)
-            console.log('clcc')
-        } else {
-            setCheckEmpty(false)
+    const convertBoo = (str) => {
+        switch (str) {
+            case 'true':
+                return true;
+            case 'false':
+                return false;
+            default:
+                break;
         }
     }
 
-    const handleBlur = () => {
-        if (checkEmpty && temp != '') {
-            setVideos([...videos, temp])
-        }
-    }
-    // console.log('duration ne', duration);
-
-    // console.log('videos', checkEmpty)
-
-    console.log(checkSubmit)
-
-    var count = 0;
-    var countId = 0;
-    var idTextField = 0;
     return (
         <Container component="main" style={{ width: '40%', paddingRight: '5%' }}>
             <CssBaseline />
@@ -192,11 +160,11 @@ function UpdateProgram({ match }) {
                                     open={open}
                                     onClose={handleClose}
                                     onOpen={handleOpen}
-                                    value={gender || ''}
-                                    onChange={(e) => setGender(e.target.value)}
+                                    value={gender?.toString() || ''}
+                                    onChange={(e) => setGender(convertBoo((e.target.value)))}
                                 >
-                                    <MenuItem value={true}>Male</MenuItem>
-                                    <MenuItem value={false}>Female</MenuItem>
+                                    <MenuItem value='true'>Male</MenuItem>
+                                    <MenuItem value='false'>Female</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
@@ -209,52 +177,27 @@ function UpdateProgram({ match }) {
 
                         <TextField autoComplete="equipment" value={equipment} margin="normal" name="equipment" variant="outlined" label="Equipment" fullWidth onChange={(e) => setEquipment(e.target.value)}></TextField>
 
-                        {videos && videos.map((video) =>
-                        (<div className='textcmnField' id={`${++countId}`} key={video.id} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                            <TextField multiline
+                        {videos && videos.map((video, i) =>
+                        (<div key={i} id={i} className={'textcmnField'} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                            <TextField
+                                multiline
                                 margin="normal"
-                                id={idTextField++}
                                 name="video1"
                                 variant="outlined"
-                                label={`Video ${++count}`}
+                                label={`Video ${i + 1}`}
                                 style={{ width: '90%' }}
-                                value={video.videoUrl}
-                                onChange={(e) => handleChangeVideos(e)}
-                                onBlur={handleBlur}
-                            ></TextField>
+                                onChange={(e) => handleChangeVideo(e)}
+                                value={video.videoUrl}></TextField
+                            >
                             <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <div onClick={(e) => handleDel(e)} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                                     -
                                 </div>
                             </div>
-                        </div>))
-                        }
-
-                        {/* eslint-disable-next-line */}
-                        {[...Array(addBtn)].map((x, i) => {
-                            if (i >= videos?.length) {
-                                return (<div key={i} className='textcmnField' id={i} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                                    <TextField multiline
-                                        margin="normal"
-                                        name="video1"
-                                        variant="outlined"
-                                        label={`Video ${i + 1}`}
-                                        style={{ width: '90%' }}
-                                        onChange={(e) => handleChangeMap(e)}
-                                        onBlur={() => (checkEmpty && setVideos([...videos, temp]))}
-                                    ></TextField>
-                                    <div style={{ width: '10%', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        <div onClick={handleDel2} style={{ padding: '0px 10px', border: 'solid 1px grey', color: 'rgba(0, 0, 0, 0.54)', borderRadius: '2px', backgroundColor: 'lightgrey', cursor: 'pointer' }}>
-                                            -
-                                        </div>
-                                    </div>
-                                </div>)
-                            }
-                        })
-                        }
+                        </div>))}
 
                         {
-                            checkSubmit && <Alert style={{ marginTop: '10px' }} severity="error">Please do not leave the text field blank</Alert>
+                            checkPass.includes(true) && <Alert style={{ marginTop: '10px' }} severity="error">Please do not leave the {checkPass.indexOf(true) + 1}th text field blank</Alert>
                         }
 
                         <div style={{ width: '100%', padding: '5px 5px 0px 5px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

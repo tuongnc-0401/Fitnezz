@@ -17,17 +17,25 @@ export default makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         [theme.breakpoints.down('sm')]: {
-            // backgroundColor: 'yellow',
+            // backgroundColor: 'white',
+            // borderBottom: 'solid 1px black',
             justifyContent: 'center',
         },
     },
 
     forTheme: {
-        width: '460px',
-        height: '100%',
+        backgroundColor: 'white',
+        boxShadow: '1px 1px 10px 1px #888888',
+        width: '500px',
+        height: '80%',
         marginRight: '300px',
+        padding: '0px 90px',
         [theme.breakpoints.down('sm')]: {
             marginRight: '0px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            marginRight: '0px',
+            height: '100%',
         },
     },
 
@@ -44,6 +52,7 @@ export default makeStyles((theme) => ({
     },
 
     duration: {
+        color: 'rgb(247, 52, 113)',
         fontWeight: '700',
         fontSize: '18px',
         marginBottom: '5px',
@@ -71,8 +80,8 @@ export default makeStyles((theme) => ({
     },
 
     timeLine: {
-        width: '10%', 
-        height: '447px', 
+        width: '10%',
+        height: '447px',
         // backgroundColor: 'red'
     },
 
