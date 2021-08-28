@@ -81,7 +81,7 @@ function FitnessVideoDetail({ match }) {
                 </div>
                 <div
                   style={{
-                    fontSize: "46px",
+                    fontSize: "42px",
                     fontWeight: "bold",
                     padding: "0px 0px 30px 0px",
                     borderBottom: "solid 1px lightgrey",

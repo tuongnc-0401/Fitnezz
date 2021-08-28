@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
     },
     itemsWrapper: {
         flexGrow: 1,
+        zIndex: '100',
         padding: '0px 10%',
         display: 'flex',
         justifyContent: 'space-evenly',
@@ -71,7 +72,7 @@ export default makeStyles((theme) => ({
     },
 
     root: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     title: {
         marginRight: '10px',
