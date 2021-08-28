@@ -43,7 +43,7 @@ function FitnessVideo(props) {
   const { listPrograms, loading, error } = listAllProgram;
 
   const userBMIList = useSelector((state) => state.getUserBMI);
-  const { loading: loadingBMI, error: errorBMI, userBMI } = userBMIList;
+  const { userBMI } = userBMIList;
 
   // console.log(listAllProgram);
 
@@ -188,7 +188,7 @@ function FitnessVideo(props) {
               </div>
               <Grid container spacing={4} className={classes.showRec}>
                 {listPrograms?.map((program) => {
-                  if (program.type.toLowerCase().includes(convertType(userBMI?.target).toLowerCase())) {
+                  if (program.type?.toLowerCase().includes(convertType(userBMI?.target)?.toLowerCase())) {
                     return (<Recommendation size={size} program={program} nextClick={nextClick} />)
                   }
                   return null

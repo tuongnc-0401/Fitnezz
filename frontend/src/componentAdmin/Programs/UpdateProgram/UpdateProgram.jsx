@@ -30,17 +30,11 @@ function UpdateProgram({ match }) {
         }
     }
 
-    const [checkAddInput, setCheckAddInput] = useState(false);
-
-    
-
     const handleAdd = () => {
         if (videos.length >= duration) {
             const lengthInput = document.getElementsByClassName('textcmnField').length + 1;
             setDuration(lengthInput);
             setAddBtn(addBtn + 1);
-        } else {
-            setCheckAddInput(true);
         }
     };
 
@@ -151,7 +145,7 @@ function UpdateProgram({ match }) {
     }
 
     const handleBlur = () => {
-        if (checkEmpty && temp != '') {
+        if (checkEmpty && temp !== '') {
             setVideos([...videos, temp])
         }
     }
