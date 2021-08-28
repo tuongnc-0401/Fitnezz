@@ -7,10 +7,9 @@ import Program from "./Program/Program";
 import Recommendation from "./Recommendation/Recommendation";
 import useStyles from "./styles";
 import { Link as goBackBMI } from "react-router-dom";
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { getOneUserBMI } from "../../actions/calculatorActions";
-
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
@@ -18,9 +17,9 @@ function useWindowSize() {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
     }
-    window.addEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
   return size;
 }
@@ -43,7 +42,7 @@ function FitnessVideo(props) {
   const { listPrograms, loading, error } = listAllProgram;
 
   const userBMIList = useSelector((state) => state.getUserBMI);
-  const { loading: loadingBMI, error: errorBMI, userBMI } = userBMIList;
+  const { userBMI } = userBMIList;
 
   // console.log(listAllProgram);
 
@@ -54,11 +53,11 @@ function FitnessVideo(props) {
 
   useEffect(() => {
     dispatch(getAllProgram());
-    dispatch(getOneUserBMI())
+    dispatch(getOneUserBMI());
   }, [dispatch]);
 
   const nextImg = () => {
-    setSize(document.getElementById('foo').clientWidth);
+    setSize(document.getElementById("foo").clientWidth);
     if (nextClick === timesClickable()) {
       return;
     }
@@ -66,9 +65,9 @@ function FitnessVideo(props) {
   };
 
   const preImg = () => {
-    setSize(document.getElementById('foo')?.clientWidth);
+    setSize(document.getElementById("foo")?.clientWidth);
     setNextClick(forcePositive(nextClick) - 1);
-  }
+  };
 
   const forcePositive = (num) => {
     if (num <= 1) {
@@ -93,20 +92,20 @@ function FitnessVideo(props) {
 
   const convertType = (type) => {
     switch (type) {
-      case '0':
-        return 'Lose Weight'
-      case '1':
-        return 'Maintain'
-      case '2':
-        return 'Gain Weight'
+      case "0":
+        return "Lose Weight";
+      case "1":
+        return "Maintain";
+      case "2":
+        return "Gain Weight";
       default:
-        return
+        return;
     }
-  }
+  };
   // eslint-disable-next-line
   useEffect(() => {
     if (nextClick === timesClickable()) {
-      setDisableRight(true)
+      setDisableRight(true);
     } else {
       setDisableRight(false);
     }
@@ -119,20 +118,19 @@ function FitnessVideo(props) {
     } else {
       setDisableLeft(true);
     }
-  })
+  });
 
   // console.log('nextClick', nextClick);
 
-
   useEffect(() => {
     if (width <= 600) {
-      setSize(document.getElementById('foo')?.clientWidth);
+      setSize(document.getElementById("foo")?.clientWidth);
     }
     if (width >= 600 && width <= 1280) {
-      setSize(document.getElementById('foo')?.clientWidth);
+      setSize(document.getElementById("foo")?.clientWidth);
     }
     if (width >= 1280) {
-      setSize(document.getElementById('foo')?.clientWidth);
+      setSize(document.getElementById("foo")?.clientWidth);
     }
   }, [width]);
 
@@ -163,7 +161,6 @@ function FitnessVideo(props) {
       </div>
 
       <div className={classes.body}>
-
         <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
@@ -171,7 +168,7 @@ function FitnessVideo(props) {
           Recommendation
           {/* <div style={{ color: 'black' }}>{`${width} ne ${height} ne`}</div> */}
         </div>
-        {userBMI === "" ?
+        {userBMI === "" ? (
           <Box mt={3} m={3}>
             <Alert severity="error">
               Please calculate your BMI before visiting the ingredients page!{" "}
@@ -179,40 +176,73 @@ function FitnessVideo(props) {
                 Go back to calculator
               </Link>
             </Alert>
-          </Box> :
-
+          </Box>
+        ) : (
           listAllProgram && (
-            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-              <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <NavigateBeforeIcon onClick={preImg} className={disableLeft ? classes.leftIcon : classes.leftIconDisable} />
+            <div
+              style={{ width: "100%", display: "flex", alignItems: "center" }}
+            >
+              <div
+                style={{
+                  width: "5%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <NavigateBeforeIcon
+                  onClick={preImg}
+                  className={
+                    disableLeft ? classes.leftIcon : classes.leftIconDisable
+                  }
+                />
               </div>
               <Grid container spacing={4} className={classes.showRec}>
                 {listPrograms?.map((program) => {
-                  if (program.type.toLowerCase().includes(convertType(userBMI?.target).toLowerCase())) {
-                    return (<Recommendation size={size} program={program} nextClick={nextClick} />)
+                  if (
+                    program?.type
+                      ?.toLowerCase()
+                      ?.includes(convertType(userBMI?.target)?.toLowerCase())
+                  ) {
+                    return (
+                      <Recommendation
+                        size={size}
+                        program={program}
+                        nextClick={nextClick}
+                      />
+                    );
                   }
-                  return null
+                  return null;
                 })}
 
                 {/* linedown */}
 
                 {/* For Del purpose */}
 
-                <div className={classes.video4del}
-                ></div>
+                <div className={classes.video4del}></div>
 
-                <div className={classes.video4del}
-                ></div>
+                <div className={classes.video4del}></div>
 
-                <div className={classes.video4del}
-                ></div>
+                <div className={classes.video4del}></div>
               </Grid>
-              <div style={{ width: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <NavigateNextIcon onClick={nextImg} className={disableRight ? classes.rightIconDisable : classes.rightIcon} />
+              <div
+                style={{
+                  width: "5%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <NavigateNextIcon
+                  onClick={nextImg}
+                  className={
+                    disableRight ? classes.rightIconDisable : classes.rightIcon
+                  }
+                />
               </div>
             </div>
           )
-        }
+        )}
         <div className={classes.line}></div>
         <div
           style={{ margin: "50px 0px", fontWeight: "550", fontSize: "23px" }}
