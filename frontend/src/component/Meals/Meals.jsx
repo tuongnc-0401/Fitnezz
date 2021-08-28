@@ -242,7 +242,7 @@ const Meals = () => {
                         style={{ fontSize: 40 }}
                       ></ScheduleIcon>
                       <Typography variant="h5" style={{ marginLeft: "20px" }}>
-                        {meal.type}
+                        {meal?.type}
                       </Typography>
                     </Grid>
                     <Grid
@@ -258,7 +258,7 @@ const Meals = () => {
                           color: "white",
                         }}
                         component={goBackBMI}
-                        to={`/recipe/${meal._id}`}
+                        to={`/recipe/${meal?._id}`}
                       >
                         Detail
                       </Button>
