@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Button, Grid, IconButton, Toolbar, Typography, withStyles } from '@material-ui/core';
+import { AppBar, Avatar, Badge, Button, IconButton, Toolbar, Typography, withStyles } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
@@ -6,14 +6,31 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { ShoppingCart } from '@material-ui/icons';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { signout } from '../../actions/userActions';
 import useStyles from './styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
+
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+        function updateSize() {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener("resize", updateSize);
+        updateSize();
+        return () => window.removeEventListener("resize", updateSize);
+    }, []);
+    return size;
+}
+
 const NavBar = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
+    const history = useHistory();
+    const [width] = useWindowSize();
     const cartItems = useSelector(state => state.cart.cartItems)
     const userSignIn = useSelector((state) => state.userSignIn)
     const { userInfo } = userSignIn
@@ -62,44 +79,80 @@ const NavBar = () => {
         setAnchorEl(null);
     };
 
+    const [activeNav, setActiveNav] = useState(false);
 
+    const handleClickNav = () => {
+        setActiveNav(!activeNav);
+    }
+
+    const [checkWidth, setCheckWidth] = useState(0)
+
+    useEffect(() => {
+        setCheckWidth(width);
+    }, [width]);
+
+    const handleScroll = () => {
+        setActiveNav(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    console.log('wid: ', width)
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
-                    <Typography component={Link} to="/" variant='h6' color="inherit" className={classes.logoTitle}>
+                <Toolbar style={{ padding: '0px' }}>
+                    <div className={classes.burger} onClick={handleClickNav} onBlur={handleClickNav}>
+                        {
+                            activeNav ? <CloseIcon /> : <MenuIcon />
+                        }
+
+                    </div>
+
+                    <Typography style={{ display: 'inline-block' }} component={Link} to="/" variant='h6' color="inherit" className={checkWidth < 1100 ? classes.logoTitleNoPadding : classes.logoTitle}>
                         FITNEZZ
                     </Typography>
-                    <Typography className={classes.itemsWrapper} >
-                        <Grid container justifyContent="center" spacing={5} >
-                            <Grid item >
-                                <Button component={Link} to="/" variant="text" color="inherit" >Home</Button>
-                            </Grid>
-                            <Grid item >
-                                <Button component={Link} to="/aboutus" variant="text" color="inherit" >About Us</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button component={Link} to="/products" color="inherit" >Product</Button>
-                            </Grid  >
-                            <Grid item >
-                                <Button color="inherit" component={Link} to="/ingredients">Ingredients</Button>
-                            </Grid>
-                            <Grid item >
-                                <Button color="inherit" component={Link} to="/calculator">Calculator</Button>
-                            </Grid>
-                            <Grid item >
-                                <Button color="inherit" component={Link} to="/meals">Meals</Button>
-                            </Grid>
-                            <Grid item >
-                                <Button color="inherit" component={Link} to="/videos">Videos</Button>
-                            </Grid>
-                        </Grid>
-                    </Typography>
+
+                    {
+                        checkWidth < 1100 && (<div style={{ width: '100%', height: '5px' }}></div>)
+                    }
+
+                    <div className={activeNav ? classes.itemsWrapperActive : classes.itemsWrapper} >
+                        <div >
+                            <Button component={Link} to="/" variant="text" color="inherit" >Home</Button>
+                        </div>
+                        <div>
+                            <Button component={Link} to="/products" color="inherit" >Product</Button>
+                        </div>
+                        <div >
+                            <Button color="inherit" component={Link} to="/calculator">Calculator</Button>
+                        </div>
+                        <div >
+                            <Button color="inherit" component={Link} to="/ingredients">Ingredients</Button>
+                        </div>
+                        <div >
+                            <Button color="inherit" component={Link} to="/meals">Meals</Button>
+                        </div>
+                        <div >
+                            <Button color="inherit" component={Link} to="/videos">Programs</Button>
+                        </div>
+                        <div >
+                            <Button component={Link} to="/aboutus" variant="text" color="inherit" >About Us</Button>
+                        </div>
+                    </div>
+
                     <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
                         <Badge badgeContent={cartItems && cartItems.length} color="secondary">
                             <ShoppingCart />
                         </Badge>
                     </IconButton>
+
                     {userInfo ? (
                         <div>
                             <Avatar onClick={handleClick} aria-controls="customized-menu"
