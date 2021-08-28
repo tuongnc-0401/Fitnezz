@@ -50,7 +50,6 @@ export default makeStyles((theme) => ({
         },
         [theme.breakpoints.down('md')]: {
             padding: '0px 25%',
-            backgroundColor: 'yellow'
         },
         boxSizing: 'border-box',
     },
