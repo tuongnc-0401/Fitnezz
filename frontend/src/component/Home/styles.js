@@ -30,16 +30,25 @@ export default makeStyles((theme) => ({
         backgroundColor: 'rgba(0,0,0,.1)',
     },
     titleContent: {
-        position: "relative",
-        marginTop: "159px",
-        padding: "2.94rem 3.6rem 0",
-        color: "#000",
+        marginBottom: 150,
+        marginLeft: 400,
+        [theme.breakpoints.down("sm")]: {
+            marginLeft: 100,
+        }
     },
-    btnsHolder: {
-        alignItems: "center",
-        marginTop: "60px",
+    textStyle: {
+        [theme.breakpoints.down("sm")]: {
+            display: "none",
+        }
+    },
+    buttons: {
+        paddingTop: 40,
+        [theme.breakpoints.down("sm")]: {
+            direction: "column",
+            alignItems: "center",
+        }
+    },
 
-    },
     button: {
         alignItems: 'center',
         justifyContent: 'center',

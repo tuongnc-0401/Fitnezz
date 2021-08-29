@@ -104,7 +104,7 @@ const UpdateOrder = () => {
                                             <Grid item xs={6}>
                                                 <Typography variant="h5">Payment</Typography>
                                             </Grid>
-                                            {order.paymentMethod === "COD" || order.status === 'Cancelled' || order.status === 'Completed' ? null : (
+                                            {order.paymentMethod === "COD" || order.status === 'Cancelled' || order.status === "Shipping" || order.status === 'Completed' ? null : (
                                                 <Grid item container justifyContent="flex-end" xs={6}>
                                                     <Checkbox
                                                         name="isPaid"

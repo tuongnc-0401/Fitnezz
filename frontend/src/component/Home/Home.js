@@ -1,7 +1,7 @@
 import { Button, Grid, Paper, Typography } from '@material-ui/core';
 import React from 'react';
 import useStyles from './styles';
-
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const classes = useStyles();
@@ -9,20 +9,20 @@ const Home = () => {
         <Paper className={classes.mainContent} square>
             <div className={classes.overlay} />
             <Grid container className={classes.container} spacing={1}>
-                <Grid container item direction="column" justifyContent="center"
-                    alignItems="flex-start" spacing={2} xs={12} style={{ marginBottom: 150, marginLeft: 400 }}>
-                    <Grid item>
+                <Grid className={classes.titleContent} container item direction="column" justifyContent="center"
+                    alignItems="flex-start" spacing={2} xs={12}>
+                    <Grid className={classes.textStyle} item>
                         <Typography variant="h5" align="left" style={{ color: "#000" }}>
-                            Start a #ChloeTingChallenge or check out
+                            Join us to keep healthy and fit.
                         </Typography>
                         <Typography variant="h5" align="left" style={{ color: "#000" }}>
-                            my recipes
+                            Check out theses!!!
                         </Typography>
                     </Grid>
-                    <Grid container item direction="row" style={{ paddingTop: 40 }}>
-                        <Button variant="contained" className={classes.button} size="large">Get Started</Button>
-                        <Button variant="contained" className={classes.button} size="large">Recipes</Button>
-                        <Button variant="contained" className={classes.button} size="large">Store</Button>
+                    <Grid className={classes.buttons} container item direction="row">
+                        <Button variant="contained" component={Link} to="/videos" className={classes.button} size="large">Programs</Button>
+                        <Button variant="contained" component={Link} to="/meals" className={classes.button} size="large">Recipes</Button>
+                        <Button variant="contained" component={Link} to="/products" className={classes.button} size="large">Store</Button>
                     </Grid>
                 </Grid>
             </Grid>
