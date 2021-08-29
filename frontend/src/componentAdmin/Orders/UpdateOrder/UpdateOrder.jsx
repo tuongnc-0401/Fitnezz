@@ -104,7 +104,7 @@ const UpdateOrder = () => {
                                             <Grid item xs={6}>
                                                 <Typography variant="h5">Payment</Typography>
                                             </Grid>
-                                            {order.paymentMethod === "COD" ? null : (
+                                            {order.paymentMethod === "COD" || order.status === 'Cancelled' || order.status === 'Completed' ? null : (
                                                 <Grid item container justifyContent="flex-end" xs={6}>
                                                     <Checkbox
                                                         name="isPaid"
@@ -134,14 +134,16 @@ const UpdateOrder = () => {
                                             <Grid item xs={6}>
                                                 <Typography variant="h5">Shipping</Typography>
                                             </Grid>
-                                            <Grid item container justifyContent="flex-end" xs={6}>
-                                                <Checkbox
-                                                    name="isDelivered"
-                                                    checked={checked.isDelivered ? checked.isDelivered : false}
-                                                    onChange={handleChange}
-                                                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                                                />
-                                            </Grid>
+                                            {order.status === 'Cancelled' || order.status === 'Completed' ? null :
+                                                <Grid item container justifyContent="flex-end" xs={6}>
+                                                    <Checkbox
+                                                        name="isDelivered"
+                                                        checked={checked.isDelivered ? checked.isDelivered : false}
+                                                        onChange={handleChange}
+                                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                    />
+                                                </Grid>
+                                            }
                                             <Grid item xs={12}>
                                                 <Typography variant="h5">Address: <span style={{ fontSize: "20px" }}>{order.shippingAddress.address}, {order.shippingAddress.ward}, {order.shippingAddress.district}, {order.shippingAddress.city}, {order.shippingAddress.country}</span>.</Typography>
                                             </Grid>
@@ -269,7 +271,7 @@ const UpdateOrder = () => {
                                             Back to history
                                         </Button>
                                     </Grid>
-                                    {(order.status === "Canceled" || order.status === "Completed") ? null :
+                                    {(order.status === "Cancelled" || order.status === "Completed") ? null :
                                         <Grid item xs="12">
                                             <Button
                                                 onClick={handleClickOpen}

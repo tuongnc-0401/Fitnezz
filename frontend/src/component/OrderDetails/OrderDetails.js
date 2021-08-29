@@ -25,7 +25,7 @@ const OrderDetails = () => {
     };
     const handleUpdate = () => {
         setOpen(false)
-        dispatch(updateOrder({ id: id, status: "Canceled" }))
+        dispatch(updateOrder({ id: id, status: "Cancelled" }))
     }
     useEffect(() => {
         orderUpdate.success = false

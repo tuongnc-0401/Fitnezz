@@ -1,4 +1,4 @@
-import { Grid, CircularProgress, Paper, Box } from "@material-ui/core";
+import { Grid, CircularProgress, Paper } from "@material-ui/core";
 import React, { useEffect } from "react";
 import AdminNav from "../AdminNav/AdminNav";
 import useStyles from "./styles";
@@ -30,7 +30,7 @@ const Admin = () => {
   const listAllProgram = useSelector((state) => state.getAllPrograms);
   const { listPrograms, loading: loadingProgram, error: errorProgram } = listAllProgram;
   const allUserBmi = useSelector((state) => state.allUserBmi);
-  const { loading: loadingUserBMI, error, userBMI } = allUserBmi;
+  const { loading: loadingUserBMI, userBMI } = allUserBmi;
 
   const BarChart = () => {
     const data = [{ male: 0, female: 0 }, { male: 0, female: 0 }, { male: 0, female: 0 }, { male: 0, female: 0 }, { male: 0, female: 0 }, { male: 0, female: 0 }]
@@ -112,6 +112,35 @@ const Admin = () => {
       }}
       // For tests
       rootProps={{ 'data-testid': '1' }}
+    />)
+  }
+
+  const PieChart = () => {
+    const data = [['Total', 'Order Status'], ['Pending And Shipping', 0], ['Cancelled', 0], ['Completed', 0]]
+    orders.map(order => {
+      console.log(order.status, "sta")
+      if (order.status === 'Pending' || order.status === 'Shipping') {
+        data[1][1] += 1
+      } else if (order.status === 'Cancelled') {
+        data[2][1] += 1
+      } else if (order.status === 'Completed') {
+        data[3][1] += 1
+      }
+      return null
+    })
+    console.log(data, "data")
+    return (<Chart
+      width={'100%'}
+      height={'500px'}
+      chartType="PieChart"
+      loader={<div>Loading Chart</div>}
+      data={data}
+      options={{
+        title: 'Total Order Status',
+        // Just add this option
+        is3D: true,
+      }}
+      rootProps={{ 'data-testid': '2' }}
     />)
   }
   useEffect(() => {
@@ -235,11 +264,17 @@ const Admin = () => {
                     </div>
                   </Paper>
                 </Grid>
-                <Grid item xs={12} style={{ padding: '20px' }}>
+                <Grid item md={6} xs={12} style={{ padding: '20px' }}>
                   <Paper style={{ width: '100%' }} elevation={5}>
                     <BarChart />
                   </Paper>
                 </Grid>
+                <Grid item md={6} xs={12} style={{ padding: '20px' }}>
+                  <Paper style={{ width: '100%' }} elevation={5}>
+                    <PieChart />
+                  </Paper>
+                </Grid>
+
               </Grid>
 
           }
