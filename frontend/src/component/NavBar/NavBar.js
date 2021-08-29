@@ -155,7 +155,7 @@ const NavBar = () => {
 
                     {userInfo ? (
                         <div>
-                            <Avatar onClick={handleClick} aria-controls="customized-menu"
+                            <Avatar onClick={handleClick} aria-controls="customized-menu" style={{ marginLeft: "15px", marginRight: "15px" }}
                                 aria-haspopup="true" className={classes.pink} alt={userInfo.name}>{userInfo.name.charAt(0)}
                             </Avatar>
                             <StyledMenu
