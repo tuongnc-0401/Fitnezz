@@ -1,27 +1,20 @@
 import { Box, Button, CircularProgress, Grid, Typography } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { detailsMeal } from '../../actions/mealAction'
+import ComponentToPrint from './ComponentToPrint'
 import useStyles from './styles'
+import ReactToPrint from 'react-to-print'
 
 const Recipe = () => {
+    const componentRef = useRef()
     const classes = useStyles()
     const dispatch = useDispatch()
     const { id } = useParams()
     const mealDetails = useSelector(state => state.mealDetails)
     const { loading, error, meal } = mealDetails
-    const print = (divName) => {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-
-        document.body.innerHTML = printContents;
-
-        window.print();
-
-        document.body.innerHTML = originalContents;
-    }
     useEffect(() => {
         dispatch(detailsMeal(id))
     }, [dispatch, id])
@@ -33,9 +26,12 @@ const Recipe = () => {
                 <Alert severity="error">{error}</Alert>
             ) : (
                 <>
-                    <Box textAlign="right">
-                        <Button onClick={() => print("printContain")} className={classes.button}>PRINT THIS RECIPE</Button>
-                    </Box>
+                    <ReactToPrint
+                        trigger={() => <Box textAlign="right">
+                            <Button className={classes.button}>PRINT THIS RECIPE</Button>
+                        </Box>}
+                        content={() => componentRef.current}
+                    />
                     <div id="printContain">
                         <Typography variant="h3" className={classes.title}>Chilled Avocado & Zucchini Soup</Typography>
                         <Grid container spacing={3} style={{ marginTop: '30px' }}>
@@ -58,6 +54,9 @@ const Recipe = () => {
                             </Grid>
                         </Grid>
                     </div>
+                    <Box style={{ display: 'none' }}>
+                        <ComponentToPrint ref={componentRef} meal={meal} />
+                    </Box>
                     <Grid container style={{ marginTop: '60px' }}>
                         <Grid item className={classes.justify} xs={12}>
                             <Box className={classes.videos}>
