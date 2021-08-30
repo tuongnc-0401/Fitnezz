@@ -32,7 +32,7 @@ const Shipping = () => {
             error["name"] = "Name is required"
             validate = false
         } else {
-            if (!form.name.match(/^[a-zA-Z]+$/)) {
+            if (!form.name.match(/^[a-zA-Z\s]+$/)) {
                 validate = false;
                 error["name"] = "Only letters";
             }
