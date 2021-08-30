@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
         width: '100%',
         // backgroundColor: 'yellow',
         backgroundPosition: 'center',
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
         // filter: 'blur(8px)',
     },
 

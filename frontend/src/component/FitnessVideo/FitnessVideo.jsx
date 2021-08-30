@@ -78,6 +78,21 @@ function FitnessVideo(props) {
     return num;
   };
 
+  const getNumRec = () => {
+    var length = 0;
+    // eslint-disable-next-line
+    listPrograms?.map((program) => {
+      if (
+        program?.type
+          ?.toLowerCase()
+          ?.includes(convertType(userBMI?.target)?.toLowerCase())
+      ) {
+        length++;
+      }
+    });
+    return length
+  }
+
   const timesClickable = () => {
     var defaultTimes = 3;
     if (width <= 600) {
@@ -86,7 +101,8 @@ function FitnessVideo(props) {
     if (width >= 600 && width <= 1280) {
       defaultTimes = 2;
     }
-    const res = listPrograms?.length - defaultTimes;
+    const tmp = getNumRec();
+    const res = tmp - defaultTimes;
     return res;
   };
 
@@ -171,7 +187,7 @@ function FitnessVideo(props) {
         {userBMI === "" ? (
           <Box mt={3} m={3}>
             <Alert severity="error">
-              Please calculate your BMI before visiting the ingredients page!{" "}
+              Please calculate your BMI before using this feature!{" "}
               <Link component={goBackBMI} to="/calculator">
                 Go back to calculator
               </Link>
