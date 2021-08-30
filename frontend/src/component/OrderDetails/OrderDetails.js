@@ -235,7 +235,7 @@ const OrderDetails = () => {
                                             Back to history
                                         </Button>
                                     </Grid>
-                                    {(order.status === "Canceled" || order.status === "Completed") ? null : (
+                                    {(order.status === "Cancelled" || order.status === "Completed") ? null : (
                                         <Grid item xs="12">
                                             <Button
                                                 onClick={handleClickOpen}
