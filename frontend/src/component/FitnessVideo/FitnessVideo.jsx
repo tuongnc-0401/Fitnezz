@@ -187,7 +187,7 @@ function FitnessVideo(props) {
         {userBMI === "" ? (
           <Box mt={3} m={3}>
             <Alert severity="error">
-              Please calculate your BMI before visiting the ingredients page!{" "}
+              Please calculate your BMI before using the program page!{" "}
               <Link component={goBackBMI} to="/calculator">
                 Go back to calculator
               </Link>
