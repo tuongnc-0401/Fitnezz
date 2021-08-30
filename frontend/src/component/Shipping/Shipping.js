@@ -82,7 +82,6 @@ const Shipping = () => {
         return validate
     }
     const handleOnSubmit = () => {
-        console.log(form.name)
         if (handleValidation()) {
             dispatch(saveShippingAddress(form))
             history.push('/payment')

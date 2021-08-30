@@ -26,7 +26,6 @@ const HealthHistory = () => {
 
   return (
     <Box mt={5.5}>
-      {console.log("Rendering jsx")}
       <Box ml={6} mr={6}>
         <Grid container spacing={5}>
           <Grid item xs={12} md={3}>

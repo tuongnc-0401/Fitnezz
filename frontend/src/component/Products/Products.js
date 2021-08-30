@@ -12,7 +12,6 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 const Products = () => {
-    console.log("rendering product")
     const dispatch = useDispatch()
     const query = useQuery()
     const page = query.get('page') || 1;

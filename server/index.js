@@ -8,7 +8,7 @@ import programRouter from './routers/programRouter.js'
 import ingredientRouter from './routers/ingredientRouter.js'
 import calculatorRouter from './routers/calculatorRouter.js';
 import mealRouter from './routers/mealRouter.js'
-
+import cors from 'cors';
 
 
 
@@ -17,6 +17,7 @@ dotenv.config()
 const app = express()
 app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(cors());
 mongoose.connect('mongodb+srv://tuong:tuong@cluster0.z7g93.mongodb.net/fitnezz', {
     useCreateIndex: true,
     useUnifiedTopology: true,

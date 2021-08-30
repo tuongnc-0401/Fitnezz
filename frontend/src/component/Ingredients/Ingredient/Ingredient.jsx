@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import { cartAddIngredient } from "../../../actions/cartIngredientActions.js";
 import useStyles from "./styles.js";
 const Ingredient = ({ ingredient, disable }) => {
-  console.log("Ingredient", disable);
   const classes = useStyles();
   const dispatch = useDispatch();
   const handleAddToList = () => {

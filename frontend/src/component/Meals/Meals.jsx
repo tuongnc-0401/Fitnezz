@@ -38,7 +38,6 @@ const Meals = () => {
 
   const handleOnRefresh = () => {
     dispatch(getOneMeal(meal?._id));
-    console.log("click");
   };
 
   var fruitCalo = 10 / 100,

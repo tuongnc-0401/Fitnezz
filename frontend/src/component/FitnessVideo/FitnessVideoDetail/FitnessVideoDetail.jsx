@@ -18,7 +18,7 @@ import TimelineDot from "@material-ui/lab/TimelineDot";
 
 function FitnessVideoDetail({ match }) {
   const dispatch = useDispatch();
-  console.log("rendering: ", match.params.id);
+
   const getOneProgram = useSelector((state) => state.getOneProgram);
   const { program, loading, error } = getOneProgram;
   const id = match.params.id;
@@ -59,7 +59,6 @@ function FitnessVideoDetail({ match }) {
 
   useEffect(() => {
     dispatch(getOneProgramAction(id));
-    console.log("run this");
   }, [dispatch, id]);
 
   return (
@@ -74,7 +73,14 @@ function FitnessVideoDetail({ match }) {
           >
             <div className={classes.information}>
               <div className={classes.forTheme}>
-                <div style={{ marginTop: "28px", marginBottom: "37px", fontWeight: '700', fontSize: '18px' }}>
+                <div
+                  style={{
+                    marginTop: "28px",
+                    marginBottom: "37px",
+                    fontWeight: "700",
+                    fontSize: "18px",
+                  }}
+                >
                   Release date:{" "}
                   {monthConverter(new Date(program.releaseDate).getMonth())}{" "}
                   {new Date(program.releaseDate).getFullYear()}

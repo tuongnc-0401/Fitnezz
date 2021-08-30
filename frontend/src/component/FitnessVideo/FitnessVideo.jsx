@@ -28,9 +28,7 @@ function FitnessVideo(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [width, height] = useWindowSize();
-
-  console.log(height);
+  const [width] = useWindowSize();
 
   const [nextClick, setNextClick] = useState(0);
   const [size, setSize] = useState(0);
@@ -90,8 +88,8 @@ function FitnessVideo(props) {
         length++;
       }
     });
-    return length
-  }
+    return length;
+  };
 
   const timesClickable = () => {
     var defaultTimes = 3;
