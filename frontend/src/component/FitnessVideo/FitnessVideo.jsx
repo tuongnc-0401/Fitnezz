@@ -78,6 +78,20 @@ function FitnessVideo(props) {
     return num;
   };
 
+  const getNumRec = () => {
+    var length = 0;
+    listPrograms?.map((program) => {
+      if (
+        program?.type
+          ?.toLowerCase()
+          ?.includes(convertType(userBMI?.target)?.toLowerCase())
+      ) {
+        length++;
+      }
+    });
+    return length
+  }
+
   const timesClickable = () => {
     var defaultTimes = 3;
     if (width <= 600) {
@@ -86,7 +100,8 @@ function FitnessVideo(props) {
     if (width >= 600 && width <= 1280) {
       defaultTimes = 2;
     }
-    const res = listPrograms?.length - defaultTimes;
+    const tmp = getNumRec();
+    const res = tmp - defaultTimes;
     return res;
   };
 
@@ -133,6 +148,14 @@ function FitnessVideo(props) {
       setSize(document.getElementById("foo")?.clientWidth);
     }
   }, [width]);
+
+  var count = 0;
+
+  var countFunc = (input) => {
+    if (typeof input == 'number') {
+      count++;
+    }
+  }
 
   return (
     <div>
