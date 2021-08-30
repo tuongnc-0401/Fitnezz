@@ -15,7 +15,7 @@ const Footer = () => {
                         <Grid style={{ color: "white" }} container justifyContent="center" item xs={12} sm={4}>
                             <Box style={{ width: "70%" }}>
                                 <Box mb={1} style={{ fontWeight: "bold", fontSize: "medium" }} >About Us</Box>
-                                <Typography variant="body1" style={{ color: "grey" }}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus et dolor blanditiis consequuntur ex voluptates perspiciatis omnis unde minima expedita.</Typography>
+                                <Typography variant="body1" style={{ color: "grey" }}>FITNEZZ is a online platform which provides people healthy food, ingredients and exercises for keeping their health fit.</Typography>
                                 <Box component="span">
                                     <ListItem>
                                         <ListItemIcon><FacebookIcon /></ListItemIcon>
@@ -34,7 +34,7 @@ const Footer = () => {
                                             Address:
                                         </Typography>
                                         <Typography variant="body1">
-                                            37 Pham Ngu Lao, Phuong 3, Go Vap
+                                            702 Nguyen Van Linh, Tan Hung Ward, District 7, Ho Chi Minh City
                                         </Typography>
                                     </Box>
                                     <Box>
@@ -42,7 +42,7 @@ const Footer = () => {
                                             Telephone:
                                         </Typography>
                                         <Typography variant="body1">
-                                            +84 931855308
+                                            028 3776 1300
                                         </Typography>
                                     </Box>
                                     <Box>
@@ -50,7 +50,7 @@ const Footer = () => {
                                             Email:
                                         </Typography>
                                         <Typography variant="body1">
-                                            nct@gmail.com
+                                            fitnezz@gmail.com
                                         </Typography>
                                     </Box>
                                 </Box>
