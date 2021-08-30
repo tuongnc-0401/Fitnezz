@@ -80,6 +80,7 @@ function FitnessVideo(props) {
 
   const getNumRec = () => {
     var length = 0;
+    // eslint-disable-next-line
     listPrograms?.map((program) => {
       if (
         program?.type
@@ -148,14 +149,6 @@ function FitnessVideo(props) {
       setSize(document.getElementById("foo")?.clientWidth);
     }
   }, [width]);
-
-  var count = 0;
-
-  var countFunc = (input) => {
-    if (typeof input == 'number') {
-      count++;
-    }
-  }
 
   return (
     <div>
